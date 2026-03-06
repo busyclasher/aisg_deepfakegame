@@ -838,7 +838,9 @@
     <div class="score-ring-text" id="result-score">0</div>
   </div>
 
-  <div id="result-grade" style="font-family:'Orbitron',monospace; font-size:1.1rem; text-align:center; margin-bottom:16px; color:var(--gold)"></div>
+  <div id="result-grade" style="font-family:'Orbitron',monospace; font-size:1.1rem; text-align:center; margin-bottom:10px; color:var(--gold)"></div>
+
+  <div id="detective-badge" style="text-align:center; margin-bottom:18px;"></div>
 
   <div class="badge-row" id="badge-row"></div>
 
@@ -846,6 +848,11 @@
     <div class="section-label">Key Takeaways</div>
     <div id="takeaways-list"></div>
   </div>
+
+  <div class="panel" style="margin-top:14px; text-align:center">
+    <div class="section-label">Final Message</div>
+    <div id="closing-message" style="font-size:1rem; line-height:1.7; color:#c0d8f0;"></div>
+</div>  
 
   <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; justify-content:center">
     <button class="btn-primary btn-cyan" onclick="restartGame()">PLAY AGAIN</button>
@@ -1201,6 +1208,33 @@ function showResults() {
   document.getElementById('result-grade').style.color = gradeColor;
   document.getElementById('result-grade').textContent = grade;
 
+  // Detective badge by score
+  let badgeTitle = '';
+  let badgeDesc = '';
+
+  if (score <= 2) {
+    badgeTitle = '🪲 "The Glitch"';
+    badgeDesc = 'Still learning to see through the noise. Keep practising!';
+  } else if (score <= 5) {
+    badgeTitle = '🕵️ "Skeptical Scout"';
+    badgeDesc = 'You’ve got a good eye, but some fakes still slip through.';
+  } else if (score <= 7) {
+    badgeTitle = '🛡️ "S.U.R.E. Specialist"';
+    badgeDesc = 'A pro at verifying sources and spotting artifacts.';
+  } else {
+    badgeTitle = '👑 "The Deepfake Architect"';
+    badgeDesc = 'Flawless. Nothing AI-generated gets past you.';
+  }
+
+  document.getElementById('detective-badge').innerHTML = `
+    <div style="font-family:'Orbitron',monospace; font-size:1.1rem; color:var(--gold); margin-bottom:6px;">
+      Detective Badge: ${badgeTitle}
+    </div>
+    <div style="font-size:0.98rem; color:#c0d8f0; line-height:1.6; max-width:640px; margin:0 auto;">
+      ${badgeDesc}
+    </div>
+  `;
+
   // Badges
   const correct = answers.filter(a => a.correct).length;
   const fakesCaught = answers.filter(a => a.correct && a.actual === 'fake').length;
@@ -1230,12 +1264,15 @@ function showResults() {
     "Multi-person scenes with genuine social interaction are much harder to fake."
   ];
 
-  document.getElementById('takeaways-list').innerHTML = tips.map((t, i) => `
-    <div class="tip-item" style="margin:6px 0">
-      <span class="tip-num">${i+1}</span>
-      <div style="font-size:0.88rem">${t}</div>
-    </div>
-  `).join('');
+  document.getElementById('closing-message').innerHTML = `
+    Keep using <strong style="color:var(--gold)">S.U.R.E.</strong> in real-world media situations:
+    <strong style="color:var(--cyan)">Source</strong>,
+    <strong style="color:var(--cyan)">Understand</strong>,
+    <strong style="color:var(--cyan)">Research</strong>, and
+    <strong style="color:var(--cyan)">Evaluate</strong>
+    before you believe or share what you see online.
+  `;
+  
 }
 </script>
 </body>
