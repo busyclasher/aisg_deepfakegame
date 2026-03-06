@@ -81,6 +81,101 @@
     z-index: 0;
   }
 
+/* Front page redesign */
+.welcome-screen {
+  justify-content: flex-start;
+  padding-top: 28px;
+  text-align: center;
+}
+
+.welcome-label {
+  margin-top: 4px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  letter-spacing: 8px;
+}
+
+.welcome-title-wrap {
+  margin-bottom: 20px;
+}
+
+.welcome-title-cyan {
+  font-size: clamp(4rem, 11vw, 7rem);
+  line-height: 0.95;
+  color: var(--cyan);
+  text-shadow: 0 0 25px #00f5ff99, 0 0 60px #00f5ff55;
+}
+
+.welcome-title-gold {
+  font-size: clamp(4rem, 11vw, 7rem);
+  line-height: 0.95;
+  color: var(--gold) !important;
+  text-shadow: 0 0 25px #ffd70099, 0 0 60px #ffd70055;
+  margin-top: 10px;
+}
+
+.welcome-hero-text {
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  line-height: 1.9;
+  color: #b8d1f0;
+  max-width: 900px;
+  margin: 20px auto 34px;
+  text-align: center;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 36px 42px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0d1b3ed9, #170f42d9);
+  border: 1px solid #00f5ff55;
+  box-shadow: 0 0 30px #00f5ff14, inset 0 1px 0 #00f5ff22;
+  backdrop-filter: blur(10px);
+}
+
+.welcome-mini-text {
+  text-align: center;
+  color: #7f8fb3;
+  font-size: 0.95rem;
+  margin-bottom: 26px;
+}
+
+.welcome-main-btn {
+  width: 100%;
+  display: block;
+  font-size: 1.2rem;
+  padding: 24px 30px;
+  border-radius: 999px;
+}
+
+.welcome-main-btn + .welcome-main-btn {
+  margin-top: 22px;
+}
+
+@media (max-width: 700px) {
+  .welcome-screen {
+    padding-top: 22px;
+  }
+
+  .welcome-hero-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .welcome-card {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .welcome-main-btn {
+    padding: 18px 20px;
+    font-size: 0.95rem;
+  }
+}
+
   /* Screens */
   .screen {
     position: relative;
@@ -182,6 +277,14 @@
     width: 100%;
   }
 
+  .scenario-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #000;
+}
+
   /* Buttons */
   .btn-primary {
     font-family: 'Orbitron', monospace;
@@ -216,30 +319,6 @@
     box-shadow: 0 0 20px #00ff8866;
   }
   .btn-green:hover { transform: scale(1.05); }
-
-  /* Age selection buttons */
-  .age-btn {
-    display: block;
-    width: 100%;
-    padding: 16px;
-    margin: 10px 0;
-    background: linear-gradient(135deg, #0d1b3e, #1a2550);
-    border: 1px solid #00f5ff44;
-    border-radius: 12px;
-    color: var(--text);
-    font-family: 'Exo 2', sans-serif;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-align: center;
-  }
-  .age-btn:hover, .age-btn.selected {
-    background: linear-gradient(135deg, #00b4cc33, #7b2ff733);
-    border-color: var(--cyan);
-    color: var(--cyan);
-    box-shadow: var(--glow-cyan);
-    transform: translateX(6px);
-  }
 
   /* Video simulation area */
   .video-frame {
@@ -547,6 +626,101 @@
     .panel { padding: 20px; }
     .verdict-btn { font-size: 0.9rem; padding: 14px; }
   }
+
+  /* S.U.R.E popup */
+  .sure-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    background: #000000bb;
+    backdrop-filter: blur(6px);
+    padding: 20px;
+  }
+
+  .sure-popup.show {
+    display: flex;
+  }
+
+  .sure-popup-card {
+    background: linear-gradient(135deg, #0d1b3e, #1a1040);
+    border: 1px solid #00f5ff55;
+    border-radius: 22px;
+    padding: 28px;
+    max-width: 720px;
+    width: 100%;
+    box-shadow: 0 0 40px #00f5ff22;
+  }
+
+  .sure-popup-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.6rem;
+    color: var(--cyan);
+    text-shadow: var(--glow-cyan);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .sure-popup-subtext {
+    font-size: 1rem;
+    color: #c0d8f0;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    text-align: left;
+  }
+
+  .sure-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #ffffff08;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin: 10px 0;
+  }
+
+  .sure-letter {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--cyan);
+    min-width: 28px;
+    line-height: 1;
+  }
+
+  .sure-text {
+    font-size: 0.98rem;
+    color: #d0e8ff;
+    line-height: 1.6;
+  }
+
+  .sure-popup-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  @media (max-width: 600px) {
+    .sure-popup-card {
+      padding: 20px;
+    }
+
+    .sure-popup-title {
+      font-size: 1.25rem;
+    }
+
+    .sure-item {
+      gap: 12px;
+    }
+
+    .sure-letter {
+      font-size: 1.3rem;
+    }
+  }  
 </style>
 </head>
 <body>
@@ -567,36 +741,20 @@
 </div>
 
 <!-- ═══════════ SCREEN: WELCOME ═══════════ -->
-<div class="screen active" id="screen-welcome">
-  <div class="section-label">Welcome to</div>
-  <div class="title-main glitch">DEEPFAKE</div>
-  <div class="title-main" style="color:#ffd700; text-shadow: 0 0 20px #ffd70088, 0 0 40px #ffd70044;">DECODER</div>
-
-  <p class="welcome-text">
+<div class="screen active welcome-screen" id="screen-welcome">
+  <div class="section-label welcome-label">WELCOME TO</div>
+  <div class="welcome-title-wrap">
+    <div class="title-main glitch welcome-title-cyan">DEEPFAKE</div>
+    <div class="title-main welcome-title-gold">DECODER</div>
+  </div>
+  <p class="welcome-hero-text">
     We live in a world where videos can lie.<br>
     AI can make <strong style="color:var(--cyan)">anyone</strong> appear to say or do anything online.<br>
     Can you tell what's real?
   </p>
-
-  <div class="panel" style="margin-top:16px; text-align:center">
-    <p style="font-size:0.9rem; color:#8090b0; margin-bottom:20px">🎮 8 video challenges · Spot fakes · Earn your badge</p>
-    <button class="btn-primary btn-cyan" onclick="showScreen('screen-age')" style="width:100%">PLAY NOW</button>
-    <div class="divider"></div>
-    <button class="btn-primary btn-purple" onclick="showScreen('screen-learn')" style="width:100%; font-size:0.85rem; padding:12px">LEARN FIRST</button>
-  </div>
-</div>
-
-<!-- ═══════════ SCREEN: AGE ═══════════ -->
-<div class="screen" id="screen-age">
-  <div class="section-label">Tell us about yourself</div>
-  <div class="title-main" style="font-size:2rem; margin-bottom:24px">WHO ARE YOU?</div>
-  <div class="panel">
-    <button class="age-btn" onclick="selectAge(this, 'child')">🧒 Child (12 &amp; below)</button>
-    <button class="age-btn" onclick="selectAge(this, 'teen')">🎓 Teen (13–19)</button>
-    <button class="age-btn" onclick="selectAge(this, 'adult')">💼 Adult (20–49)</button>
-    <button class="age-btn" onclick="selectAge(this, 'senior')">🧓 Senior (50+)</button>
-    <div class="divider"></div>
-    <button class="btn-primary btn-cyan" id="start-btn" style="width:100%; opacity:0.4; cursor:not-allowed" disabled onclick="startGame()">START CHALLENGE →</button>
+  <div class="welcome-card">
+    <p class="welcome-mini-text">🎮 8 video challenges · Spot fakes · Earn your badge</p>
+    <button class="btn-primary btn-cyan" onclick="openSurePopup()" style="width:100%">PLAY NOW</button>
   </div>
 </div>
 
@@ -630,7 +788,7 @@
       Unnatural eye movement · Too-smooth skin · Weird ear/hair edges · Audio-lip mismatch · Inconsistent lighting on face · Blurry teeth · Background objects that "swim"
     </div>
 
-    <button class="btn-primary btn-cyan" onclick="showScreen('screen-age')" style="width:100%">I'M READY — PLAY →</button>
+  <button class="btn-primary btn-cyan" onclick="startGame()" style="width:100%">PLAY NOW</button>
   </div>
 </div>
 
@@ -706,6 +864,56 @@
   </div>
 </div>
 
+<div class="sure-popup" id="sure-popup">
+  <div class="sure-popup-card">
+    <div class="section-label" style="text-align:center;">Before You Play</div>
+    <div class="sure-popup-title">S.U.R.E FRAMEWORK</div>
+
+    <div class="sure-popup-subtext">
+      Welcome to <strong style="color:var(--cyan)">Deepfake Decoder</strong>, a media literacy game where you learn to spot
+      <strong>REAL vs FAKE media</strong>. Before starting the quiz, use the
+      <strong style="color:var(--gold)">S.U.R.E.</strong> framework:
+    </div>
+
+    <div class="sure-item">
+      <div class="sure-letter">S</div>
+      <div class="sure-text">
+        <strong>Source</strong> — Where did the video come from? Is it from a reliable account or platform?
+      </div>
+    </div>
+
+    <div class="sure-item">
+      <div class="sure-letter">U</div>
+      <div class="sure-text">
+        <strong>Understand</strong> — Look carefully at the face, lighting, lip movement, and background. Do they look natural?
+      </div>
+    </div>
+
+    <div class="sure-item">
+      <div class="sure-letter">R</div>
+      <div class="sure-text">
+        <strong>Research</strong> — Check whether trusted news outlets or official sources report the same thing.
+      </div>
+    </div>
+
+    <div class="sure-item">
+      <div class="sure-letter">E</div>
+      <div class="sure-text">
+        <strong>Evaluate</strong> — Think before believing or sharing. Could the video be manipulated?
+      </div>
+    </div>
+
+    <div class="sure-popup-actions">
+      <button class="btn-primary btn-purple" onclick="closeSurePopup()" style="min-width:160px">
+        BACK
+      </button>
+      <button class="btn-primary btn-cyan" onclick="goToLearnFromPopup()" style="min-width:160px">
+        CONTINUE
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ═══════════ DATA ═══════════
 const SCENARIOS = [
@@ -719,6 +927,7 @@ const SCENARIOS = [
     bg: "#1a3a2a",
     clues: ["Natural blinking pattern", "Consistent lighting", "Background objects stable"],
     clueTypes: ["green","green","green"],
+    video: "videos/v1.MOV",
     explanation: "This is a real video. The natural eye movement, consistent audio-lip sync, and stable environment are all indicators of genuine footage.",
     tip: "Real videos have consistent lighting and natural human micro-expressions."
   },
@@ -727,11 +936,12 @@ const SCENARIOS = [
     label: "FAKE",
     isReal: false,
     emoji: "🎙️",
-    description: "A viral clip shows a famous politician 'confessing' to a scandal. The audio is slightly ahead of the lip movement and the skin looks unnaturally smooth.",
-    theme: "Political Statement",
+    description: "A viral video shows actor Tom Cruise performing a coin trick directly to the camera. The video looks very realistic, but experts later revealed it was created using deepfake technology. Subtle visual artifacts such as overly smooth skin and slight facial blending inconsistencies can indicate the video is AI-generated",
+    theme: "Celebrity",
     bg: "#2a1a1a",
-    clues: ["Lip-sync mismatch ⚠️", "Too-smooth skin texture", "Unnatural blinking ⚠️"],
+    clues: ["Face blending artifacts ⚠️", "Too-smooth skin texture", "Subtle facial warping ⚠️"],
     clueTypes: ["red","red","red"],
+    video: "videos/v2.MOV",
     explanation: "Deepfake detected! The lip-sync delay and over-smoothed skin are classic AI generation artifacts. Always verify political content through official channels.",
     tip: "Audio-lip mismatch is one of the strongest signs of a deepfake."
   },
@@ -745,6 +955,7 @@ const SCENARIOS = [
     bg: "#1a2a3a",
     clues: ["Hair reacts to wind", "Perfect audio sync", "Natural environment motion"],
     clueTypes: ["green","green","green"],
+    video: "videos/v3.MOV",
     explanation: "This is authentic footage. Dynamic environmental elements like moving hair and background motion are extremely difficult for current AI to convincingly fake.",
     tip: "Environmental details like wind, shadows, and background movement are hard for AI to fake convincingly."
   },
@@ -758,6 +969,7 @@ const SCENARIOS = [
     bg: "#2a1a2a",
     clues: ["Face-edge warping ⚠️", "Unnatural head rotation ⚠️", "Context seems suspicious"],
     clueTypes: ["red","red","red"],
+    video: "videos/v4.MOV",
     explanation: "This is a deepfake! Face warping at edges and unnatural movement during head turns are telltale AI artifacts. Celebrities are frequently targeted for fake endorsements.",
     tip: "Watch the edges of the face, especially during movement — AI struggles to maintain realism during rotation."
   },
@@ -771,6 +983,7 @@ const SCENARIOS = [
     bg: "#1a2a1a",
     clues: ["Imperfect natural pauses", "Slightly uneven lighting (real)", "Genuine hesitation"],
     clueTypes: ["green","green","green"],
+    video: "videos/v5.MOV",
     explanation: "Real! Genuine human speech has imperfections — filler words, pauses, and varied pacing. AI-generated voice tends to sound overly polished and uniform.",
     tip: "Natural human imperfections like 'ums', pauses, and slight lighting inconsistencies are signs of authenticity."
   },
@@ -784,6 +997,7 @@ const SCENARIOS = [
     bg: "#2a2a1a",
     clues: ["Blurry teeth ⚠️", "Ear-background blending ⚠️", "Suspicious claim content"],
     clueTypes: ["red","red","red"],
+    video: "videos/v6.MOV",
     explanation: "Deepfake! AI models consistently struggle to render teeth and ear edges realistically. If the content of the announcement seems shocking, that's an extra red flag.",
     tip: "Look at teeth — they are consistently one of the hardest facial features for AI to render."
   },
@@ -797,6 +1011,7 @@ const SCENARIOS = [
     bg: "#2a1a1a",
     clues: ["Background inconsistency ⚠️", "Robotic voice quality ⚠️", "Extraordinary health claim"],
     clueTypes: ["red","red","red"],
+    video: "videos/v7.MOV",
     explanation: "This is a deepfake used for health misinformation — a dangerous combination. Background flickering between cuts and AI-synthesized voice are clear giveaways.",
     tip: "Extraordinary claims combined with video anomalies are a major warning sign. Always verify health information with accredited medical sources."
   },
@@ -810,6 +1025,7 @@ const SCENARIOS = [
     bg: "#1a1a2a",
     clues: ["Consistent shadow direction", "Spontaneous reactions", "Natural eye contact between speakers"],
     clueTypes: ["green","green","green"],
+    video: "videos/v8.MOV",
     explanation: "This is real footage. Spontaneous social reactions, consistent environmental shadows, and natural gaze patterns between multiple people are very hard to fake with AI.",
     tip: "Multi-person scenes with authentic social interaction are much harder to deepfake than solo clips."
   }
@@ -819,7 +1035,6 @@ const SCENARIOS = [
 let currentQ = 0;
 let score = 0;
 let answers = [];
-let selectedAge = null;
 
 // ═══════════ STARS ═══════════
 (function createStars() {
@@ -854,17 +1069,6 @@ function goHome() {
   }
 }
 
-// ═══════════ AGE SELECTION ═══════════
-function selectAge(el, age) {
-  document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedAge = age;
-  const btn = document.getElementById('start-btn');
-  btn.disabled = false;
-  btn.style.opacity = '1';
-  btn.style.cursor = 'pointer';
-}
-
 // ═══════════ GAME FLOW ═══════════
 function startGame() {
   currentQ = 0; score = 0; answers = [];
@@ -874,13 +1078,7 @@ function startGame() {
 }
 
 function restartGame() {
-  showScreen('screen-age');
-  document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('selected'));
-  selectedAge = null;
-  const btn = document.getElementById('start-btn');
-  btn.disabled = true;
-  btn.style.opacity = '0.4';
-  btn.style.cursor = 'not-allowed';
+  startGame();
 }
 
 function loadQuestion() {
@@ -893,11 +1091,13 @@ function loadQuestion() {
   // Video frame content
   document.getElementById('video-content').innerHTML = `
     <div class="scan-line"></div>
-    <div class="video-icon">${q.emoji}</div>
-    <div style="font-family:'Orbitron',monospace; font-size:0.7rem; letter-spacing:3px; color:var(--cyan-dim); margin-bottom:6px">${q.theme}</div>
-    <div style="font-size:0.8rem; color:#607090">[ Simulated Video Clip ${String(currentQ+1).padStart(2,'0')}/${String(total).padStart(2,'0')} ]</div>
+    <video class="scenario-video" controls preload="auto">
+      <source src="${q.video}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div style="font-size:0.8rem; color:#607090; margin-top:10px">[ Video Clip ${String(currentQ+1).padStart(2,'0')}/${String(total).padStart(2,'0')} ]</div>
   `;
-
+  
   // Scenario text
   document.getElementById('scenario-text').textContent = q.description;
 
@@ -953,6 +1153,24 @@ function nextQuestion() {
   } else {
     loadQuestion();
   }
+}
+
+function openSurePopup() {
+  document.getElementById('sure-popup').classList.add('show');
+}
+
+function closeSurePopup() {
+  document.getElementById('sure-popup').classList.remove('show');
+}
+
+function startGameFromPopup() {
+  closeSurePopup();
+  startGame();
+}
+
+function goToLearnFromPopup() {
+  closeSurePopup();
+  showScreen('screen-learn');
 }
 
 // ═══════════ RESULTS ═══════════
