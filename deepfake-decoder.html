@@ -1091,13 +1091,18 @@ function loadQuestion() {
   // Video frame content
   document.getElementById('video-content').innerHTML = `
     <div class="scan-line"></div>
-    <video class="scenario-video" controls preload="auto">
+    <video class="scenario-video" controls playsinline id="scenario-video">
       <source src="${q.video}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div style="font-size:0.8rem; color:#607090; margin-top:10px">[ Video Clip ${String(currentQ+1).padStart(2,'0')}/${String(total).padStart(2,'0')} ]</div>
   `;
   
+  const video = document.getElementById("scenario-video");
+  if (video) {
+    video.play().catch(() => {});
+  }
+
   // Scenario text
   document.getElementById('scenario-text').textContent = q.description;
 
