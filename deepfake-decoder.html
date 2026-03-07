@@ -278,12 +278,12 @@
   }
 
   .scenario-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-  background: #000;
-}
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #000;
+  }
 
   /* Buttons */
   .btn-primary {
@@ -943,7 +943,7 @@ const SCENARIOS = [
     label: "FAKE",
     isReal: false,
     emoji: "🎙️",
-    description: "A viral video shows actor Tom Cruise performing a coin trick directly to the camera. The video looks very realistic, but experts later revealed it was created using deepfake technology. Subtle visual artifacts such as overly smooth skin and slight facial blending inconsistencies can indicate the video is AI-generated",
+    description: "A viral video shows actor Tom Cruise performing a coin trick directly to the camera. Noted subtle visual artifacts such as overly smooth skin and slight facial blending inconsistencies.",
     theme: "Celebrity",
     bg: "#2a1a1a",
     clues: ["Face blending artifacts ⚠️", "Too-smooth skin texture", "Subtle facial warping ⚠️"],
@@ -976,7 +976,7 @@ const SCENARIOS = [
     bg: "#2a1a2a",
     clues: ["Face-edge warping ⚠️", "Unnatural head rotation ⚠️", "Context seems suspicious"],
     clueTypes: ["red","red","red"],
-    video: "videos/v4.MOV",
+    video: "videos/v4.MP4",
     explanation: "This is a deepfake! Face warping at edges and unnatural movement during head turns are telltale AI artifacts. Celebrities are frequently targeted for fake endorsements.",
     tip: "Watch the edges of the face, especially during movement — AI struggles to maintain realism during rotation."
   },
@@ -1098,7 +1098,7 @@ function loadQuestion() {
   // Video frame content
   document.getElementById('video-content').innerHTML = `
     <div class="scan-line"></div>
-    <video class="scenario-video" controls playsinline id="scenario-video">
+    <video class="scenario-video" loop playsinline id="scenario-video">
       <source src="${q.video}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -1272,7 +1272,7 @@ function showResults() {
     <strong style="color:var(--cyan)">Evaluate</strong>
     before you believe or share what you see online.
   `;
-  
+
 }
 </script>
 </body>
