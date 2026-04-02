@@ -30,6 +30,7 @@
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
   }
 
@@ -181,6 +182,7 @@
     position: relative;
     z-index: 1;
     min-height: 100vh;
+    min-height: 100dvh;
     display: none;
     flex-direction: column;
     align-items: center;
@@ -412,20 +414,6 @@
 
   .video-icon { font-size: 3rem; margin-bottom: 10px; }
 
-  .scan-line {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    animation: scan 2.5s linear infinite;
-    opacity: 0.6;
-  }
-
-  @keyframes scan {
-    0% { top: 0; }
-    100% { top: 100%; }
-  }
-
   /* REAL / FAKE buttons */
   .verdict-btns {
     display: flex;
@@ -581,114 +569,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-  }
-
-  /* Phase 1 countdown warning */
-  #danger-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 998;
-    pointer-events: none;
-    opacity: 0;
-    background: radial-gradient(ellipse at center, transparent 25%, #ff0a2a 100%);
-  }
-
-  #danger-overlay.active {
-    animation: dangerPulse 0.6s ease-in-out infinite;
-  }
-
-  @keyframes dangerPulse {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 0.55; }
-  }
-
-  #danger-overlay::before,
-  #danger-overlay::after {
-    content: 'WARNING';
-    position: absolute;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: #ff2d78;
-    text-shadow: 0 0 10px #ff2d78;
-    opacity: 0;
-  }
-
-  #danger-overlay.active::before {
-    top: 20px;
-    left: 24px;
-    animation: cornerFlash 0.6s ease-in-out infinite;
-  }
-
-  #danger-overlay.active::after {
-    top: 20px;
-    right: 24px;
-    animation: cornerFlash 0.6s ease-in-out infinite 0.3s;
-  }
-
-  @keyframes cornerFlash {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-  }
-
-  .phase-one-warning-layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.18s ease;
-    z-index: 1;
-  }
-
-  #screen-game.phase-one-critical .phase-one-warning-layer {
-    opacity: 1;
-  }
-
-  .phase-one-warning-vignette {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at center, transparent 34%, rgba(255, 45, 120, 0.18) 62%, rgba(90, 0, 20, 0.62) 100%);
-    mix-blend-mode: screen;
-    animation: phaseOneVignettePulse 0.6s ease-in-out infinite;
-  }
-
-  .phase-one-warning-text {
-    position: absolute;
-    top: 28px;
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1rem, 2vw, 1.35rem);
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: #ff9dbb;
-    text-shadow: 0 0 18px #ff2d78cc, 0 0 32px #ff2d7888;
-    opacity: 0;
-  }
-
-  .phase-one-warning-text.left {
-    left: clamp(18px, 4vw, 44px);
-    animation: phaseOneWarningLeft 0.6s steps(1, end) infinite;
-  }
-
-  .phase-one-warning-text.right {
-    right: clamp(18px, 4vw, 44px);
-    animation: phaseOneWarningRight 0.6s steps(1, end) infinite;
-  }
-
-  @keyframes phaseOneVignettePulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.015); }
-  }
-
-  @keyframes phaseOneWarningLeft {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-  }
-
-  @keyframes phaseOneWarningRight {
-    0%, 49% { opacity: 0; }
-    50%, 100% { opacity: 1; }
   }
 
   /* Feedback overlay */
@@ -1084,11 +964,109 @@
     background: #ff2d781a;
   }
 
+  .phase-two-hotspot.review-visible {
+    cursor: pointer;
+  }
+
+  .phase-two-hotspot.review-visible::after {
+    content: attr(data-label);
+    position: absolute;
+    inset: auto auto -10px 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #04101f;
+    background: #ffd700;
+    box-shadow: 0 0 18px #ffd70066;
+  }
+
+  .phase-two-hotspot.found.review-visible::after {
+    background: #00ff88;
+    box-shadow: 0 0 18px #00ff8866;
+  }
+
+  .phase-two-hotspot.selected {
+    box-shadow: inset 0 0 0 2px #ffffffaa, 0 0 30px #ffffff33;
+  }
+
   .phase-two-reference-note {
     margin-top: 12px;
     color: #a7bfe0;
     font-size: 0.95rem;
     line-height: 1.6;
+  }
+
+  .phase-two-review-panel {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: stretch;
+    padding: 18px 20px;
+    border-radius: 22px;
+    border: 1px solid #1c4f82;
+    background: linear-gradient(180deg, #101b3dcc 0%, #091126db 100%);
+    box-shadow: 0 0 32px #00f5ff10, inset 0 1px 0 #ffffff10;
+  }
+
+  .phase-two-review-panel[hidden] {
+    display: none;
+  }
+
+  .phase-two-review-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .phase-two-review-hint {
+    color: #d2e3ff;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .phase-two-review-card {
+    min-height: 108px;
+    padding: 16px 18px;
+    border-radius: 18px;
+    border: 1px solid #2e5f9a;
+    background: linear-gradient(135deg, #152146d9, #101936d9);
+  }
+
+  .phase-two-review-kicker {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .phase-two-review-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--cyan);
+    margin-bottom: 8px;
+  }
+
+  .phase-two-review-reason {
+    color: #cdddf6;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .phase-two-done-btn {
+    min-width: 148px;
+    padding-inline: 26px;
+    font-size: 0.95rem;
+    align-self: center;
   }
 
   /* Section label */
@@ -1136,11 +1114,6 @@
     .title-main { font-size: 2.2rem; }
     .panel { padding: 20px; }
     .verdict-btn { font-size: 0.9rem; padding: 14px; }
-    .phase-one-warning-text {
-      top: 20px;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-    }
     .phase-one-phase-tag,
     .phase-one-question-progress,
     .phase-one-watch-label {
@@ -1178,6 +1151,15 @@
 
     .phase-two-card {
       padding: 16px;
+    }
+
+    .phase-two-review-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .phase-two-done-btn {
+      width: 100%;
+      min-width: 0;
     }
 
     #screen-game {
@@ -1222,6 +1204,201 @@
     .phase-two-intro {
       font-size: 0.98rem;
       white-space: normal;
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait),
+         (min-width: 700px) and (max-width: 1100px) and (max-height: 1050px) {
+    #screen-game {
+      padding: 24px 18px 18px;
+    }
+
+    .phase-one-shell {
+      width: min(700px, 100%);
+      gap: 10px;
+    }
+
+    .phase-one-top {
+      gap: 8px;
+    }
+
+    .phase-one-progress-row {
+      gap: 12px;
+    }
+
+    .phase-one-phase-tag,
+    .phase-one-question-progress,
+    .phase-one-watch-label {
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+    }
+
+    .progress-bar-wrap {
+      height: 7px;
+    }
+
+    .round-meta {
+      gap: 8px;
+    }
+
+    .hud-score,
+    .timer-pill {
+      font-size: 0.84rem;
+    }
+
+    .timer-pill {
+      min-width: 106px;
+      padding: 7px 11px;
+    }
+
+    .phase-one-video-card {
+      padding: 14px;
+      border-radius: 20px;
+    }
+
+    .video-frame {
+      aspect-ratio: 16 / 7.9;
+    }
+
+    .video-inner {
+      padding: 24px 20px 14px;
+    }
+
+    .corner.tl,
+    .corner.tr,
+    .corner.bl,
+    .corner.br {
+      transform: scale(0.85);
+    }
+
+    .phase-one-scenario-panel {
+      padding: 14px 16px;
+    }
+
+    #scenario-text {
+      font-size: 0.91rem !important;
+      line-height: 1.42 !important;
+    }
+
+    .divider {
+      margin: 12px 0;
+    }
+
+    .clue-tag {
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      margin: 2px;
+    }
+
+    .verdict-btns {
+      margin-top: 8px;
+      gap: 12px;
+      max-width: 100%;
+    }
+
+    .verdict-btn {
+      padding: 14px;
+      font-size: 0.96rem;
+    }
+
+    #screen-phase-two {
+      padding: 14px 18px 18px;
+    }
+
+    .phase-two-shell {
+      width: min(780px, 100%);
+      gap: 12px;
+      padding: 14px 18px 18px;
+      border-radius: 24px;
+    }
+
+    .phase-two-header,
+    .phase-two-status-line,
+    .phase-two-card,
+    .phase-two-review-panel {
+      width: min(700px, 100%);
+      align-self: center;
+    }
+
+    .phase-two-title {
+      font-size: clamp(1.85rem, 4.6vw, 2.8rem);
+    }
+
+    .phase-two-briefing {
+      padding-top: 10px;
+    }
+
+    .phase-two-intro {
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .phase-two-stats {
+      margin-top: 12px;
+      gap: 10px;
+    }
+
+    .phase-two-metric {
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .phase-two-metric-label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    .phase-two-metric-value {
+      font-size: clamp(1.2rem, 2.6vw, 1.45rem);
+    }
+
+    .phase-two-status-line {
+      min-height: 22px;
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+
+    .phase-two-card {
+      padding: 14px 16px 12px;
+      border-radius: 20px;
+    }
+
+    .phase-two-image-wrap {
+      width: min(100%, 640px);
+      margin: 0 auto;
+    }
+
+    .phase-two-reference-note {
+      margin-top: 8px;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .phase-two-review-panel {
+      padding: 14px 16px;
+      gap: 12px;
+    }
+
+    .phase-two-review-hint,
+    .phase-two-review-reason {
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .phase-two-review-card {
+      min-height: 0;
+      padding: 12px 14px;
+    }
+
+    .phase-two-review-title {
+      font-size: 0.92rem;
+    }
+
+    .phase-two-done-btn {
+      padding: 12px 20px;
+      font-size: 0.88rem;
     }
   }
 
@@ -1325,7 +1502,6 @@
 
 <!-- Stars -->
 <div class="stars" id="stars"></div>
-<div id="danger-overlay"></div>
 <div class="grid-floor"></div>
 
 <!-- Hex decorations -->
@@ -1422,7 +1598,6 @@
         <div class="corner tr"></div>
         <div class="corner bl"></div>
         <div class="corner br"></div>
-        <div class="scan-line"></div>
         <div class="video-inner" id="video-content">
           <!-- filled by JS -->
         </div>
@@ -1446,7 +1621,7 @@
 </div>
 
 <!-- ═══════════ SCREEN: PHASE TWO ═══════════ -->
-<div class="screen" id="screen-phase-two" style="padding-top: 48px;">
+<div class="screen" id="screen-phase-two">
   <div class="phase-two-shell">
     <div class="phase-two-header">
       <div class="phase-two-topbar">
@@ -1486,9 +1661,26 @@
         <img class="phase-two-image" src="original.jpg" alt="Deepfake hotspot challenge">
         <div class="phase-two-overlay" id="phase-two-hotspots"></div>
       </div>
-      <div class="phase-two-reference-note">
+      <div class="phase-two-reference-note" id="phase-two-reference-note">
         Tap every changed region you can spot. There are exactly six AI-generated edits hidden here.
       </div>
+    </div>
+
+    <div class="phase-two-review-panel" id="phase-two-review-panel" hidden>
+      <div class="phase-two-review-copy">
+        <div class="section-label" style="margin-bottom:0;">Answer Review</div>
+        <div class="phase-two-review-hint" id="phase-two-review-hint">
+          Correct answer shown. Tap any numbered marker to see why that area looks AI-generated.
+        </div>
+        <div class="phase-two-review-card">
+          <div class="phase-two-review-kicker" id="phase-two-review-kicker">Marker 1</div>
+          <div class="phase-two-review-title" id="phase-two-review-title"></div>
+          <div class="phase-two-review-reason" id="phase-two-review-reason"></div>
+        </div>
+      </div>
+      <button class="btn-primary btn-cyan phase-two-done-btn" type="button" id="phase-two-done-btn" onclick="finishPhaseTwoReview()">
+        DONE
+      </button>
     </div>
   </div>
 </div>
@@ -1709,12 +1901,42 @@ const PHASE_ONE_SCENARIOS = PHASE_ONE_SCENARIO_IDS
 const QUESTION_TIME_LIMIT = 10;
 const PHASE_TWO_TIME_LIMIT = 30;
 const PHASE_TWO_TARGETS = [
-  { id: 't1', left: 34.9, top: 10.4, w: 22.3, h:  8.0 },
-  { id: 't2', left: 37.8, top: 21.2, w:  6.4, h:  9.0 },
-  { id: 't3', left: 33.0, top: 31.3, w: 10.6, h:  6.7 },
-  { id: 't4', left: 41.8, top: 91.2, w: 13.1, h: 18.5 },
-  { id: 't5', left: 82.4, top: 88.1, w: 14.1, h: 19.8 },
-  { id: 't6', left: 41.8, top: 25.9, w:  2.8, h:  9.7 }
+  {
+    id: 't1',
+    left: 34.9, top: 10.4, w: 22.3, h: 8.0,
+    title: 'Hairline and top of head',
+    reason: 'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.'
+  },
+  {
+    id: 't2',
+    left: 37.8, top: 21.2, w: 6.4, h: 9.0,
+    title: 'Right eye and eyelid',
+    reason: 'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.'
+  },
+  {
+    id: 't3',
+    left: 33.0, top: 31.3, w: 10.6, h: 6.7,
+    title: 'Mouth and teeth',
+    reason: 'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.'
+  },
+  {
+    id: 't4',
+    left: 41.8, top: 91.2, w: 13.1, h: 18.5,
+    title: 'Hand and fingers',
+    reason: 'Finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
+  },
+  {
+    id: 't5',
+    left: 82.4, top: 88.1, w: 14.1, h: 19.8,
+    title: 'Cat face and fur',
+    reason: 'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.'
+  },
+  {
+    id: 't6',
+    left: 41.8, top: 25.9, w: 2.8, h: 9.7,
+    title: 'Cheek and ear edge',
+    reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
+  }
 ];
 
 // ═══════════ STATE ═══════════
@@ -1730,6 +1952,9 @@ let phaseTwoFoundIds = [];
 let phaseTwoMisses = 0;
 let phaseTwoComplete = false;
 let phaseTwoTransitionId = null;
+let phaseTwoReviewMode = false;
+let phaseTwoReviewTimedOut = false;
+let phaseTwoSelectedTargetId = PHASE_TWO_TARGETS[0].id;
 let phaseTwoAudioContext = null;
 let phaseTwoMasterGain = null;
 
@@ -2005,7 +2230,7 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.getElementById('hud').style.display = 'none';
-  if (id !== 'screen-game') setDangerOverlayActive(false);
+  window.scrollTo(0, 0);
 
   // Lobby music: play on welcome + learn screens, stop elsewhere
   if (id === 'screen-welcome' || id === 'screen-learn') {
@@ -2070,7 +2295,6 @@ function loadQuestion() {
 
   // Video frame content
   document.getElementById('video-content').innerHTML = `
-    <div class="scan-line"></div>
     <video class="scenario-video" loop playsinline id="scenario-video">
       <source src="${q.video}" type="video/mp4">
       Your browser does not support the video tag.
@@ -2120,8 +2344,7 @@ function stopScenarioVideo() {
 }
 
 function setDangerOverlayActive(active) {
-  const overlay = document.getElementById('danger-overlay');
-  if (overlay) overlay.classList.toggle('active', active);
+  return;
 }
 
 function clearQuestionTimer() {
@@ -2135,7 +2358,6 @@ function updateTimerUI() {
   const timer = document.getElementById('timer-pill');
   timer.textContent = `Time: ${timeRemaining}s`;
   timer.classList.toggle('danger', timeRemaining <= 3);
-  setDangerOverlayActive(timeRemaining <= 3 && timeRemaining > 0);
 
   if (timeRemaining <= 3 && timeRemaining > 0) {
     playDangerTick(timeRemaining);
@@ -2598,19 +2820,27 @@ function resetPhaseTwoState() {
   phaseTwoFoundIds = [];
   phaseTwoMisses = 0;
   phaseTwoComplete = false;
+  phaseTwoReviewMode = false;
+  phaseTwoReviewTimedOut = false;
+  phaseTwoSelectedTargetId = PHASE_TWO_TARGETS[0].id;
   renderPhaseTwoHotspots();
   updatePhaseTwoUI();
+  updatePhaseTwoReviewPanel();
+  document.getElementById('phase-two-reference-note').textContent = 'Tap every changed region you can spot. There are exactly six AI-generated edits hidden here.';
   document.getElementById('phase-two-status').textContent = 'Study the image carefully and tap only the manipulated areas.';
 }
 
 function renderPhaseTwoHotspots(revealAll = false) {
   const hotspotLayer = document.getElementById('phase-two-hotspots');
-  hotspotLayer.innerHTML = PHASE_TWO_TARGETS.map(target => {
+  const shouldRevealAll = revealAll || phaseTwoReviewMode;
+  hotspotLayer.innerHTML = PHASE_TWO_TARGETS.map((target, index) => {
     const isFound = phaseTwoFoundIds.includes(target.id);
     const classes = [
       'phase-two-hotspot',
       isFound ? 'found' : '',
-      revealAll && !isFound ? 'revealed' : ''
+      shouldRevealAll && !isFound ? 'revealed' : '',
+      phaseTwoReviewMode ? 'review-visible' : '',
+      phaseTwoReviewMode && phaseTwoSelectedTargetId === target.id ? 'selected' : ''
     ].filter(Boolean).join(' ');
 
     return `
@@ -2618,8 +2848,9 @@ function renderPhaseTwoHotspots(revealAll = false) {
         type="button"
         class="${classes}"
         style="left:${target.left}%; top:${target.top}%; width:${target.w || target.size}%; height:${target.h || target.size}%; transform:translate(-50%,-50%);"
+        data-label="${index + 1}"
         onclick="handlePhaseTwoTargetClick('${target.id}', event)"
-        aria-label="Deepfake hotspot ${target.id}">
+        aria-label="Deepfake hotspot ${index + 1}: ${target.title}">
       </button>
     `;
   }).join('');
@@ -2630,6 +2861,45 @@ function updatePhaseTwoUI() {
   document.getElementById('phase-two-timer').textContent = `${phaseTwoTimeRemaining}s`;
   document.getElementById('phase-two-misses').textContent = phaseTwoMisses;
   document.getElementById('phase-two-timer-card').classList.toggle('danger', phaseTwoTimeRemaining <= 8);
+}
+
+function updatePhaseTwoReviewPanel() {
+  const panel = document.getElementById('phase-two-review-panel');
+  const hint = document.getElementById('phase-two-review-hint');
+  const kicker = document.getElementById('phase-two-review-kicker');
+  const title = document.getElementById('phase-two-review-title');
+  const reason = document.getElementById('phase-two-review-reason');
+
+  panel.hidden = !phaseTwoReviewMode;
+  if (!phaseTwoReviewMode) return;
+
+  const selectedTarget = PHASE_TWO_TARGETS.find(target => target.id === phaseTwoSelectedTargetId) || PHASE_TWO_TARGETS[0];
+  const markerNumber = PHASE_TWO_TARGETS.findIndex(target => target.id === selectedTarget.id) + 1;
+  const wasFound = phaseTwoFoundIds.includes(selectedTarget.id);
+
+  hint.textContent = phaseTwoReviewTimedOut
+    ? 'Time is up. The correct answer is shown below. Tap any numbered marker to review why that region looks AI-generated.'
+    : 'You finished the challenge. The correct answer remains on screen until you tap Done. Tap any numbered marker to review the clue.';
+  kicker.textContent = `Marker ${markerNumber} - ${wasFound ? 'Found during play' : 'Revealed at end'}`;
+  title.textContent = selectedTarget.title;
+  reason.textContent = selectedTarget.reason;
+}
+
+function enterPhaseTwoReview(timedOut) {
+  clearPhaseTwoTimer();
+  clearPhaseTwoTransition();
+  stopPhaseTwoMusic();
+  phaseTwoComplete = true;
+  phaseTwoReviewMode = true;
+  phaseTwoReviewTimedOut = timedOut;
+  phaseTwoSelectedTargetId = (PHASE_TWO_TARGETS.find(target => !phaseTwoFoundIds.includes(target.id)) || PHASE_TWO_TARGETS[0]).id;
+  renderPhaseTwoHotspots(true);
+  updatePhaseTwoUI();
+  updatePhaseTwoReviewPanel();
+  document.getElementById('phase-two-reference-note').textContent = 'Correct answer shown. Green markers were found during play; highlighted markers were revealed afterward.';
+  document.getElementById('phase-two-status').textContent = timedOut
+    ? 'Time is up. Review the highlighted edits, then tap Done.'
+    : `All ${PHASE_TWO_TARGETS.length} manipulated regions found. Review the final board, then tap Done.`;
 }
 
 function startPhaseTwoTimer() {
@@ -2649,16 +2919,8 @@ function startPhaseTwoTimer() {
     if (phaseTwoTimeRemaining <= 0) {
       phaseTwoTimeRemaining = 0;
       clearPhaseTwoTimer();
-      phaseTwoComplete = true;
-      stopPhaseTwoMusic();
-      renderPhaseTwoHotspots(true);
-      updatePhaseTwoUI();
-      document.getElementById('phase-two-status').textContent = 'Time is up. The remaining manipulated regions are now highlighted.';
       playPhaseTwoLoseSound();
-      phaseTwoTransitionId = setTimeout(() => {
-        phaseTwoTransitionId = null;
-        showFinalResults(true);
-      }, 900);
+      enterPhaseTwoReview(true);
     }
   }, 1000);
 }
@@ -2710,6 +2972,13 @@ function showBoardDelta(seconds, clientX, clientY) {
 
 function handlePhaseTwoTargetClick(targetId, event) {
   event.stopPropagation();
+  if (phaseTwoReviewMode) {
+    phaseTwoSelectedTargetId = targetId;
+    renderPhaseTwoHotspots(true);
+    updatePhaseTwoReviewPanel();
+    return;
+  }
+
   if (phaseTwoComplete || phaseTwoFoundIds.includes(targetId)) return;
 
   phaseTwoFoundIds.push(targetId);
@@ -2721,15 +2990,8 @@ function handlePhaseTwoTargetClick(targetId, event) {
   document.getElementById('phase-two-status').textContent = `+2s! ${phaseTwoFoundIds.length} of ${PHASE_TWO_TARGETS.length} altered regions found.`;
 
   if (phaseTwoFoundIds.length >= PHASE_TWO_TARGETS.length) {
-    phaseTwoComplete = true;
-    clearPhaseTwoTimer();
-    stopPhaseTwoMusic();
-    document.getElementById('phase-two-status').textContent = `All ${PHASE_TWO_TARGETS.length} manipulated regions found. Moving to final results.`;
     playPhaseTwoWinSound();
-    phaseTwoTransitionId = setTimeout(() => {
-      phaseTwoTransitionId = null;
-      showFinalResults(false);
-    }, 700);
+    enterPhaseTwoReview(false);
   }
 }
 
@@ -2750,18 +3012,14 @@ function handlePhaseTwoBoardMiss() {
   setTimeout(() => board.classList.remove('miss'), 400);
 
   if (phaseTwoTimeRemaining <= 0) {
-    clearPhaseTwoTimer();
-    phaseTwoComplete = true;
-    stopPhaseTwoMusic();
-    renderPhaseTwoHotspots(true);
-    updatePhaseTwoUI();
-    document.getElementById('phase-two-status').textContent = 'Time is up. The remaining manipulated regions are now highlighted.';
     playPhaseTwoLoseSound();
-    phaseTwoTransitionId = setTimeout(() => {
-      phaseTwoTransitionId = null;
-      showFinalResults(true);
-    }, 900);
+    enterPhaseTwoReview(true);
   }
+}
+
+function finishPhaseTwoReview() {
+  if (!phaseTwoReviewMode) return;
+  showFinalResults(phaseTwoReviewTimedOut);
 }
 
 function setResultsActions(primaryLabel, primaryHandler, secondaryLabel, secondaryHandler) {
