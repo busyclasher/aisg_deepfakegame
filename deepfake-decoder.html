@@ -639,13 +639,13 @@
 
   /* Results screen */
   .score-ring {
-    width: 160px; height: 160px;
+    width: 100px; height: 100px;
     border-radius: 50%;
     background: conic-gradient(var(--cyan) 0%, var(--purple) 50%, #1a2550 50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px auto;
+    margin: 10px auto;
     position: relative;
     box-shadow: var(--glow-purple);
   }
@@ -662,7 +662,7 @@
     position: relative;
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     color: var(--cyan);
     text-shadow: var(--glow-cyan);
     z-index: 1;
@@ -673,21 +673,21 @@
     justify-content: center;
     gap: 16px;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin: 10px 0;
   }
 
   .badge {
     background: linear-gradient(135deg, #0d1b3e, #1a1040);
     border: 1px solid #00f5ff44;
     border-radius: 16px;
-    padding: 16px 20px;
+    padding: 10px 16px;
     text-align: center;
-    min-width: 100px;
+    min-width: 90px;
   }
 
   .badge-val {
     font-family: 'Orbitron', monospace;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 900;
     color: var(--cyan);
   }
@@ -707,10 +707,10 @@
     align-items: flex-start;
     background: #ffffff08;
     border-radius: 10px;
-    padding: 12px 14px;
-    margin: 8px 0;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    padding: 8px 12px;
+    margin: 4px 0;
+    font-size: 0.82rem;
+    line-height: 1.4;
     color: #c0d8f0;
   }
 
@@ -868,6 +868,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1096 / 778;
+    max-height: 55dvh;
     overflow: visible;
     border-radius: 16px;
     background: #000;
@@ -991,6 +992,11 @@
     box-shadow: 0 0 18px #00ff8866;
   }
 
+  .phase-two-hotspot.label-top.review-visible::after {
+    inset: -10px auto auto 50%;
+    transform: translateX(-50%);
+  }
+
   .phase-two-hotspot.selected {
     box-shadow: inset 0 0 0 2px #ffffffaa, 0 0 30px #ffffff33;
   }
@@ -1017,6 +1023,22 @@
 
   .phase-two-review-panel[hidden] {
     display: none;
+  }
+
+  .phase-two-shell.review-mode .phase-two-header {
+    grid-area: header;
+  }
+
+  .phase-two-shell.review-mode .phase-two-status-line {
+    grid-area: status;
+  }
+
+  .phase-two-shell.review-mode .phase-two-card {
+    grid-area: board;
+  }
+
+  .phase-two-shell.review-mode .phase-two-review-panel {
+    grid-area: review;
   }
 
   .phase-two-review-copy {
@@ -1110,6 +1132,186 @@
   }
 
   /* Responsive tweaks */
+  #screen-results {
+    justify-content: flex-start;
+    padding: 14px 20px 10px;
+    overflow: hidden;
+    max-height: 100dvh;
+  }
+
+  #screen-results .panel {
+    padding: 14px 18px;
+  }
+
+  #screen-results #result-tips {
+    margin-top: 4px;
+  }
+
+  #screen-results .results-next-mission-panel {
+    margin-top: 6px;
+  }
+
+  #screen-results .title-main {
+    font-size: 1.6rem;
+    margin-top: 2px;
+  }
+
+  #screen-results #result-grade {
+    margin-bottom: 6px;
+  }
+
+  #screen-results #detective-badge {
+    margin-bottom: 8px;
+  }
+
+  #screen-results .results-btn-row {
+    margin-top: 10px;
+  }
+
+  #screen-results .score-ring {
+    margin: 8px auto;
+  }
+
+  #screen-results .badge-row,
+  #screen-results #detective-badge,
+  #screen-results .panel,
+  #screen-results .results-btn-row {
+    width: min(780px, 100%);
+  }
+
+  @media (min-width: 700px) and (max-width: 1180px),
+         (max-height: 900px) {
+    #screen-results {
+      padding: 10px 18px 8px;
+    }
+
+    #screen-results .section-label {
+      font-size: 0.64rem;
+      letter-spacing: 3px;
+      margin-bottom: 4px;
+    }
+
+    #screen-results .title-main {
+      font-size: clamp(1.35rem, 4.5vw, 1.95rem) !important;
+      line-height: 0.95;
+      margin-top: 0;
+    }
+
+    #screen-results .score-ring {
+      width: 82px;
+      height: 82px;
+      margin: 5px auto;
+    }
+
+    #screen-results .score-ring::before {
+      inset: 10px;
+    }
+
+    #screen-results .score-ring-text {
+      font-size: 1.2rem;
+    }
+
+    #screen-results #result-grade {
+      font-size: 0.96rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #screen-results #detective-badge {
+      margin-bottom: 6px !important;
+    }
+
+    #screen-results #detective-badge > div:first-child {
+      font-size: 0.96rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #screen-results #detective-badge > div:last-child {
+      font-size: 0.88rem !important;
+      line-height: 1.42 !important;
+      max-width: 620px !important;
+    }
+
+    #screen-results .badge-row {
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    #screen-results .badge {
+      min-width: 0;
+      padding: 8px 14px;
+      border-radius: 14px;
+      flex: 1 1 150px;
+      max-width: 188px;
+    }
+
+    #screen-results .badge-val {
+      font-size: 1.1rem;
+    }
+
+    #screen-results .badge-label {
+      font-size: 0.69rem;
+      margin-top: 2px;
+    }
+
+    #screen-results .panel {
+      padding: 12px 16px;
+    }
+
+    #screen-results #result-tips {
+      margin-top: 2px !important;
+    }
+
+    #screen-results .tip-item {
+      gap: 10px;
+      padding: 7px 11px;
+      margin: 4px 0;
+      font-size: 0.8rem;
+      line-height: 1.32;
+    }
+
+    #screen-results .tip-num {
+      min-width: 18px;
+    }
+
+    #screen-results .results-next-mission-panel {
+      margin-top: 4px !important;
+    }
+
+    #screen-results #closing-message {
+      font-size: 0.84rem !important;
+      line-height: 1.42 !important;
+    }
+
+    #screen-results .results-btn-row {
+      gap: 10px !important;
+      margin-top: 8px !important;
+    }
+
+    #screen-results .results-btn-row .btn-primary {
+      font-size: 0.9rem;
+      padding: 13px 24px;
+    }
+  }
+
+  @media (min-width: 700px) and (max-width: 1180px) and (orientation: portrait) {
+    #screen-results .badge {
+      flex-basis: calc(33.333% - 8px);
+    }
+
+    #screen-results .panel {
+      padding: 11px 14px;
+    }
+
+    #screen-results .tip-item {
+      font-size: 0.77rem;
+      line-height: 1.28;
+    }
+
+    #screen-results #closing-message {
+      font-size: 0.81rem !important;
+    }
+  }
+
   @media (max-width: 500px) {
     .title-main { font-size: 2.2rem; }
     .panel { padding: 20px; }
@@ -1210,16 +1412,16 @@
   @media (min-width: 700px) and (max-width: 1100px) and (orientation: portrait),
          (min-width: 700px) and (max-width: 1100px) and (max-height: 1050px) {
     #screen-game {
-      padding: 24px 18px 18px;
+      padding: 12px 18px 14px;
     }
 
     .phase-one-shell {
       width: min(700px, 100%);
-      gap: 10px;
+      gap: 8px;
     }
 
     .phase-one-top {
-      gap: 8px;
+      gap: 6px;
     }
 
     .phase-one-progress-row {
@@ -1252,16 +1454,16 @@
     }
 
     .phase-one-video-card {
-      padding: 14px;
-      border-radius: 20px;
+      padding: 12px;
+      border-radius: 18px;
     }
 
     .video-frame {
-      aspect-ratio: 16 / 7.9;
+      aspect-ratio: 16 / 7.5;
     }
 
     .video-inner {
-      padding: 24px 20px 14px;
+      padding: 20px 18px 12px;
     }
 
     .corner.tl,
@@ -1272,7 +1474,7 @@
     }
 
     .phase-one-scenario-panel {
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
 
     #scenario-text {
@@ -1291,13 +1493,13 @@
     }
 
     .verdict-btns {
-      margin-top: 8px;
+      margin-top: 4px;
       gap: 12px;
       max-width: 100%;
     }
 
     .verdict-btn {
-      padding: 14px;
+      padding: 12px;
       font-size: 0.96rem;
     }
 
@@ -1400,6 +1602,129 @@
       padding: 12px 20px;
       font-size: 0.88rem;
     }
+
+    .phase-two-shell.review-mode {
+      width: min(980px, 100%);
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(250px, 0.78fr);
+      grid-template-areas:
+        "header header"
+        "status status"
+        "board review";
+      align-items: start;
+      gap: 10px 12px;
+      padding: 12px 14px 14px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-header,
+    .phase-two-shell.review-mode .phase-two-status-line {
+      width: 100%;
+      max-width: none;
+      align-self: stretch;
+    }
+
+    .phase-two-shell.review-mode .phase-two-status-line {
+      min-height: 0;
+      font-size: 0.84rem;
+    }
+
+    .phase-two-shell.review-mode .phase-two-briefing {
+      padding-top: 8px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-intro {
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .phase-two-shell.review-mode .phase-two-stats {
+      margin-top: 10px;
+      gap: 8px;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .phase-two-shell.review-mode .phase-two-metric {
+      flex: 1 1 0;
+      padding: 8px 10px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-metric-label {
+      font-size: 0.66rem;
+      letter-spacing: 1.5px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-metric-value {
+      font-size: 1.05rem;
+    }
+
+    .phase-two-shell.review-mode .phase-two-card,
+    .phase-two-shell.review-mode .phase-two-review-panel {
+      width: 100%;
+      min-width: 0;
+      align-self: stretch;
+    }
+
+    .phase-two-shell.review-mode .phase-two-card {
+      padding: 12px 12px 10px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-image-wrap {
+      width: 100%;
+      max-height: min(45dvh, 470px);
+      margin: 0;
+    }
+
+    .phase-two-shell.review-mode .phase-two-reference-note {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 10px;
+      border-radius: 18px;
+      min-height: 100%;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-copy {
+      gap: 8px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-hint,
+    .phase-two-shell.review-mode .phase-two-review-reason {
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-card {
+      min-height: 0;
+      padding: 10px 12px;
+      border-radius: 14px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-kicker {
+      font-size: 0.64rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 6px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-title {
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-done-btn {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 14px;
+      font-size: 0.82rem;
+      align-self: stretch;
+    }
   }
 
   /* S.U.R.E popup */
@@ -1495,7 +1820,341 @@
     .sure-letter {
       font-size: 1.3rem;
     }
-  }  
+  }
+
+  /* ═══ iPad Phase Two — no-scroll (active play) ═══ */
+  @media (min-width: 700px) and (max-height: 1024px) {
+    #screen-game {
+      justify-content: flex-start;
+      padding: 8px 18px 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: none;
+    }
+
+    .phase-one-shell {
+      width: min(700px, 100%);
+      max-height: none;
+      gap: 6px;
+      padding-bottom: 8px;
+    }
+
+    .phase-one-top {
+      gap: 4px;
+    }
+
+    .phase-one-progress-row {
+      gap: 12px;
+    }
+
+    .phase-one-phase-tag,
+    .phase-one-question-progress,
+    .phase-one-watch-label {
+      font-size: 0.74rem;
+      letter-spacing: 2px;
+    }
+
+    .phase-one-phase-tag {
+      padding: 9px 16px;
+    }
+
+    .progress-bar-wrap {
+      height: 6px;
+    }
+
+    .round-meta {
+      gap: 6px;
+    }
+
+    .hud-score,
+    .timer-pill {
+      font-size: 0.8rem;
+    }
+
+    .timer-pill {
+      min-width: 98px;
+      padding: 6px 10px;
+    }
+
+    .phase-one-video-card {
+      padding: 10px;
+      border-radius: 18px;
+    }
+
+    .video-frame {
+      aspect-ratio: unset;
+      height: clamp(250px, 36dvh, 340px);
+      border-radius: 16px;
+    }
+
+    .video-inner {
+      padding: 16px 16px 10px;
+    }
+
+    .corner.tl,
+    .corner.tr,
+    .corner.bl,
+    .corner.br {
+      transform: scale(0.82);
+    }
+
+    .phase-one-scenario-panel {
+      padding: 10px 12px;
+      border-radius: 16px;
+    }
+
+    #scenario-text {
+      font-size: 0.84rem !important;
+      line-height: 1.32 !important;
+    }
+
+    .divider {
+      margin: 10px 0 8px;
+    }
+
+    .clue-tag {
+      padding: 3px 8px;
+      font-size: 0.66rem;
+      margin: 2px;
+    }
+
+    .phase-one-action-row {
+      margin-top: 0;
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+      padding: 6px 0 calc(env(safe-area-inset-bottom, 0px) + 2px);
+      background: linear-gradient(180deg, transparent 0%, rgba(5, 10, 26, 0.88) 22%, rgba(5, 10, 26, 0.98) 100%);
+    }
+
+    .verdict-btns {
+      margin-top: 2px;
+      gap: 10px;
+      max-width: 360px;
+    }
+
+    .verdict-btn {
+      padding: 10px;
+      font-size: 0.88rem;
+    }
+
+    #screen-phase-two {
+      padding: 6px 10px;
+      justify-content: flex-start;
+      overflow: hidden;
+      max-height: 100dvh;
+    }
+
+    /* Shell fills full width, strict height */
+    .phase-two-shell {
+      width: 100% !important;
+      max-height: calc(100dvh - 12px);
+      overflow: hidden;
+      gap: 5px;
+      padding: 8px 12px 8px !important;
+      border-radius: 14px;
+    }
+
+    /* Compact header */
+    .phase-two-header { gap: 3px; }
+    .phase-two-topbar { gap: 6px; }
+
+    .phase-two-title {
+      font-size: 1.3rem !important;
+      line-height: 1;
+      text-align: left;
+    }
+
+    .phase-two-briefing { margin-top: 0; padding-top: 4px; }
+
+    .phase-two-intro {
+      font-size: 0.76rem !important;
+      line-height: 1.25;
+      white-space: normal;
+    }
+
+    .phase-two-stats {
+      margin-top: 4px !important;
+      gap: 5px;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .phase-two-metric {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      padding: 5px 10px !important;
+      border-radius: 8px;
+    }
+
+    .phase-two-metric-label {
+      font-size: 0.58rem !important;
+      letter-spacing: 1px;
+      margin-bottom: 2px !important;
+    }
+
+    .phase-two-metric-value { font-size: 0.95rem !important; }
+
+    .phase-two-status-line {
+      min-height: 0;
+      font-size: 0.74rem !important;
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    /* Image card: key fix — override aspect-ratio, cap height */
+    .phase-two-card {
+      padding: 6px 8px 5px !important;
+      border-radius: 10px !important;
+      flex-shrink: 1;
+      min-height: 0;
+    }
+
+    .phase-two-image-wrap {
+      aspect-ratio: unset !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      /* Total height minus: shell padding(16) + header(~105) + status(~22) + card-padding(11) + note(~20) + gaps(~25) */
+      height: calc(100dvh - 220px) !important;
+      max-height: calc(100dvh - 220px) !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      border-radius: 10px;
+    }
+
+    .phase-two-image-wrap img.phase-two-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .phase-two-reference-note {
+      margin-top: 3px !important;
+      font-size: 0.65rem !important;
+      line-height: 1.2;
+    }
+  }
+
+  /* ═══ iPad Phase Two — Review mode: image left, panel right ═══ */
+  @media (min-width: 700px) and (max-height: 1024px) {
+
+    .phase-two-shell.review-mode {
+      width: 100% !important;
+      max-height: calc(100dvh - 12px);
+      display: grid !important;
+      grid-template-columns: 1fr 250px;
+      grid-template-rows: auto auto 1fr;
+      grid-template-areas:
+        "header header"
+        "status status"
+        "board  review";
+      align-items: start;
+      gap: 4px 8px !important;
+      padding: 8px 12px 8px !important;
+      overflow: hidden;
+    }
+
+    .phase-two-shell.review-mode .phase-two-header {
+      grid-area: header;
+      width: 100% !important;
+      max-width: none !important;
+    }
+
+    .phase-two-shell.review-mode .phase-two-status-line {
+      grid-area: status;
+      width: 100% !important;
+      max-width: none !important;
+      min-height: 0;
+      font-size: 0.72rem !important;
+    }
+
+    .phase-two-shell.review-mode .phase-two-card {
+      grid-area: board;
+      width: 100% !important;
+      min-width: 0;
+      align-self: stretch;
+      padding: 6px 8px 5px !important;
+      border-radius: 10px !important;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .phase-two-shell.review-mode .phase-two-image-wrap {
+      aspect-ratio: unset !important;
+      width: 100% !important;
+      /* header(~90px) + status(18px) + card-padding(11px) + note(18px) + gaps(~20px) + shell-padding(16px) */
+      height: calc(100dvh - 185px) !important;
+      max-height: calc(100dvh - 185px) !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      border-radius: 8px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-image-wrap img.phase-two-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .phase-two-shell.review-mode .phase-two-reference-note {
+      margin-top: 3px !important;
+      font-size: 0.62rem !important;
+      line-height: 1.2;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-panel {
+      grid-area: review;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100% !important;
+      min-width: 0;
+      align-self: stretch;
+      padding: 8px 10px !important;
+      gap: 6px !important;
+      border-radius: 10px !important;
+      overflow: hidden;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-copy { gap: 5px; }
+
+    .phase-two-shell.review-mode .phase-two-review-hint,
+    .phase-two-shell.review-mode .phase-two-review-reason {
+      font-size: 0.7rem !important;
+      line-height: 1.3;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-card {
+      min-height: 0;
+      padding: 7px 9px !important;
+      border-radius: 8px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-kicker {
+      font-size: 0.56rem !important;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-review-title {
+      font-size: 0.74rem !important;
+      margin-bottom: 3px;
+    }
+
+    .phase-two-shell.review-mode .phase-two-done-btn {
+      width: 100%;
+      padding: 9px 10px !important;
+      font-size: 0.76rem !important;
+    }
+
+    /* Compact header metrics in review mode */
+    .phase-two-shell.review-mode .phase-two-briefing { padding-top: 3px; }
+    .phase-two-shell.review-mode .phase-two-intro { font-size: 0.7rem !important; line-height: 1.2; }
+    .phase-two-shell.review-mode .phase-two-stats { margin-top: 3px !important; gap: 4px !important; }
+    .phase-two-shell.review-mode .phase-two-metric { padding: 4px 7px !important; }
+    .phase-two-shell.review-mode .phase-two-metric-label { font-size: 0.52rem !important; margin-bottom: 1px !important; }
+    .phase-two-shell.review-mode .phase-two-metric-value { font-size: 0.8rem !important; }
+  }
 </style>
 </head>
 <body>
@@ -1530,6 +2189,7 @@
   <div class="welcome-card">
     <p class="welcome-mini-text">2 PHASES · 3 quick verdicts · 1 spot deepfake challenge</p>
     <button class="btn-primary btn-cyan" onclick="openSurePopup()" style="width:100%">PLAY NOW</button>
+
   </div>
 </div>
 
@@ -1685,6 +2345,7 @@
   </div>
 </div>
 
+
 <!-- ═══════════ SCREEN: RESULTS ═══════════ -->
 <div class="screen" id="screen-results">
   <div class="section-label" id="results-section-label">Mission Complete</div>
@@ -1694,23 +2355,23 @@
     <div class="score-ring-text" id="result-score">0</div>
   </div>
 
-  <div id="result-grade" style="font-family:'Orbitron',monospace; font-size:1.1rem; text-align:center; margin-bottom:10px; color:var(--gold)"></div>
+  <div id="result-grade" style="font-family:'Orbitron',monospace; font-size:1.1rem; text-align:center; margin-bottom:6px; color:var(--gold)"></div>
 
-  <div id="detective-badge" style="text-align:center; margin-bottom:18px;"></div>
+  <div id="detective-badge" style="text-align:center; margin-bottom:8px;"></div>
 
   <div class="badge-row" id="badge-row"></div>
 
-  <div class="panel" id="result-tips" style="margin-top:8px; text-align:left">
+  <div class="panel" id="result-tips" style="margin-top:4px; text-align:left">
     <div class="section-label">Key Takeaways</div>
     <div id="takeaways-list"></div>
   </div>
 
-  <div class="panel" style="margin-top:14px; text-align:center">
+  <div class="panel results-next-mission-panel" style="margin-top:6px; text-align:center">
     <div class="section-label" id="results-message-label">Final Message</div>
-    <div id="closing-message" style="font-size:1rem; line-height:1.7; color:#c0d8f0;"></div>
+    <div id="closing-message" style="font-size:0.92rem; line-height:1.6; color:#c0d8f0;"></div>
 </div>  
 
-  <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap; justify-content:center">
+  <div class="results-btn-row" style="display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; justify-content:center">
     <button class="btn-primary btn-cyan" id="results-primary-btn" onclick="restartGame()">PLAY AGAIN</button>
     <button class="btn-primary btn-purple" id="results-secondary-btn" onclick="showScreen('screen-learn')">REVIEW TIPS</button>
   </div>
@@ -1902,44 +2563,71 @@ const QUESTION_TIME_LIMIT = 10;
 const PHASE_TWO_TIME_LIMIT = 30;
 const PHASE_TWO_TARGETS = [
   {
-    id: 't1',
-    left: 34.9, top: 10.4, w: 22.3, h: 8.0,
+    id: 't1', left: 43.2, top: 13.3, w: 7.6, h: 8,
     title: 'Hairline and top of head',
     reason: 'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.'
   },
   {
-    id: 't2',
-    left: 37.8, top: 21.2, w: 6.4, h: 9.0,
+    id: 't2', left: 44.3, top: 22.3, w: 2.9, h: 9,
     title: 'Right eye and eyelid',
     reason: 'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.'
   },
   {
-    id: 't3',
-    left: 33.0, top: 31.3, w: 10.6, h: 6.7,
+    id: 't3', left: 42.4, top: 32.1, w: 4, h: 6.7,
     title: 'Mouth and teeth',
     reason: 'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.'
   },
   {
-    id: 't4',
-    left: 41.8, top: 91.2, w: 13.1, h: 18.5,
+    id: 't4', left: 45.6, top: 91, w: 7, h: 19.6,
     title: 'Hand and fingers',
     reason: 'Finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
   },
   {
-    id: 't5',
-    left: 82.4, top: 88.1, w: 14.1, h: 19.8,
+    id: 't5', left: 64.1, top: 88.4, w: 7.8, h: 25.7,
     title: 'Cat face and fur',
     reason: 'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.'
   },
   {
-    id: 't6',
-    left: 41.8, top: 25.9, w: 2.8, h: 9.7,
+    id: 't6', left: 46.7, top: 27.5, w: 2.3, h: 10.8,
     title: 'Cheek and ear edge',
     reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
   }
 ];
 
-// ═══════════ STATE ═══════════
+// Separate coords calibrated for the review-mode layout (image column is narrower
+// due to the right panel, so hotspot positions differ from game mode).
+const PHASE_TWO_REVIEW_TARGETS = [
+  {
+    id: 't1', left: 39.7, top: 12.1, w: 7.6, h: 8,
+    title: 'Hairline and top of head',
+    reason: 'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.'
+  },
+  {
+    id: 't2', left: 42.7, top: 21.8, w: 4.3, h: 9,
+    title: 'Right eye and eyelid',
+    reason: 'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.'
+  },
+  {
+    id: 't3', left: 39.7, top: 31.4, w: 5.4, h: 6.7,
+    title: 'Mouth and teeth',
+    reason: 'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.'
+  },
+  {
+    id: 't4', left: 44, top: 91, w: 7, h: 19.6,
+    title: 'Hand and fingers',
+    reason: 'Finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
+  },
+  {
+    id: 't5', left: 70.4, top: 87.7, w: 10.3, h: 23.2,
+    title: 'Cat face and fur',
+    reason: 'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.'
+  },
+  {
+    id: 't6', left: 44.9, top: 26.3, w: 2.3, h: 10.8,
+    title: 'Cheek and ear edge',
+    reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
+  }
+];
 let currentQ = 0;
 let score = 0;
 let answers = [];
@@ -2533,7 +3221,7 @@ function ensurePhaseTwoAudio() {
   if (!phaseTwoAudioContext) {
     phaseTwoAudioContext = new AudioContextClass();
     phaseTwoMasterGain = phaseTwoAudioContext.createGain();
-    phaseTwoMasterGain.gain.value = 0.14;
+    phaseTwoMasterGain.gain.value = 0.6;
     phaseTwoMasterGain.connect(phaseTwoAudioContext.destination);
   }
 
@@ -2582,14 +3270,14 @@ function playPhaseTwoStartSound() {
 }
 
 function playPhaseTwoHitSound() {
-  playPhaseTwoTone({ frequency: 392, duration: 0.08, type: 'triangle', volume: 0.1 });
-  playPhaseTwoTone({ frequency: 523.25, duration: 0.08, when: 0.08, type: 'triangle', volume: 0.1 });
-  playPhaseTwoTone({ frequency: 659.25, duration: 0.14, when: 0.16, type: 'triangle', volume: 0.09 });
+  playPhaseTwoTone({ frequency: 392, duration: 0.1, type: 'triangle', volume: 0.5 });
+  playPhaseTwoTone({ frequency: 523.25, duration: 0.1, when: 0.08, type: 'triangle', volume: 0.5 });
+  playPhaseTwoTone({ frequency: 659.25, duration: 0.18, when: 0.16, type: 'triangle', volume: 0.45 });
 }
 
 function playPhaseTwoMissSound() {
-  playPhaseTwoTone({ frequency: 210, duration: 0.12, type: 'sawtooth', volume: 0.08, endFrequency: 150 });
-  playPhaseTwoTone({ frequency: 160, duration: 0.1, when: 0.05, type: 'square', volume: 0.05, endFrequency: 110 });
+  playPhaseTwoTone({ frequency: 210, duration: 0.15, type: 'sawtooth', volume: 0.45, endFrequency: 150 });
+  playPhaseTwoTone({ frequency: 160, duration: 0.12, when: 0.05, type: 'square', volume: 0.35, endFrequency: 110 });
 }
 
 function playPhaseTwoTickSound() {
@@ -2833,14 +3521,17 @@ function resetPhaseTwoState() {
 function renderPhaseTwoHotspots(revealAll = false) {
   const hotspotLayer = document.getElementById('phase-two-hotspots');
   const shouldRevealAll = revealAll || phaseTwoReviewMode;
-  hotspotLayer.innerHTML = PHASE_TWO_TARGETS.map((target, index) => {
+  // Use review-mode coords when showing the answer review, game coords during play
+  const targets = phaseTwoReviewMode ? PHASE_TWO_REVIEW_TARGETS : PHASE_TWO_TARGETS;
+  hotspotLayer.innerHTML = targets.map((target, index) => {
     const isFound = phaseTwoFoundIds.includes(target.id);
     const classes = [
       'phase-two-hotspot',
       isFound ? 'found' : '',
       shouldRevealAll && !isFound ? 'revealed' : '',
       phaseTwoReviewMode ? 'review-visible' : '',
-      phaseTwoReviewMode && phaseTwoSelectedTargetId === target.id ? 'selected' : ''
+      phaseTwoReviewMode && phaseTwoSelectedTargetId === target.id ? 'selected' : '',
+      (target.id === 't4' || target.id === 't5') ? 'label-top' : ''
     ].filter(Boolean).join(' ');
 
     return `
@@ -2865,16 +3556,18 @@ function updatePhaseTwoUI() {
 
 function updatePhaseTwoReviewPanel() {
   const panel = document.getElementById('phase-two-review-panel');
+  const shell = document.querySelector('.phase-two-shell');
   const hint = document.getElementById('phase-two-review-hint');
   const kicker = document.getElementById('phase-two-review-kicker');
   const title = document.getElementById('phase-two-review-title');
   const reason = document.getElementById('phase-two-review-reason');
 
   panel.hidden = !phaseTwoReviewMode;
+  if (shell) shell.classList.toggle('review-mode', phaseTwoReviewMode);
   if (!phaseTwoReviewMode) return;
 
-  const selectedTarget = PHASE_TWO_TARGETS.find(target => target.id === phaseTwoSelectedTargetId) || PHASE_TWO_TARGETS[0];
-  const markerNumber = PHASE_TWO_TARGETS.findIndex(target => target.id === selectedTarget.id) + 1;
+  const selectedTarget = PHASE_TWO_REVIEW_TARGETS.find(target => target.id === phaseTwoSelectedTargetId) || PHASE_TWO_REVIEW_TARGETS[0];
+  const markerNumber = PHASE_TWO_REVIEW_TARGETS.findIndex(target => target.id === selectedTarget.id) + 1;
   const wasFound = phaseTwoFoundIds.includes(selectedTarget.id);
 
   hint.textContent = phaseTwoReviewTimedOut
@@ -2892,7 +3585,7 @@ function enterPhaseTwoReview(timedOut) {
   phaseTwoComplete = true;
   phaseTwoReviewMode = true;
   phaseTwoReviewTimedOut = timedOut;
-  phaseTwoSelectedTargetId = (PHASE_TWO_TARGETS.find(target => !phaseTwoFoundIds.includes(target.id)) || PHASE_TWO_TARGETS[0]).id;
+  phaseTwoSelectedTargetId = (PHASE_TWO_REVIEW_TARGETS.find(target => !phaseTwoFoundIds.includes(target.id)) || PHASE_TWO_REVIEW_TARGETS[0]).id;
   renderPhaseTwoHotspots(true);
   updatePhaseTwoUI();
   updatePhaseTwoReviewPanel();
@@ -2983,6 +3676,7 @@ function handlePhaseTwoTargetClick(targetId, event) {
 
   phaseTwoFoundIds.push(targetId);
   playPhaseTwoHitSound();
+
   phaseTwoTimeRemaining = Math.min(phaseTwoTimeRemaining + 2, 99);
   showBoardDelta(2, event.clientX, event.clientY);
   renderPhaseTwoHotspots();
@@ -3000,6 +3694,7 @@ function handlePhaseTwoBoardMiss() {
 
   phaseTwoMisses++;
   playPhaseTwoMissSound();
+
   phaseTwoTimeRemaining = Math.max(phaseTwoTimeRemaining - 3, 0);
   showBoardDelta(-3);
   updatePhaseTwoUI();
