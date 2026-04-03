@@ -663,8 +663,8 @@
     font-family: 'Orbitron', monospace;
     font-weight: 900;
     font-size: 1.5rem;
-    color: var(--cyan);
-    text-shadow: var(--glow-cyan);
+    color: var(--gold);
+    text-shadow: 0 0 18px #ffd70088, 0 0 36px #ffd70044;
     z-index: 1;
   }
 
@@ -1179,6 +1179,11 @@
     width: min(780px, 100%);
   }
 
+  #screen-results .results-btn-row .btn-primary {
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+
   @media (min-width: 700px) and (max-width: 1180px),
          (max-height: 900px) {
     #screen-results {
@@ -1320,6 +1325,113 @@
     .phase-one-question-progress,
     .phase-one-watch-label {
       font-size: 0.8rem;
+    }
+
+    #screen-results {
+      padding: 10px 12px 8px;
+    }
+
+    #screen-results .title-main {
+      font-size: 1.35rem !important;
+      margin-top: 0;
+    }
+
+    #screen-results .score-ring {
+      width: 74px;
+      height: 74px;
+      margin: 4px auto;
+    }
+
+    #screen-results .score-ring::before {
+      inset: 9px;
+    }
+
+    #screen-results .score-ring-text {
+      font-size: 1rem;
+    }
+
+    #screen-results #result-grade {
+      font-size: 0.88rem !important;
+      margin-bottom: 4px !important;
+    }
+
+    #screen-results #detective-badge {
+      margin-bottom: 6px !important;
+    }
+
+    #screen-results #detective-badge > div:first-child {
+      font-size: 0.9rem !important;
+      margin-bottom: 3px !important;
+    }
+
+    #screen-results #detective-badge > div:last-child {
+      font-size: 0.8rem !important;
+      line-height: 1.34 !important;
+    }
+
+    #screen-results .badge-row {
+      gap: 8px;
+      margin: 6px 0;
+    }
+
+    #screen-results .badge {
+      padding: 7px 10px;
+      border-radius: 12px;
+      flex: 1 1 calc(33.333% - 6px);
+      min-width: 0;
+    }
+
+    #screen-results .badge-val {
+      font-size: 0.96rem;
+    }
+
+    #screen-results .badge-label {
+      font-size: 0.62rem;
+      margin-top: 2px;
+    }
+
+    #screen-results .panel {
+      padding: 10px 12px;
+    }
+
+    #screen-results .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 2px;
+      margin-bottom: 3px;
+    }
+
+    #screen-results .tip-item {
+      gap: 8px;
+      padding: 6px 8px;
+      margin: 3px 0;
+      font-size: 0.75rem;
+      line-height: 1.26;
+    }
+
+    #screen-results .tip-num {
+      min-width: 16px;
+    }
+
+    #screen-results .results-next-mission-panel {
+      margin-top: 4px !important;
+    }
+
+    #screen-results #closing-message {
+      font-size: 0.78rem !important;
+      line-height: 1.34 !important;
+    }
+
+    #screen-results .results-btn-row {
+      gap: 8px !important;
+      margin-top: 8px !important;
+      flex-wrap: nowrap !important;
+    }
+
+    #screen-results .results-btn-row .btn-primary {
+      flex: 1 1 0;
+      font-size: 0.76rem;
+      letter-spacing: 1px;
+      padding: 11px 10px;
     }
   }
 
@@ -2580,7 +2692,7 @@ const PHASE_TWO_TARGETS = [
   {
     id: 't4', left: 45.6, top: 91, w: 7, h: 19.6,
     title: 'Hand and fingers',
-    reason: 'Finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
+    reason: 'Amount of fingers, finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
   },
   {
     id: 't5', left: 64.1, top: 88.4, w: 7.8, h: 25.7,
@@ -2930,19 +3042,25 @@ function showScreen(id) {
 
 function goHome() {
   if (confirm('Return to home? Your progress will be lost.')) {
-    clearQuestionTimer();
-    setDangerOverlayActive(false);
-    clearPhaseTwoTimer();
-    clearPhaseTwoTransition();
-    stopPhaseTwoMusic();
-    stopScenarioVideo();
-    currentQ = 0; score = 0; answers = [];
-    questionResolved = false;
-    resetPhaseTwoState();
-    setVerdictButtonsDisabled(false);
-    document.getElementById('feedback-overlay').classList.remove('show');
-    showScreen('screen-welcome');
+    resetToHomeState();
   }
+}
+
+function resetToHomeState() {
+  clearQuestionTimer();
+  setDangerOverlayActive(false);
+  clearPhaseTwoTimer();
+  clearPhaseTwoTransition();
+  stopPhaseTwoMusic();
+  stopScenarioVideo();
+  currentQ = 0;
+  score = 0;
+  answers = [];
+  questionResolved = false;
+  resetPhaseTwoState();
+  setVerdictButtonsDisabled(false);
+  document.getElementById('feedback-overlay').classList.remove('show');
+  showScreen('screen-welcome');
 }
 
 // ═══════════ GAME FLOW ═══════════
@@ -3717,6 +3835,21 @@ function finishPhaseTwoReview() {
   showFinalResults(phaseTwoReviewTimedOut);
 }
 
+function replayPhaseTwo() {
+  clearQuestionTimer();
+  setDangerOverlayActive(false);
+  clearPhaseTwoTimer();
+  clearPhaseTwoTransition();
+  stopScenarioVideo();
+  document.getElementById('feedback-overlay').classList.remove('show');
+  resetPhaseTwoState();
+  showScreen('screen-phase-two');
+  ensurePhaseTwoAudio();
+  playPhaseTwoStartSound();
+  startPhaseTwoTimer();
+  startPhaseTwoMusic();
+}
+
 function setResultsActions(primaryLabel, primaryHandler, secondaryLabel, secondaryHandler) {
   const primaryBtn = document.getElementById('results-primary-btn');
   const secondaryBtn = document.getElementById('results-secondary-btn');
@@ -3794,14 +3927,14 @@ function showPhaseOneResults() {
   `;
 
   renderTips([
-    'Work fast, but do not random-tap. Scan edges, textures, and object placement first.',
-    'Look for shifted outlines, missing details, and unnatural textures.',
-    `You need to find ${PHASE_TWO_TARGETS.length} altered regions in ${PHASE_TWO_TIME_LIMIT} seconds.`
+    'Distinguish authentic media from manipulated media by checking facial movement, lighting, and background consistency.',
+    'Identify common deepfake clues such as warped edges, blurred details, lip-sync mismatch, and unnatural textures.',
+    'Apply the S.U.R.E. framework: Source, Understand, Research, Evaluate before believing or sharing content.'
   ]);
 
   document.getElementById('closing-message').innerHTML = `
-    Phase Two uses a single <strong style="color:var(--pink)">challenge image</strong> as the clickable board.
-    Find all six manipulated regions before the timer hits zero.
+    In Phase Two, you will apply the same detection skills to a manipulated image by identifying visual clues such as warped edges,
+    blurred details, and unnatural textures.
   `;
 
   setResultsActions('START PHASE TWO', startPhaseTwo, 'REPLAY PHASE ONE', restartGame);
@@ -3875,19 +4008,19 @@ function showFinalResults(timedOut) {
   `;
 
   renderTips([
-    'Altered regions often show up as shifted edges, missing details, or texture mismatches.',
-    'Slow down before you tap. Random guessing makes real anomalies harder to spot.',
-    `Phase Two ended with ${phaseTwoMisses} missed tap${phaseTwoMisses === 1 ? '' : 's'}${timedOut ? ' before the timer expired.' : '.'}`,
-    'Use S.U.R.E. before sharing: Source, Understand, Research, Evaluate.'
+    'Recognize that deepfakes often reveal themselves through visual inconsistencies such as shifted edges, missing detail, and texture mismatches.',
+    'Compare facial movement, audio sync, lighting, and surrounding context before deciding whether media is real or fake.',
+    'Use evidence from both the content itself and the source that shared it when evaluating suspicious media.',
+    'Apply S.U.R.E. before sharing: Source, Understand, Research, Evaluate.'
   ]);
 
   document.getElementById('closing-message').innerHTML = timedOut
-    ? `You ran out of time in Phase Two, but the pattern still matters:
-      watch for altered edges, missing details, and strange textures before reacting or sharing.`
-    : `You completed the two-part decoder challenge.
-      Keep checking suspicious media carefully and verify the source before you pass anything on.`;
+    ? `You have practised how to spot suspicious media by looking for manipulation clues and checking whether the content feels consistent.
+      The next step is to apply those same habits online before trusting or sharing what you see.`
+    : `You completed the two-part decoder challenge and practised the core skills of media literacy:
+      spotting deepfake clues, comparing context, and evaluating the source before sharing.`;
 
-  setResultsActions('PLAY AGAIN', restartGame, 'REVIEW TIPS', () => showScreen('screen-learn'));
+  setResultsActions('REPLAY PHASE TWO', replayPhaseTwo, 'RETURN HOME', resetToHomeState);
 }
 
 updateHUD();
