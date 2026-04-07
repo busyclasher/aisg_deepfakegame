@@ -34,7 +34,6 @@
     overflow-x: hidden;
   }
 
-  /* Animated starfield background */
   body::before {
     content: '';
     position: fixed;
@@ -66,7 +65,6 @@
     50% { opacity: 1; transform: scale(1.5); }
   }
 
-  /* Grid floor */
   .grid-floor {
     position: fixed;
     bottom: 0;
@@ -82,7 +80,6 @@
     z-index: 0;
   }
 
-/* Front page redesign */
 .welcome-screen {
   justify-content: flex-start;
   padding-top: 28px;
@@ -177,7 +174,6 @@
   }
 }
 
-  /* Screens */
   .screen {
     position: relative;
     z-index: 1;
@@ -198,7 +194,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* HUD / Score bar */
   .hud {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -236,7 +231,6 @@
   }
   .home-btn:hover { background: var(--cyan); color: var(--bg); }
 
-  /* Typography */
   .title-main {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
@@ -267,7 +261,6 @@
     margin: 24px 0 10px;
   }
 
-  /* Panel / Card */
   .panel {
     background: linear-gradient(135deg, #0d1b3ecc, #1a1040cc);
     border: 1px solid #00f5ff33;
@@ -287,7 +280,6 @@
     background: #000;
   }
 
-  /* Buttons */
   .btn-primary {
     font-family: 'Orbitron', monospace;
     font-size: 1rem;
@@ -322,7 +314,6 @@
   }
   .btn-green:hover { transform: scale(1.05); }
 
-  /* Video simulation area */
   #screen-game {
     justify-content: flex-start;
     padding: 56px 20px 32px;
@@ -414,7 +405,6 @@
 
   .video-icon { font-size: 3rem; margin-bottom: 10px; }
 
-  /* REAL / FAKE buttons */
   .verdict-btns {
     display: flex;
     gap: 16px;
@@ -450,7 +440,6 @@
   }
   .verdict-fake:hover { transform: scale(1.04); box-shadow: 0 0 30px #ff2d7888; }
 
-  /* Progress bar */
   .progress-bar-wrap {
     width: 100%;
     max-width: 100%;
@@ -571,7 +560,6 @@
     justify-content: center;
   }
 
-  /* Feedback overlay */
   .feedback-overlay {
     display: none;
     position: fixed;
@@ -622,7 +610,6 @@
     margin-bottom: 20px;
   }
 
-  /* Clue tags */
   .clue-tag {
     display: inline-block;
     background: #ffffff11;
@@ -637,7 +624,6 @@
   .clue-tag.red { border-color: #ff2d7888; color: #ff8aaa; background: #ff2d7811; }
   .clue-tag.green { border-color: #00ff8888; color: #80ffcc; background: #00ff8811; }
 
-  /* Results screen */
   .score-ring {
     width: 100px; height: 100px;
     border-radius: 50%;
@@ -700,7 +686,6 @@
     margin-top: 4px;
   }
 
-  /* Tip list */
   .tip-item {
     display: flex;
     gap: 12px;
@@ -721,7 +706,6 @@
     min-width: 24px;
   }
 
-  /* Phase Two */
   #screen-phase-two {
     justify-content: flex-start;
     padding: 28px 24px 48px;
@@ -1091,7 +1075,6 @@
     align-self: center;
   }
 
-  /* Section label */
   .section-label {
     font-family: 'Orbitron', monospace;
     font-size: 0.7rem;
@@ -1107,7 +1090,6 @@
     margin: 20px 0;
   }
 
-  /* Glitch effect for title */
   @keyframes glitch {
     0%, 90%, 100% { text-shadow: var(--glow-cyan); transform: none; }
     92% { text-shadow: -2px 0 #ff2d78, 2px 0 #00f5ff; transform: translateX(-2px); }
@@ -1117,7 +1099,6 @@
 
   .glitch { animation: glitch 4s infinite; }
 
-  /* Floating hexagons deco */
   .hex-deco {
     position: fixed;
     opacity: 0.06;
@@ -1131,7 +1112,6 @@
     50% { transform: translateY(-30px) rotate(10deg); }
   }
 
-  /* Responsive tweaks */
   #screen-results {
     justify-content: flex-start;
     padding: 14px 20px 10px;
@@ -1839,7 +1819,6 @@
     }
   }
 
-  /* S.U.R.E popup */
   .sure-popup {
     display: none;
     position: fixed;
@@ -1934,7 +1913,6 @@
     }
   }
 
-  /* ═══ iPad Phase Two — no-scroll (active play) ═══ */
   @media (min-width: 700px) and (max-height: 1024px) {
     #screen-game {
       justify-content: flex-start;
@@ -2057,7 +2035,6 @@
       max-height: 100dvh;
     }
 
-    /* Shell fills full width, strict height */
     .phase-two-shell {
       width: 100% !important;
       max-height: calc(100dvh - 12px);
@@ -2067,7 +2044,6 @@
       border-radius: 14px;
     }
 
-    /* Compact header */
     .phase-two-header { gap: 3px; }
     .phase-two-topbar { gap: 6px; }
 
@@ -2114,7 +2090,6 @@
       line-height: 1.25;
     }
 
-    /* Image card: key fix — override aspect-ratio, cap height */
     .phase-two-card {
       padding: 6px 8px 5px !important;
       border-radius: 10px !important;
@@ -2126,7 +2101,6 @@
       aspect-ratio: unset !important;
       width: 100% !important;
       max-width: 100% !important;
-      /* Total height minus: shell padding(16) + header(~105) + status(~22) + card-padding(11) + note(~20) + gaps(~25) */
       height: calc(100dvh - 220px) !important;
       max-height: calc(100dvh - 220px) !important;
       overflow: hidden !important;
@@ -2147,7 +2121,6 @@
     }
   }
 
-  /* ═══ iPad Phase Two — Review mode: image left, panel right ═══ */
   @media (min-width: 700px) and (max-height: 1024px) {
 
     .phase-two-shell.review-mode {
@@ -2194,7 +2167,6 @@
     .phase-two-shell.review-mode .phase-two-image-wrap {
       aspect-ratio: unset !important;
       width: 100% !important;
-      /* header(~90px) + status(18px) + card-padding(11px) + note(18px) + gaps(~20px) + shell-padding(16px) */
       height: calc(100dvh - 185px) !important;
       max-height: calc(100dvh - 185px) !important;
       overflow: hidden !important;
@@ -2259,7 +2231,6 @@
       font-size: 0.76rem !important;
     }
 
-    /* Compact header metrics in review mode */
     .phase-two-shell.review-mode .phase-two-briefing { padding-top: 3px; }
     .phase-two-shell.review-mode .phase-two-intro { font-size: 0.7rem !important; line-height: 1.2; }
     .phase-two-shell.review-mode .phase-two-stats { margin-top: 3px !important; gap: 4px !important; }
@@ -2271,15 +2242,12 @@
 </head>
 <body>
 
-<!-- Stars -->
 <div class="stars" id="stars"></div>
 <div class="grid-floor"></div>
 
-<!-- Hex decorations -->
 <div class="hex-deco" style="top:10%; left:5%; --d:8s">⬡</div>
 <div class="hex-deco" style="top:60%; right:4%; --d:11s; animation-delay:-3s">⬡</div>
 
-<!-- HUD (visible during game) -->
 <div class="hud" id="hud" style="display:none">
   <div class="hud-score">SCORE: <span id="hud-score-val">0</span></div>
   <div class="hud-progress"><span id="hud-q">1</span> / <span id="hud-total">3</span></div>
@@ -2301,14 +2269,13 @@
   <div class="welcome-card">
     <p class="welcome-mini-text">2 PHASES · 3 quick verdicts · 1 spot deepfake challenge</p>
     <button class="btn-primary btn-cyan" onclick="openSurePopup()" style="width:100%">PLAY NOW</button>
-
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: LEARN ═══════════ -->
+<!-- ═══════════ SCREEN: LEARN (PHASE 1) ═══════════ -->
 <div class="screen" id="screen-learn">
-  <div class="section-label">S.U.R.E. Steps</div>
-  <div class="title-main" style="font-size:1.8rem; margin-bottom:20px">SPOT DEEPFAKES</div>
+  <div class="section-label">PHASE 1</div>
+  <div class="title-main" style="font-size:1.8rem; margin-bottom:20px">DEEPFAKE TIPS</div>
   <div class="panel" style="max-width:560px">
 
     <div class="tip-item">
@@ -2335,7 +2302,47 @@
       Unnatural eye movement · Too-smooth skin · Weird ear/hair edges · Audio-lip mismatch · Inconsistent lighting on face · Blurry teeth · Background objects that "swim"
     </div>
 
-  <button class="btn-primary btn-cyan" onclick="startGame()" style="width:100%">PLAY NOW</button>
+    <button class="btn-primary btn-cyan" onclick="startGame()" style="width:100%">PLAY NOW</button>
+  </div>
+</div>
+
+<!-- ═══════════ SCREEN: LEARN PHASE TWO ═══════════ -->
+<div class="screen" id="screen-learn-phase-two">
+  <div class="section-label">PHASE 2</div>
+  <div class="title-main" style="font-size:1.8rem; margin-bottom:20px">IMAGE ANALYSIS TIPS</div>
+  <div class="panel" style="max-width:560px">
+
+    <div class="tip-item">
+      <span class="tip-num">🔍</span>
+      <div><strong style="color:var(--cyan)">Scan the Edges.</strong> AI edits often blur or smear at the boundary between the manipulated area and the original — look for soft, melted edges that don't match the surrounding sharpness.</div>
+    </div>
+    <div class="tip-item">
+      <span class="tip-num">👁️</span>
+      <div><strong style="color:var(--gold)">Check Facial Features.</strong> Teeth, ears, and eyes are the hardest for AI to render cleanly. Look for blurry tooth gaps, ear edges that blend into the background, or misaligned eyelids.</div>
+    </div>
+    <div class="tip-item">
+      <span class="tip-num">✋</span>
+      <div><strong style="color:var(--purple-bright)">Inspect Hands.</strong> AI-generated hands frequently have the wrong number of fingers, unnatural joint angles, or anatomy that loses structure on close inspection.</div>
+    </div>
+    <div class="tip-item">
+      <span class="tip-num">🌿</span>
+      <div><strong style="color:var(--pink)">Look at Textures.</strong> Fur, hair, and fine detail are often smeared together in manipulated regions. Real textures have consistent, repeating structure — AI textures lose that at the edges.</div>
+    </div>
+    <div class="tip-item">
+      <span class="tip-num">💡</span>
+      <div><strong style="color:var(--green)">Compare Lighting.</strong> Does the light direction on the edited region match the rest of the image? AI composites often have subtle mismatches in shadow angle or highlight intensity.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="background:#7b2ff711; border:1px solid #7b2ff755; border-radius:10px; padding:14px; margin-bottom:16px; font-size:0.88rem; color:#c0a8f0; line-height:1.6">
+      <strong style="color:var(--purple-bright)">🎯 How Phase 2 Works:</strong><br>
+      You'll see one challenge image with <strong style="color:var(--cyan)">6 hidden AI-edited regions</strong>. Tap each one to find it.<br>
+      Hit → <strong style="color:var(--green)">+2s bonus</strong> &nbsp;·&nbsp; Miss → <strong style="color:var(--pink)">−3s penalty</strong><br>
+      Find all 6 before the 30-second timer runs out!
+    </div>
+
+    <button class="btn-primary btn-cyan" onclick="startPhaseTwo()" style="width:100%">START PHASE TWO</button>
   </div>
 </div>
 
@@ -2370,9 +2377,7 @@
         <div class="corner tr"></div>
         <div class="corner bl"></div>
         <div class="corner br"></div>
-        <div class="video-inner" id="video-content">
-          <!-- filled by JS -->
-        </div>
+        <div class="video-inner" id="video-content"></div>
       </div>
     </div>
 
@@ -2457,7 +2462,6 @@
   </div>
 </div>
 
-
 <!-- ═══════════ SCREEN: RESULTS ═══════════ -->
 <div class="screen" id="screen-results">
   <div class="section-label" id="results-section-label">Mission Complete</div>
@@ -2481,7 +2485,7 @@
   <div class="panel results-next-mission-panel" style="margin-top:6px; text-align:center">
     <div class="section-label" id="results-message-label">Final Message</div>
     <div id="closing-message" style="font-size:0.92rem; line-height:1.6; color:#c0d8f0;"></div>
-</div>  
+  </div>
 
   <div class="results-btn-row" style="display:flex; gap:12px; margin-top:10px; flex-wrap:wrap; justify-content:center">
     <button class="btn-primary btn-cyan" id="results-primary-btn" onclick="restartGame()">PLAY AGAIN</button>
@@ -2500,6 +2504,7 @@
   </div>
 </div>
 
+<!-- ═══════════ S.U.R.E. POPUP ═══════════ -->
 <div class="sure-popup" id="sure-popup">
   <div class="sure-popup-card">
     <div class="section-label" style="text-align:center;">Before You Play</div>
@@ -2706,8 +2711,6 @@ const PHASE_TWO_TARGETS = [
   }
 ];
 
-// Separate coords calibrated for the review-mode layout (image column is narrower
-// due to the right panel, so hotspot positions differ from game mode).
 const PHASE_TWO_REVIEW_TARGETS = [
   {
     id: 't1', left: 39.7, top: 12.1, w: 7.6, h: 8,
@@ -2740,6 +2743,7 @@ const PHASE_TWO_REVIEW_TARGETS = [
     reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
   }
 ];
+
 let currentQ = 0;
 let score = 0;
 let answers = [];
@@ -2758,14 +2762,11 @@ let phaseTwoSelectedTargetId = PHASE_TWO_TARGETS[0].id;
 let phaseTwoAudioContext = null;
 let phaseTwoMasterGain = null;
 
-// ─── MUSIC STATE ───
 let musicNodes = [];
 let musicBassInterval = null;
 let musicMelodyInterval = null;
 let musicPulseInterval = null;
 let musicMusicGain = null;
-
-// ═══════════ LOBBY & RESULTS AUDIO ═══════════
 
 let _uiAudioCtx = null;
 let _lobbyNodes = [];
@@ -2780,7 +2781,6 @@ function getUIAudioCtx() {
   return _uiAudioCtx;
 }
 
-// ── Stop lobby music ──
 function stopLobbyMusic() {
   _lobbyIntervals.forEach(id => clearInterval(id));
   _lobbyIntervals = [];
@@ -2800,7 +2800,6 @@ function stopLobbyMusic() {
   _lobbyNodes = [];
 }
 
-// ── Lobby music: warm, inviting, looping chill arcade vibe ──
 function startLobbyMusic() {
   const ctx = getUIAudioCtx();
   if (!ctx) return;
@@ -2856,8 +2855,6 @@ function startLobbyMusic() {
     src.start(when); src.stop(when + 0.04);
   }
 
-  // C major pentatonic melody — cheerful and looping
-  // C4=261.6 D4=293.7 E4=329.6 G4=392 A4=440 C5=523.3 E5=659.3 G5=784
   const melodyA = [
     [523.3, 0,    0.5, 0.16], [659.3, 0.5, 0.5, 0.15],
     [784,   1,    0.75,0.17], [659.3, 1.75,0.25,0.13],
@@ -2870,9 +2867,7 @@ function startLobbyMusic() {
     [392,   2,    0.5, 0.13], [329.6, 2.5, 0.5, 0.12],
     [261.6, 3,    1.0, 0.15],
   ];
-  // Bass: C2 G2 F2 G2
   const bassSeq = [65.4, 65.4, 98, 65.4, 87.3, 65.4, 98, 87.3];
-  // Arp: C5 E5 G5 E5
   const arpSeq  = [523.3, 659.3, 784, 659.3, 523.3, 440, 392, 440];
 
   const BARS = 4;
@@ -2914,12 +2909,10 @@ function startLobbyMusic() {
 function primeLobbyMusic() {
   const ctx = getUIAudioCtx();
   if (!ctx) return;
-
   if (ctx.state === 'running') {
     if (!_lobbyGain) startLobbyMusic();
     return;
   }
-
   ctx.resume()
     .then(() => {
       if (!_lobbyGain && ctx.state === 'running') startLobbyMusic();
@@ -2937,17 +2930,14 @@ function armInitialLobbyMusic() {
       window.removeEventListener('mousemove', tryStart);
     }
   };
-
   tryStart();
   if (_lobbyGain) return;
-
   window.addEventListener('pointerdown', tryStart, { once: true });
   window.addEventListener('touchstart', tryStart, { once: true });
   window.addEventListener('keydown', tryStart, { once: true });
   window.addEventListener('mousemove', tryStart, { once: true });
 }
 
-// ── Results sounds ──
 function playResultsWinSound() {
   const ctx = getUIAudioCtx();
   if (!ctx) return;
@@ -2955,9 +2945,7 @@ function playResultsWinSound() {
   g.gain.setValueAtTime(0, ctx.currentTime);
   g.gain.linearRampToValueAtTime(0.28, ctx.currentTime + 0.3);
   g.connect(ctx.destination);
-
   const now = ctx.currentTime;
-  // Big triumphant fanfare
   const fanfare = [
     [392, 0.0, 0.18, 0.5],  [523.3, 0.14, 0.18, 0.5],
     [659.3, 0.28, 0.18, 0.5],[784, 0.42, 0.28, 0.55],
@@ -2973,7 +2961,6 @@ function playResultsWinSound() {
     osc.connect(og); og.connect(g);
     osc.start(now + when); osc.stop(now + when + dur + 0.05);
   });
-  // Sparkle layer
   [[1046.5,0,0.12,0.22],[1318.5,0.14,0.1,0.18],[1568,0.28,0.14,0.16],[2093,0.58,0.2,0.14]].forEach(([freq,when,dur,vol]) => {
     const osc = ctx.createOscillator(), og = ctx.createGain();
     osc.type = 'sine'; osc.frequency.value = freq;
@@ -2993,7 +2980,6 @@ function playResultsLoseSound() {
   g.gain.value = 0.28;
   g.connect(ctx.destination);
   const now = ctx.currentTime;
-  // Sad descending trombone
   [[392, 0.00, 0.22, 0.5], [349.2, 0.20, 0.22, 0.5],
    [311.1,0.40, 0.22, 0.5], [261.6, 0.60, 0.55, 0.55]].forEach(([freq,when,dur,vol]) => {
     const osc = ctx.createOscillator(), og = ctx.createGain();
@@ -3032,8 +3018,7 @@ function showScreen(id) {
   document.getElementById('hud').style.display = 'none';
   window.scrollTo(0, 0);
 
-  // Lobby music: play on welcome + learn screens, stop elsewhere
-  if (id === 'screen-welcome' || id === 'screen-learn') {
+  if (id === 'screen-welcome' || id === 'screen-learn' || id === 'screen-learn-phase-two') {
     primeLobbyMusic();
   } else {
     stopLobbyMusic();
@@ -3096,10 +3081,8 @@ function loadQuestion() {
   questionResolved = false;
   setVerdictButtonsDisabled(false);
 
-  // Progress bar
   document.getElementById('progress-fill').style.width = `${(currentQ / total) * 100}%`;
 
-  // Video frame content
   document.getElementById('video-content').innerHTML = `
     <video class="scenario-video" loop playsinline id="scenario-video">
       <source src="${q.video}" type="video/mp4">
@@ -3107,16 +3090,12 @@ function loadQuestion() {
     </video>
     <div style="font-size:0.8rem; color:#607090; margin-top:10px">[ Video Clip ${String(currentQ+1).padStart(2,'0')}/${String(total).padStart(2,'0')} ]</div>
   `;
-  
-  const video = document.getElementById("scenario-video");
-  if (video) {
-    video.play().catch(() => {});
-  }
 
-  // Scenario text
+  const video = document.getElementById("scenario-video");
+  if (video) { video.play().catch(() => {}); }
+
   document.getElementById('scenario-text').textContent = q.description;
 
-  // Clue tags
   const clueHTML = q.clues.map((c, i) => `<span class="clue-tag ${q.clueTypes[i]}">${c}</span>`).join('');
   document.getElementById('clue-tags').innerHTML = clueHTML;
 
@@ -3143,83 +3122,60 @@ function updateHUD() {
 function stopScenarioVideo() {
   const video = document.getElementById('scenario-video');
   if (!video) return;
-
   video.pause();
   video.currentTime = 0;
   video.muted = true;
 }
 
-function setDangerOverlayActive(active) {
-  return;
-}
+function setDangerOverlayActive(active) { return; }
 
 function clearQuestionTimer() {
-  if (timerId) {
-    clearInterval(timerId);
-    timerId = null;
-  }
+  if (timerId) { clearInterval(timerId); timerId = null; }
 }
 
 function updateTimerUI() {
   const timer = document.getElementById('timer-pill');
   timer.textContent = `Time: ${timeRemaining}s`;
   timer.classList.toggle('danger', timeRemaining <= 3);
-
-  if (timeRemaining <= 3 && timeRemaining > 0) {
-    playDangerTick(timeRemaining);
-  }
+  if (timeRemaining <= 3 && timeRemaining > 0) { playDangerTick(timeRemaining); }
 }
 
 function playDangerTick(secondsLeft) {
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
   if (!AudioContextClass) return;
-
   if (!window._dangerCtx) window._dangerCtx = new AudioContextClass();
   const ctx = window._dangerCtx;
   if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-
   const now = ctx.currentTime;
   const volume = secondsLeft === 3 ? 0.55 : secondsLeft === 2 ? 0.7 : 0.9;
-
   [[0, 180, 45, volume], [0.1, 140, 38, volume * 0.65]].forEach(([offset, startFreq, endFreq, gain]) => {
-    const osc = ctx.createOscillator();
-    const g = ctx.createGain();
-
+    const osc = ctx.createOscillator(), g = ctx.createGain();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(startFreq, now + offset);
     osc.frequency.exponentialRampToValueAtTime(endFreq, now + offset + 0.09);
     g.gain.setValueAtTime(0.0001, now + offset);
     g.gain.linearRampToValueAtTime(gain, now + offset + 0.006);
     g.gain.exponentialRampToValueAtTime(0.0001, now + offset + 0.15);
-
-    osc.connect(g);
-    g.connect(ctx.destination);
-    osc.start(now + offset);
-    osc.stop(now + offset + 0.2);
+    osc.connect(g); g.connect(ctx.destination);
+    osc.start(now + offset); osc.stop(now + offset + 0.2);
   });
-
-  const beep = ctx.createOscillator();
-  const bg = ctx.createGain();
+  const beep = ctx.createOscillator(), bg = ctx.createGain();
   beep.type = 'square';
   beep.frequency.value = secondsLeft === 1 ? 1400 : 1100;
   bg.gain.setValueAtTime(0.0001, now);
   bg.gain.linearRampToValueAtTime(volume * 0.45, now + 0.005);
   bg.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
-  beep.connect(bg);
-  bg.connect(ctx.destination);
-  beep.start(now);
-  beep.stop(now + 0.1);
+  beep.connect(bg); bg.connect(ctx.destination);
+  beep.start(now); beep.stop(now + 0.1);
 }
 
 function startQuestionTimer() {
   clearQuestionTimer();
   timeRemaining = QUESTION_TIME_LIMIT;
   updateTimerUI();
-
   timerId = setInterval(() => {
     timeRemaining -= 1;
     updateTimerUI();
-
     if (timeRemaining <= 0) {
       clearQuestionTimer();
       submitAnswer(null, { timedOut: true });
@@ -3237,20 +3193,16 @@ function setVerdictButtonsDisabled(disabled) {
 
 function submitAnswer(answer, options = {}) {
   if (questionResolved) return;
-
   const q = PHASE_ONE_SCENARIOS[currentQ];
   const timedOut = options.timedOut === true;
   if (!q) return;
-
   questionResolved = true;
   clearQuestionTimer();
   setDangerOverlayActive(false);
   stopScenarioVideo();
   setVerdictButtonsDisabled(true);
-
   const userSaysReal = answer === 'real';
   const correct = !timedOut && userSaysReal === q.isReal;
-
   if (correct) score++;
   answers.push({
     q: currentQ,
@@ -3258,7 +3210,6 @@ function submitAnswer(answer, options = {}) {
     userAnswer: timedOut ? 'timeout' : answer,
     actual: q.isReal ? 'real' : 'fake'
   });
-
   showFeedback(correct, q, { timedOut });
 }
 
@@ -3266,21 +3217,17 @@ function showFeedback(correct, q, options = {}) {
   const timedOut = options.timedOut === true;
   const card = document.getElementById('feedback-card');
   card.className = 'feedback-card ' + (correct ? 'correct' : 'wrong');
-
   document.getElementById('fb-emoji').textContent = timedOut ? 'TIME' : (correct ? 'OK' : 'CLUE');
   document.getElementById('fb-title').textContent = timedOut
     ? `TIME'S UP! IT WAS ${q.label}`
     : (correct ? 'CORRECT!' : `IT WAS ${q.label}`);
   document.getElementById('fb-explanation').textContent = q.explanation;
-
   const tipHTML = `<div style="background:#ffffff08; border-radius:8px; padding:10px 12px; font-size:0.82rem; color:#a0c0e0; text-align:left">
     <strong style="color:var(--gold)">Tip:</strong> ${q.tip}
   </div>`;
   document.getElementById('fb-clues').innerHTML = tipHTML;
-
   const isLast = currentQ >= PHASE_ONE_SCENARIOS.length - 1;
   document.getElementById('fb-next-btn').textContent = isLast ? 'SEE RESULTS ->' : 'NEXT ROUND ->';
-
   document.getElementById('feedback-overlay').classList.add('show');
   updateHUD();
 }
@@ -3319,66 +3266,39 @@ function goToLearnFromPopup() {
 }
 
 function clearPhaseTwoTimer() {
-  if (phaseTwoTimerId) {
-    clearInterval(phaseTwoTimerId);
-    phaseTwoTimerId = null;
-  }
+  if (phaseTwoTimerId) { clearInterval(phaseTwoTimerId); phaseTwoTimerId = null; }
 }
 
 function clearPhaseTwoTransition() {
-  if (phaseTwoTransitionId) {
-    clearTimeout(phaseTwoTransitionId);
-    phaseTwoTransitionId = null;
-  }
+  if (phaseTwoTransitionId) { clearTimeout(phaseTwoTransitionId); phaseTwoTransitionId = null; }
 }
 
 function ensurePhaseTwoAudio() {
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
   if (!AudioContextClass) return null;
-
   if (!phaseTwoAudioContext) {
     phaseTwoAudioContext = new AudioContextClass();
     phaseTwoMasterGain = phaseTwoAudioContext.createGain();
     phaseTwoMasterGain.gain.value = 0.6;
     phaseTwoMasterGain.connect(phaseTwoAudioContext.destination);
   }
-
-  if (phaseTwoAudioContext.state === 'suspended') {
-    phaseTwoAudioContext.resume().catch(() => {});
-  }
-
+  if (phaseTwoAudioContext.state === 'suspended') { phaseTwoAudioContext.resume().catch(() => {}); }
   return phaseTwoAudioContext;
 }
 
-function playPhaseTwoTone({
-  frequency = 440,
-  duration = 0.12,
-  type = 'triangle',
-  volume = 0.12,
-  when = 0,
-  endFrequency = null
-} = {}) {
+function playPhaseTwoTone({ frequency = 440, duration = 0.12, type = 'triangle', volume = 0.12, when = 0, endFrequency = null } = {}) {
   const ctx = ensurePhaseTwoAudio();
   if (!ctx || !phaseTwoMasterGain) return;
-
   const startAt = ctx.currentTime + when;
-  const oscillator = ctx.createOscillator();
-  const gainNode = ctx.createGain();
-
+  const oscillator = ctx.createOscillator(), gainNode = ctx.createGain();
   oscillator.type = type;
   oscillator.frequency.setValueAtTime(frequency, startAt);
-  if (endFrequency !== null) {
-    oscillator.frequency.exponentialRampToValueAtTime(Math.max(endFrequency, 1), startAt + duration);
-  }
-
+  if (endFrequency !== null) { oscillator.frequency.exponentialRampToValueAtTime(Math.max(endFrequency, 1), startAt + duration); }
   gainNode.gain.setValueAtTime(0.0001, startAt);
   gainNode.gain.exponentialRampToValueAtTime(volume, startAt + 0.01);
   gainNode.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
-
-  oscillator.connect(gainNode);
-  gainNode.connect(phaseTwoMasterGain);
-  oscillator.start(startAt);
-  oscillator.stop(startAt + duration + 0.03);
+  oscillator.connect(gainNode); gainNode.connect(phaseTwoMasterGain);
+  oscillator.start(startAt); oscillator.stop(startAt + duration + 0.03);
 }
 
 function playPhaseTwoStartSound() {
@@ -3415,7 +3335,6 @@ function playPhaseTwoLoseSound() {
 }
 
 // ═══════════ TENSE BACKGROUND MUSIC ═══════════
-
 function startPhaseTwoMusic() {
   const ctx = ensurePhaseTwoAudio();
   if (!ctx) return;
@@ -3427,15 +3346,13 @@ function startPhaseTwoMusic() {
   musicMusicGain.connect(ctx.destination);
 
   const BPM  = 138;
-  const BEAT = 60 / BPM;   // ~0.435s
-  const S8   = BEAT / 2;   // 8th note
-  const S16  = BEAT / 4;   // 16th note
+  const BEAT = 60 / BPM;
+  const S8   = BEAT / 2;
+  const S16  = BEAT / 4;
 
-  // ── helpers ──
   function tone(freq, when, dur, vol, type = 'square', detune = 0) {
     if (!musicMusicGain) return;
-    const osc = ctx.createOscillator();
-    const g   = ctx.createGain();
+    const osc = ctx.createOscillator(), g = ctx.createGain();
     osc.type = type; osc.frequency.value = freq; osc.detune.value = detune;
     g.gain.setValueAtTime(0.0001, when);
     g.gain.linearRampToValueAtTime(vol, when + 0.008);
@@ -3465,8 +3382,7 @@ function startPhaseTwoMusic() {
     g.gain.setValueAtTime(0.0001, when);
     g.gain.linearRampToValueAtTime(0.32, when + 0.004);
     g.gain.exponentialRampToValueAtTime(0.0001, when + 0.08);
-    src.buffer = buf;
-    src.connect(fil); fil.connect(g); g.connect(musicMusicGain);
+    src.buffer = buf; src.connect(fil); fil.connect(g); g.connect(musicMusicGain);
     src.start(when); src.stop(when + 0.12);
   }
 
@@ -3479,79 +3395,50 @@ function startPhaseTwoMusic() {
     g.gain.setValueAtTime(0.0001, when);
     g.gain.linearRampToValueAtTime(vol, when + 0.002);
     g.gain.exponentialRampToValueAtTime(0.0001, when + 0.025);
-    src.buffer = buf;
-    src.connect(fil); fil.connect(g); g.connect(musicMusicGain);
+    src.buffer = buf; src.connect(fil); fil.connect(g); g.connect(musicMusicGain);
     src.start(when); src.stop(when + 0.04);
   }
 
-  // ── 4-bar loop scheduler ──
-  // Key: F major.  Melody is punchy, syncopated, very "game show countdown"
-  // F4=349.2  G4=392  A4=440  Bb4=466.2  C5=523.3  D5=587.3  F5=698.5
-
   const melPhraseA = [
-    // [freq, startBeat, durBeats, vol]
-    [523.3, 0,    0.5,  0.22],  // C5
-    [587.3, 0.5,  0.5,  0.20],  // D5
-    [698.5, 1,    0.75, 0.24],  // F5  (hold)
-    [587.3, 1.75, 0.25, 0.18],  // D5
-    [523.3, 2,    0.5,  0.20],  // C5
-    [466.2, 2.5,  0.5,  0.18],  // Bb4
-    [440,   3,    0.5,  0.18],  // A4
-    [466.2, 3.5,  0.5,  0.20],  // Bb4
+    [523.3, 0, 0.5, 0.22], [587.3, 0.5, 0.5, 0.20],
+    [698.5, 1, 0.75, 0.24], [587.3, 1.75, 0.25, 0.18],
+    [523.3, 2, 0.5, 0.20], [466.2, 2.5, 0.5, 0.18],
+    [440, 3, 0.5, 0.18], [466.2, 3.5, 0.5, 0.20],
   ];
   const melPhraseB = [
-    [523.3, 0,    0.5,  0.22],  // C5
-    [440,   0.5,  0.5,  0.18],  // A4
-    [392,   1,    0.5,  0.18],  // G4
-    [440,   1.5,  0.5,  0.20],  // A4
-    [523.3, 2,    1.0,  0.24],  // C5 (hold)
-    [587.3, 3,    0.5,  0.20],  // D5
-    [698.5, 3.5,  0.5,  0.22],  // F5
+    [523.3, 0, 0.5, 0.22], [440, 0.5, 0.5, 0.18],
+    [392, 1, 0.5, 0.18], [440, 1.5, 0.5, 0.20],
+    [523.3, 2, 1.0, 0.24], [587.3, 3, 0.5, 0.20],
+    [698.5, 3.5, 0.5, 0.22],
   ];
-
-  // Bass: pumping 8ths  F2 C3 Bb2 C3  (F=87.3, C=130.8, Bb=116.5)
   const bassLine = [87.3, 87.3, 130.8, 87.3, 116.5, 87.3, 130.8, 116.5];
-
-  // Counter-melody: bright synth arp on 16ths
-  const arp = [349.2, 523.3, 698.5, 523.3,  440, 659.3, 880, 659.3];
+  const arp = [349.2, 523.3, 698.5, 523.3, 440, 659.3, 880, 659.3];
 
   const BARS = 4;
   const LOOP_SECS = BARS * 4 * BEAT;
 
   function scheduleLoop(t0) {
     for (let bar = 0; bar < BARS; bar++) {
-      const bt = t0 + bar * 4 * BEAT; // bar start time
-
-      // Drums
+      const bt = t0 + bar * 4 * BEAT;
       for (let b = 0; b < 4; b++) {
         const qt = bt + b * BEAT;
         kick(qt);
         if (b === 1 || b === 3) snare(qt + 0.002);
         for (let s = 0; s < 4; s++) hat(qt + s * S16, s % 2 === 0 ? 0.13 : 0.07);
       }
-
-      // Extra off-beat kick on 8th-note position 3 for extra bounce
       kick(bt + BEAT * 2 + S8);
-
-      // Bassline (8ths × 8 per bar)
       for (let i = 0; i < 8; i++) {
         const f = bassLine[i % bassLine.length];
         tone(f, bt + i * S8, S8 * 0.65, 0.24, 'sawtooth');
-        // sub-octave layer
         tone(f / 2, bt + i * S8, S8 * 0.5, 0.10, 'sine');
       }
-
-      // Arp (16ths)
       for (let i = 0; i < 16; i++) {
         tone(arp[i % arp.length], bt + i * S16, S16 * 0.55, 0.09, 'triangle');
       }
-
-      // Melody: phrase A on bars 0,2 — phrase B on bars 1,3
       const phrase = (bar % 2 === 0) ? melPhraseA : melPhraseB;
       phrase.forEach(([freq, startBeat, durBeats, vol]) => {
         const wh = bt + startBeat * BEAT;
         tone(freq, wh, durBeats * BEAT * 0.88, vol, 'square');
-        // harmony a perfect 4th up for that bright game-show chord
         tone(freq * 1.335, wh, durBeats * BEAT * 0.80, vol * 0.35, 'triangle', -5);
       });
     }
@@ -3571,10 +3458,7 @@ function stopPhaseTwoMusic() {
   if (musicBassInterval)   { clearInterval(musicBassInterval);   musicBassInterval = null; }
   if (musicMelodyInterval) { clearInterval(musicMelodyInterval); musicMelodyInterval = null; }
   if (musicPulseInterval)  { clearInterval(musicPulseInterval);  musicPulseInterval = null; }
-  musicNodes.forEach(n => {
-    if (n && n._isInterval) clearInterval(n._id);
-    else { try { n.stop(); } catch(e) {} }
-  });
+  musicNodes.forEach(n => { if (n && n._isInterval) clearInterval(n._id); else { try { n.stop(); } catch(e) {} } });
   musicNodes = [];
   if (musicMusicGain) {
     const ctx = phaseTwoAudioContext;
@@ -3591,23 +3475,18 @@ function stopPhaseTwoMusic() {
 }
 
 function urgeMusicUp() {
-  // Last 8s: boost volume + fire excited ascending fills every beat
   if (!musicMusicGain || !phaseTwoAudioContext) return;
   const ctx = phaseTwoAudioContext;
   musicMusicGain.gain.cancelScheduledValues(ctx.currentTime);
   musicMusicGain.gain.setValueAtTime(musicMusicGain.gain.value, ctx.currentTime);
   musicMusicGain.gain.linearRampToValueAtTime(0.44, ctx.currentTime + 0.3);
-
-  // Rapid staccato fills — fast ascending blips on every 8th note
   const fillNotes = [523.3, 587.3, 659.3, 698.5, 784, 880, 987.8, 1046.5];
   let fi = 0;
   function urgFill() {
     if (!phaseTwoAudioContext || !musicMusicGain) return;
-    const freq = fillNotes[fi % fillNotes.length];
-    fi++;
+    const freq = fillNotes[fi % fillNotes.length]; fi++;
     const now = phaseTwoAudioContext.currentTime;
-    const osc = phaseTwoAudioContext.createOscillator();
-    const g   = phaseTwoAudioContext.createGain();
+    const osc = phaseTwoAudioContext.createOscillator(), g = phaseTwoAudioContext.createGain();
     osc.type = 'square'; osc.frequency.value = freq;
     g.gain.setValueAtTime(0.0001, now);
     g.gain.linearRampToValueAtTime(0.16, now + 0.006);
@@ -3639,7 +3518,6 @@ function resetPhaseTwoState() {
 function renderPhaseTwoHotspots(revealAll = false) {
   const hotspotLayer = document.getElementById('phase-two-hotspots');
   const shouldRevealAll = revealAll || phaseTwoReviewMode;
-  // Use review-mode coords when showing the answer review, game coords during play
   const targets = phaseTwoReviewMode ? PHASE_TWO_REVIEW_TARGETS : PHASE_TWO_TARGETS;
   hotspotLayer.innerHTML = targets.map((target, index) => {
     const isFound = phaseTwoFoundIds.includes(target.id);
@@ -3717,16 +3595,13 @@ function startPhaseTwoTimer() {
   clearPhaseTwoTimer();
   phaseTwoTimeRemaining = PHASE_TWO_TIME_LIMIT;
   updatePhaseTwoUI();
-
   phaseTwoTimerId = setInterval(() => {
     phaseTwoTimeRemaining -= 1;
     updatePhaseTwoUI();
-
     if (phaseTwoTimeRemaining > 0 && phaseTwoTimeRemaining <= 8) {
       playPhaseTwoTickSound();
       if (phaseTwoTimeRemaining === 8) urgeMusicUp();
     }
-
     if (phaseTwoTimeRemaining <= 0) {
       phaseTwoTimeRemaining = 0;
       clearPhaseTwoTimer();
@@ -3754,26 +3629,17 @@ function startPhaseTwo() {
 function showBoardDelta(seconds, clientX, clientY) {
   const board = document.getElementById('phase-two-board');
   if (!board) return;
-
   board.querySelectorAll('.board-delta, .board-flash').forEach(el => el.remove());
-
   const flash = document.createElement('div');
   flash.className = `board-flash ${seconds > 0 ? 'green' : 'red'}`;
   board.appendChild(flash);
   setTimeout(() => flash.remove(), 550);
-
   const delta = document.createElement('div');
   delta.className = `board-delta ${seconds > 0 ? 'plus' : 'minus'}`;
   delta.textContent = seconds > 0 ? `+${seconds}s` : `${seconds}s`;
-
   const rect = board.getBoundingClientRect();
-  const pctX = clientX !== undefined
-    ? Math.min(Math.max(((clientX - rect.left) / rect.width) * 100, 15), 85)
-    : 50;
-  const pctY = clientY !== undefined
-    ? Math.min(Math.max(((clientY - rect.top) / rect.height) * 100, 15), 75)
-    : 45;
-
+  const pctX = clientX !== undefined ? Math.min(Math.max(((clientX - rect.left) / rect.width) * 100, 15), 85) : 50;
+  const pctY = clientY !== undefined ? Math.min(Math.max(((clientY - rect.top) / rect.height) * 100, 15), 75) : 45;
   delta.style.left = `${pctX}%`;
   delta.style.top = `${pctY}%`;
   delta.style.transform = 'translate(-50%, -50%)';
@@ -3789,18 +3655,14 @@ function handlePhaseTwoTargetClick(targetId, event) {
     updatePhaseTwoReviewPanel();
     return;
   }
-
   if (phaseTwoComplete || phaseTwoFoundIds.includes(targetId)) return;
-
   phaseTwoFoundIds.push(targetId);
   playPhaseTwoHitSound();
-
   phaseTwoTimeRemaining = Math.min(phaseTwoTimeRemaining + 2, 99);
   showBoardDelta(2, event.clientX, event.clientY);
   renderPhaseTwoHotspots();
   updatePhaseTwoUI();
   document.getElementById('phase-two-status').textContent = `+2s! ${phaseTwoFoundIds.length} of ${PHASE_TWO_TARGETS.length} altered regions found.`;
-
   if (phaseTwoFoundIds.length >= PHASE_TWO_TARGETS.length) {
     playPhaseTwoWinSound();
     enterPhaseTwoReview(false);
@@ -3809,21 +3671,17 @@ function handlePhaseTwoTargetClick(targetId, event) {
 
 function handlePhaseTwoBoardMiss() {
   if (phaseTwoComplete) return;
-
   phaseTwoMisses++;
   playPhaseTwoMissSound();
-
   phaseTwoTimeRemaining = Math.max(phaseTwoTimeRemaining - 3, 0);
   showBoardDelta(-3);
   updatePhaseTwoUI();
   document.getElementById('phase-two-status').textContent = '-3s! No edit there. Scan the image again.';
-
   const board = document.getElementById('phase-two-board');
   board.classList.remove('miss');
   void board.offsetWidth;
   board.classList.add('miss');
   setTimeout(() => board.classList.remove('miss'), 400);
-
   if (phaseTwoTimeRemaining <= 0) {
     playPhaseTwoLoseSound();
     enterPhaseTwoReview(true);
@@ -3843,17 +3701,12 @@ function replayPhaseTwo() {
   stopScenarioVideo();
   document.getElementById('feedback-overlay').classList.remove('show');
   resetPhaseTwoState();
-  showScreen('screen-phase-two');
-  ensurePhaseTwoAudio();
-  playPhaseTwoStartSound();
-  startPhaseTwoTimer();
-  startPhaseTwoMusic();
+  showScreen('screen-learn-phase-two');
 }
 
 function setResultsActions(primaryLabel, primaryHandler, secondaryLabel, secondaryHandler) {
   const primaryBtn = document.getElementById('results-primary-btn');
   const secondaryBtn = document.getElementById('results-secondary-btn');
-
   primaryBtn.textContent = primaryLabel;
   primaryBtn.onclick = primaryHandler;
   secondaryBtn.textContent = secondaryLabel;
@@ -3875,7 +3728,6 @@ function showPhaseOneResults() {
   stopScenarioVideo();
   showScreen('screen-results');
   document.getElementById('hud').style.display = 'none';
-  // Play results sound based on score
   const pct2 = Math.round((score / PHASE_ONE_SCENARIOS.length) * 100);
   setTimeout(() => pct2 >= 50 ? playResultsWinSound() : playResultsLoseSound(), 400);
 
@@ -3937,7 +3789,7 @@ function showPhaseOneResults() {
     blurred details, and unnatural textures.
   `;
 
-  setResultsActions('START PHASE TWO', startPhaseTwo, 'REPLAY PHASE ONE', restartGame);
+  setResultsActions('START PHASE TWO', () => showScreen('screen-learn-phase-two'), 'REPLAY PHASE ONE', restartGame);
 }
 
 function showFinalResults(timedOut) {
@@ -3946,7 +3798,6 @@ function showFinalResults(timedOut) {
   stopScenarioVideo();
   showScreen('screen-results');
   document.getElementById('hud').style.display = 'none';
-  // Win = found all targets and not timed out
   setTimeout(() => (!timedOut && phaseTwoFoundIds.length >= PHASE_TWO_TARGETS.length)
     ? playResultsWinSound() : playResultsLoseSound(), 400);
 
