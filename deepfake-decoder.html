@@ -1819,6 +1819,7 @@
     }
   }
 
+  /* ═══ SURE MULTI-STEP POPUP ═══ */
   .sure-popup {
     display: none;
     position: fixed;
@@ -1840,9 +1841,32 @@
     border: 1px solid #00f5ff55;
     border-radius: 22px;
     padding: 28px;
-    max-width: 720px;
+    max-width: 560px;
     width: 100%;
     box-shadow: 0 0 40px #00f5ff22;
+    animation: fadeIn 0.35s ease;
+  }
+
+  /* Step dots */
+  .sure-step-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .sure-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #ffffff22;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .sure-dot.active {
+    background: var(--cyan);
+    box-shadow: 0 0 8px #00f5ff99;
+    transform: scale(1.25);
+  }
+  .sure-dot.done {
+    background: var(--purple-bright);
   }
 
   .sure-popup-title {
@@ -1859,9 +1883,25 @@
     color: #c0d8f0;
     line-height: 1.7;
     margin-bottom: 18px;
-    text-align: left;
+    text-align: center;
   }
 
+  /* Image placeholder area */
+  .sure-img-wrap {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    border: 1px solid #00f5ff33;
+    background: #0a1229;
+  }
+  .sure-img-wrap img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Single component item (used on steps 2-5) */
   .sure-item {
     display: flex;
     gap: 16px;
@@ -1899,15 +1939,12 @@
     .sure-popup-card {
       padding: 20px;
     }
-
     .sure-popup-title {
       font-size: 1.25rem;
     }
-
     .sure-item {
       gap: 12px;
     }
-
     .sure-letter {
       font-size: 1.3rem;
     }
@@ -2254,7 +2291,6 @@
   <button class="home-btn" onclick="goHome()">⌂ HOME</button>
 </div>
 
-<!-- ═══════════ SCREEN: WELCOME ═══════════ -->
 <div class="screen active welcome-screen" id="screen-welcome">
   <div class="section-label welcome-label">WELCOME TO</div>
   <div class="welcome-title-wrap">
@@ -2272,7 +2308,6 @@
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: LEARN (PHASE 1) ═══════════ -->
 <div class="screen" id="screen-learn">
   <div class="section-label">PHASE 1</div>
   <div class="title-main" style="font-size:1.8rem; margin-bottom:20px">DEEPFAKE TIPS</div>
@@ -2306,7 +2341,6 @@
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: LEARN PHASE TWO ═══════════ -->
 <div class="screen" id="screen-learn-phase-two">
   <div class="section-label">PHASE 2</div>
   <div class="title-main" style="font-size:1.8rem; margin-bottom:20px">IMAGE ANALYSIS TIPS</div>
@@ -2346,7 +2380,6 @@
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: GAME ═══════════ -->
 <div class="screen" id="screen-game">
   <div class="phase-one-shell">
     <div class="phase-one-top">
@@ -2397,7 +2430,6 @@
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: PHASE TWO ═══════════ -->
 <div class="screen" id="screen-phase-two">
   <div class="phase-two-shell">
     <div class="phase-two-header">
@@ -2462,7 +2494,6 @@
   </div>
 </div>
 
-<!-- ═══════════ SCREEN: RESULTS ═══════════ -->
 <div class="screen" id="screen-results">
   <div class="section-label" id="results-section-label">Mission Complete</div>
   <div class="title-main glitch" id="results-title" style="font-size:2rem">YOUR RESULTS</div>
@@ -2493,7 +2524,6 @@
   </div>
 </div>
 
-<!-- ═══════════ FEEDBACK OVERLAY ═══════════ -->
 <div class="feedback-overlay" id="feedback-overlay">
   <div class="feedback-card" id="feedback-card">
     <div class="feedback-emoji" id="fb-emoji"></div>
@@ -2504,59 +2534,110 @@
   </div>
 </div>
 
-<!-- ═══════════ S.U.R.E. POPUP ═══════════ -->
 <div class="sure-popup" id="sure-popup">
-  <div class="sure-popup-card">
-    <div class="section-label" style="text-align:center;">Before You Play</div>
-    <div class="sure-popup-title">S.U.R.E FRAMEWORK</div>
+  <div class="sure-popup-card" id="sure-popup-card">
 
-    <div class="sure-popup-subtext">
-      Welcome to <strong style="color:var(--cyan)">Deepfake Decoder</strong>, a media literacy game where you learn to spot
-      <strong>REAL vs FAKE media</strong>. Before starting the quiz, use the
-      <strong style="color:var(--gold)">S.U.R.E.</strong> framework:
+    <div class="sure-step-dots" id="sure-dots">
+      <div class="sure-dot active" id="sure-dot-0"></div>
+      <div class="sure-dot" id="sure-dot-1"></div>
+      <div class="sure-dot" id="sure-dot-2"></div>
+      <div class="sure-dot" id="sure-dot-3"></div>
+      <div class="sure-dot" id="sure-dot-4"></div>
     </div>
 
-    <div class="sure-item">
-      <div class="sure-letter">S</div>
-      <div class="sure-text">
-        <strong>Source</strong> — Where did the video come from? Is it from a reliable account or platform?
+    <div id="sure-step-0">
+      <div class="section-label" style="text-align:center;">Before You Play</div>
+      <div class="sure-popup-title">S.U.R.E FRAMEWORK</div>
+      <div class="sure-img-wrap">
+        <img src="SURE.jpeg" alt="S.U.R.E Framework overview" />
+      </div>
+      <div class="sure-popup-subtext">
+        Welcome to <strong style="color:var(--cyan)">Deepfake Decoder</strong>, a media literacy game where you learn to spot
+        <strong>REAL vs FAKE media</strong>. Before starting the quiz, learn the
+        <strong style="color:var(--gold)">S.U.R.E.</strong> framework across the next four steps.
+      </div>
+      <div class="sure-popup-actions">
+        <button class="btn-primary btn-purple" onclick="closeSurePopup()" style="min-width:140px">BACK</button>
+        <button class="btn-primary btn-cyan" onclick="sureNextStep()" style="min-width:140px">NEXT →</button>
       </div>
     </div>
 
-    <div class="sure-item">
-      <div class="sure-letter">U</div>
-      <div class="sure-text">
-        <strong>Understand</strong> — Look carefully at the face, lighting, lip movement, and background. Do they look natural?
+    <div id="sure-step-1" style="display:none">
+      <div class="section-label" style="text-align:center;">Step 1 of 4</div>
+      <div class="sure-popup-title" style="color:var(--cyan)">S — SOURCE</div>
+      <div class="sure-img-wrap">
+        <img src="s.jpeg" alt="Source — check where the video came from" />
+      </div>
+      <div class="sure-item">
+        <div class="sure-letter">S</div>
+        <div class="sure-text">
+          <strong>Source</strong> — Where did the video come from? Is it from a reliable account or platform?
+        </div>
+      </div>
+      <div class="sure-popup-actions">
+        <button class="btn-primary btn-purple" onclick="surePrevStep()" style="min-width:140px">← BACK</button>
+        <button class="btn-primary btn-cyan" onclick="sureNextStep()" style="min-width:140px">NEXT →</button>
       </div>
     </div>
 
-    <div class="sure-item">
-      <div class="sure-letter">R</div>
-      <div class="sure-text">
-        <strong>Research</strong> — Check whether trusted news outlets or official sources report the same thing.
+    <div id="sure-step-2" style="display:none">
+      <div class="section-label" style="text-align:center;">Step 2 of 4</div>
+      <div class="sure-popup-title" style="color:var(--gold)">U — UNDERSTAND</div>
+      <div class="sure-img-wrap">
+        <img src="u.png" alt="Understand — check face, lighting, lip movement" />
+      </div>
+      <div class="sure-item">
+        <div class="sure-letter" style="color:var(--gold)">U</div>
+        <div class="sure-text">
+          <strong>Understand</strong> — Look carefully at the face, lighting, lip movement, and background. Do they look natural?
+        </div>
+      </div>
+      <div class="sure-popup-actions">
+        <button class="btn-primary btn-purple" onclick="surePrevStep()" style="min-width:140px">← BACK</button>
+        <button class="btn-primary btn-cyan" onclick="sureNextStep()" style="min-width:140px">NEXT →</button>
       </div>
     </div>
 
-    <div class="sure-item">
-      <div class="sure-letter">E</div>
-      <div class="sure-text">
-        <strong>Evaluate</strong> — Think before believing or sharing. Could the video be manipulated?
+    <div id="sure-step-3" style="display:none">
+      <div class="section-label" style="text-align:center;">Step 3 of 4</div>
+      <div class="sure-popup-title" style="color:var(--purple-bright)">R — RESEARCH</div>
+      <div class="sure-img-wrap">
+        <img src="r.jpeg" alt="Research — check trusted news sources" />
+      </div>
+      <div class="sure-item">
+        <div class="sure-letter" style="color:var(--purple-bright)">R</div>
+        <div class="sure-text">
+          <strong>Research</strong> — Check whether trusted news outlets or official sources report the same thing.
+        </div>
+      </div>
+      <div class="sure-popup-actions">
+        <button class="btn-primary btn-purple" onclick="surePrevStep()" style="min-width:140px">← BACK</button>
+        <button class="btn-primary btn-cyan" onclick="sureNextStep()" style="min-width:140px">NEXT →</button>
       </div>
     </div>
 
-    <div class="sure-popup-actions">
-      <button class="btn-primary btn-purple" onclick="closeSurePopup()" style="min-width:160px">
-        BACK
-      </button>
-      <button class="btn-primary btn-cyan" onclick="goToLearnFromPopup()" style="min-width:160px">
-        CONTINUE
-      </button>
+    <div id="sure-step-4" style="display:none">
+      <div class="section-label" style="text-align:center;">Step 4 of 4</div>
+      <div class="sure-popup-title" style="color:var(--pink)">E — EVALUATE</div>
+      <div class="sure-img-wrap">
+        <img src="e.png" alt="Evaluate — think before sharing" />
+      </div>
+      <div class="sure-item">
+        <div class="sure-letter" style="color:var(--pink)">E</div>
+        <div class="sure-text">
+          <strong>Evaluate</strong> — Think before believing or sharing. Could the video be manipulated?
+        </div>
+      </div>
+      <div class="sure-popup-actions">
+        <button class="btn-primary btn-purple" onclick="surePrevStep()" style="min-width:140px">← BACK</button>
+        <button class="btn-primary btn-cyan" onclick="goToLearnFromPopup()" style="min-width:140px">CONTINUE</button>
+      </div>
     </div>
+
   </div>
 </div>
 
 <script>
-// ═══════════ DATA ═══════════
 const SCENARIOS = [
   {
     id: 1,
@@ -2993,7 +3074,6 @@ function playResultsLoseSound() {
   setTimeout(() => { try { g.disconnect(); } catch(e){} }, 1500);
 }
 
-// ═══════════ STARS ═══════════
 (function createStars() {
   const container = document.getElementById('stars');
   for (let i = 0; i < 80; i++) {
@@ -3011,7 +3091,6 @@ function playResultsLoseSound() {
   }
 })();
 
-// ═══════════ NAVIGATION ═══════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -3048,7 +3127,6 @@ function resetToHomeState() {
   showScreen('screen-welcome');
 }
 
-// ═══════════ GAME FLOW ═══════════
 function startGame() {
   clearQuestionTimer();
   setDangerOverlayActive(false);
@@ -3244,13 +3322,51 @@ function nextQuestion() {
   }
 }
 
+let sureCurrentStep = 0;
+const SURE_TOTAL_STEPS = 5;
+
 function openSurePopup() {
   primeLobbyMusic();
+  sureCurrentStep = 0;
+  renderSureStep();
   document.getElementById('sure-popup').classList.add('show');
 }
 
 function closeSurePopup() {
   document.getElementById('sure-popup').classList.remove('show');
+}
+
+function renderSureStep() {
+  for (let i = 0; i < SURE_TOTAL_STEPS; i++) {
+    const el = document.getElementById('sure-step-' + i);
+    if (el) el.style.display = (i === sureCurrentStep) ? '' : 'none';
+    const dot = document.getElementById('sure-dot-' + i);
+    if (dot) {
+      dot.classList.remove('active', 'done');
+      if (i === sureCurrentStep) dot.classList.add('active');
+      else if (i < sureCurrentStep) dot.classList.add('done');
+    }
+  }
+  const card = document.getElementById('sure-popup-card');
+  card.style.animation = 'none';
+  void card.offsetWidth;
+  card.style.animation = 'fadeIn 0.35s ease';
+}
+
+function sureNextStep() {
+  if (sureCurrentStep < SURE_TOTAL_STEPS - 1) {
+    sureCurrentStep++;
+    renderSureStep();
+  }
+}
+
+function surePrevStep() {
+  if (sureCurrentStep > 0) {
+    sureCurrentStep--;
+    renderSureStep();
+  } else {
+    closeSurePopup();
+  }
 }
 
 function startGameFromPopup() {
@@ -3334,7 +3450,6 @@ function playPhaseTwoLoseSound() {
   playPhaseTwoTone({ frequency: 261.63, duration: 0.16, when: 0.08, type: 'triangle', volume: 0.06, endFrequency: 180 });
 }
 
-// ═══════════ TENSE BACKGROUND MUSIC ═══════════
 function startPhaseTwoMusic() {
   const ctx = ensurePhaseTwoAudio();
   if (!ctx) return;
@@ -3722,7 +3837,6 @@ function renderTips(tips) {
   `).join('');
 }
 
-// ═══════════ RESULTS ═══════════
 function showPhaseOneResults() {
   clearQuestionTimer();
   stopScenarioVideo();
