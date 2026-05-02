@@ -962,13 +962,13 @@
   .phase-two-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
   }
 
   .phase-two-overlay {
     position: absolute;
-    inset: 0;
+    /* positioned dynamically by positionHotspotOverlay() */
   }
 
   .phase-two-hotspot {
@@ -1899,6 +1899,8 @@
     width: 100%;
     box-shadow: 0 0 40px #00f5ff22;
     animation: fadeIn 0.35s ease;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
   }
 
   /* Step dots */
@@ -1948,11 +1950,16 @@
     margin-bottom: 18px;
     border: 1px solid #00f5ff33;
     background: #0a1229;
+    max-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .sure-img-wrap img {
     width: 100%;
+    max-height: 300px;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   /* Single component item (used on steps 2-5) */
@@ -1985,13 +1992,23 @@
     display: flex;
     gap: 12px;
     margin-top: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
   }
 
+  .sure-popup-actions .btn-primary {
+    flex: 1;
+    min-width: 130px;
+    max-width: 200px;
+  }
+
   @media (max-width: 600px) {
+    .sure-popup {
+      padding: 14px;
+    }
     .sure-popup-card {
       padding: 20px;
+      max-height: calc(100dvh - 28px);
     }
     .sure-popup-title {
       font-size: 1.25rem;
@@ -2001,6 +2018,72 @@
     }
     .sure-letter {
       font-size: 1.3rem;
+    }
+    .sure-img-wrap,
+    .sure-img-wrap img {
+      max-height: 220px;
+    }
+    .sure-popup-actions .btn-primary {
+      min-width: 0 !important;
+      flex: 1;
+      padding: 16px 10px;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* ═══ SCHOOL SELECTION ═══ */
+  .school-select-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #0d1b3ecc, #1a1040cc);
+    border: 1px solid #00f5ff33;
+    border-radius: 14px;
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1.04rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    box-shadow: 0 0 18px #00f5ff0a;
+  }
+  .school-select-btn:hover {
+    border-color: var(--cyan);
+    background: linear-gradient(135deg, #162a5a, #201555);
+    box-shadow: 0 0 24px #00f5ff33;
+    transform: translateX(4px);
+  }
+  .school-select-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .school-select-label {
+    flex: 1;
+  }
+  .school-select-arrow {
+    font-size: 1.4rem;
+    color: var(--cyan);
+    opacity: 0.7;
+    font-weight: 300;
+  }
+  @media (max-width: 480px) {
+    .school-select-btn {
+      padding: 14px 16px;
+      font-size: 0.92rem;
+      gap: 12px;
+    }
+  }
+
+  /* ═══ HOTSPOT EDITOR RESPONSIVE ═══ */
+  @media (max-width: 700px) {
+    #screen-hotspot-editor > div > div:nth-child(3) {
+      grid-template-columns: 1fr !important;
+    }
+    #screen-hotspot-editor > div > div:nth-child(3) > div:nth-child(2) {
+      order: -1;
     }
   }
 
@@ -2360,6 +2443,7 @@
   <div class="welcome-card">
     <p class="welcome-mini-text">3 quick verdicts. 1 photo challenge.</p>
     <button class="btn-primary btn-cyan" onclick="openSurePopup()" style="width:100%">PLAY NOW</button>
+
   </div>
 </div>
 
@@ -2431,7 +2515,50 @@
       Find all 6 before the 30-second timer runs out!
     </div>
 
-    <button class="btn-primary btn-cyan" onclick="startPhaseTwo()" style="width:100%">START PHASE TWO</button>
+    <button class="btn-primary btn-cyan" onclick="goToSchoolSelect()" style="width:100%">START PHASE TWO</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-school-select">
+  <div class="section-label">PHASE 2</div>
+  <div class="title-main" style="font-size:1.8rem; margin-bottom:8px">SELECT YOUR SCHOOL</div>
+  <p style="color:#a0c4e8; font-size:1rem; text-align:center; margin-bottom:28px; max-width:480px;">
+    Choose your school to load the challenge image for Phase Two.
+  </p>
+  <div class="panel" style="max-width:560px; padding:28px 32px;">
+    <div id="school-option-list" style="display:flex; flex-direction:column; gap:14px;">
+
+      <button class="school-select-btn" onclick="selectSchool('business','business.png','School of Business')">
+        <span class="school-select-icon">💼</span>
+        <span class="school-select-label">School of Business</span>
+        <span class="school-select-arrow">›</span>
+      </button>
+
+      <button class="school-select-btn" onclick="selectSchool('engineering','engineering.png','School of Engineering')">
+        <span class="school-select-icon">⚙️</span>
+        <span class="school-select-label">School of Engineering</span>
+        <span class="school-select-arrow">›</span>
+      </button>
+
+      <button class="school-select-btn" onclick="selectSchool('it','IT.png','School of Information Technology')">
+        <span class="school-select-icon">💻</span>
+        <span class="school-select-label">School of Information Technology</span>
+        <span class="school-select-arrow">›</span>
+      </button>
+
+      <button class="school-select-btn" onclick="selectSchool('design','original.jpg','School of Design')">
+        <span class="school-select-icon">🎨</span>
+        <span class="school-select-label">School of Design</span>
+        <span class="school-select-arrow">›</span>
+      </button>
+
+      <button class="school-select-btn" onclick="selectSchool('health','healthcare.png','School of Health and Social Sciences')">
+        <span class="school-select-icon">🏥</span>
+        <span class="school-select-label">School of Health and Social Sciences</span>
+        <span class="school-select-arrow">›</span>
+      </button>
+
+    </div>
   </div>
 </div>
 
@@ -2528,7 +2655,7 @@
     <div class="phase-two-card">
       <div class="section-label">Challenge Image</div>
       <div class="phase-two-school" id="phase-two-school">Media Club Canteen</div>
-      <div class="phase-two-image-wrap" id="phase-two-board" onclick="handlePhaseTwoBoardMiss()">
+      <div class="phase-two-image-wrap" id="phase-two-board" onclick="handlePhaseTwoBoardClick(event)">
         <img class="phase-two-image" id="phase-two-image" src="original.jpg" alt="Student at a canteen with hidden AI edits">
         <div class="phase-two-overlay" id="phase-two-hotspots"></div>
       </div>
@@ -2599,37 +2726,6 @@
 <div class="sure-popup" id="sure-popup">
   <div class="sure-popup-card" id="sure-popup-card">
 
-<<<<<<< HEAD
-    <div class="sure-popup-subtext">
-      Use S.U.R.E. before you decide.
-    </div>
-
-    <div class="sure-item">
-      <div class="sure-letter">S</div>
-      <div class="sure-text">
-        <strong>Source</strong> - Who posted it?
-      </div>
-    </div>
-
-    <div class="sure-item">
-      <div class="sure-letter">U</div>
-      <div class="sure-text">
-        <strong>Understand</strong> - Do the details fit?
-      </div>
-    </div>
-
-    <div class="sure-item">
-      <div class="sure-letter">R</div>
-      <div class="sure-text">
-        <strong>Research</strong> - Can trusted sources confirm it?
-      </div>
-    </div>
-
-    <div class="sure-item">
-      <div class="sure-letter">E</div>
-      <div class="sure-text">
-        <strong>Evaluate</strong> - Pause before sharing.
-=======
     <div class="sure-step-dots" id="sure-dots">
       <div class="sure-dot active" id="sure-dot-0"></div>
       <div class="sure-dot" id="sure-dot-1"></div>
@@ -2706,7 +2802,6 @@
       <div class="sure-popup-actions">
         <button class="btn-primary btn-purple" onclick="surePrevStep()" style="min-width:140px">← BACK</button>
         <button class="btn-primary btn-cyan" onclick="sureNextStep()" style="min-width:140px">NEXT →</button>
->>>>>>> 8ce9e6edf437e69532a1f77f73e4b36b6fef8254
       </div>
     </div>
 
@@ -2731,9 +2826,6 @@
   </div>
 </div>
 
-<<<<<<< HEAD
-  <script src="deepfake-decoder.js"></script>
-=======
 <script>
 const SCENARIOS = [
   {
@@ -2856,71 +2948,54 @@ const PHASE_ONE_SCENARIOS = PHASE_ONE_SCENARIO_IDS
   .filter(Boolean);
 const QUESTION_TIME_LIMIT = 10;
 const PHASE_TWO_TIME_LIMIT = 30;
-const PHASE_TWO_TARGETS = [
-  {
-    id: 't1', left: 43.2, top: 13.3, w: 7.6, h: 8,
-    title: 'Hairline and top of head',
-    reason: 'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.'
-  },
-  {
-    id: 't2', left: 44.3, top: 22.3, w: 2.9, h: 9,
-    title: 'Right eye and eyelid',
-    reason: 'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.'
-  },
-  {
-    id: 't3', left: 42.4, top: 32.1, w: 4, h: 6.7,
-    title: 'Mouth and teeth',
-    reason: 'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.'
-  },
-  {
-    id: 't4', left: 45.6, top: 91, w: 7, h: 19.6,
-    title: 'Hand and fingers',
-    reason: 'Amount of fingers, finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
-  },
-  {
-    id: 't5', left: 64.1, top: 88.4, w: 7.8, h: 25.7,
-    title: 'Cat face and fur',
-    reason: 'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.'
-  },
-  {
-    id: 't6', left: 46.7, top: 27.5, w: 2.3, h: 10.8,
-    title: 'Cheek and ear edge',
-    reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
-  }
-];
+// ── Per-school hotspot data ──────────────────────────────────────────────────
+// Each key matches the schoolId passed to selectSchool().
+// Paste the JSON output from the Hotspot Editor into the array for each school.
+const SCHOOL_HOTSPOT_DATA = {
+  design: [
+    { id:'t1', left:33.5, top:12.4, w:17.1, h:11.8, title:'Hairline and top of head', reason:'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.' },
+    { id:'t2', left:37.2, top:22.1, w:5.4,  h:6.1,  title:'Right eye and eyelid',     reason:'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.' },
+    { id:'t3', left:33.0, top:32.1, w:8.5,  h:6.9,  title:'Mouth and teeth',           reason:'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.' },
+    { id:'t4', left:41.2, top:92.8, w:16.0, h:16.1, title:'Hand and fingers',          reason:'Amount of fingers, finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.' },
+    { id:'t5', left:84.5, top:88.5, w:16.2, h:20.9, title:'Cat face and fur',          reason:'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.' },
+    { id:'t6', left:41.5, top:27.1, w:4.0,  h:11.0, title:'Cheek and ear edge',        reason:'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.' }
+  ],
+  business: [
+    { id:'t1', left:51.4, top:26.1, w:8.3,  h:14.0, title:'Face',                reason:'The facial features look slightly mismatched with the lighting and angle of the body, suggesting possible face swapping.' },
+    { id:'t2', left:52.6, top:26.8, w:38.5, h:33.8, title:'Presentation Screen', reason:'The screen content appears overly sharp and slightly misaligned with perspective, indicating it may have been digitally inserted.' },
+    { id:'t3', left:35.5, top:45.9, w:7.4,  h:9.4,  title:'Hand (Finger Count)', reason:'The hand appears to have six fingers, which is anatomically incorrect and a common AI/deepfake generation error.' },
+    { id:'t4', left:46.4, top:49.3, w:20.0, h:6.9,  title:'Logo',                reason:'The logo looks inconsistent and slightly distorted, suggesting it was artificially generated or added by AI rather than a real brand.' },
+    { id:'t5', left:52.2, top:70.0, w:43.2, h:18.5, title:'Documents on Table',  reason:'The papers show inconsistent perspective and layout, which may indicate compositing or AI-generated elements.' },
+    { id:'t6', left:87.1, top:52.2, w:16.3, h:32.6, title:'Hair Texture',        reason:'The hair looks overly smooth and lacks natural strands, which is a common sign of AI-generated images.' }
+  ],
+  engineering: [
+    { id:'t1', left:70.7, top:45.7, w:8.7,  h:23.9, title:'Poster',         reason:'The text appears blurry and not fully readable, which is a common issue in AI-generated images.' },
+    { id:'t2', left:52.5, top:86.6, w:7.9,  h:7.4,  title:'Equipment Label',reason:'The label looks unclear and distorted, suggesting it may not be real or properly rendered.' },
+    { id:'t3', left:44.0, top:52.2, w:7.8,  h:8.3,  title:'Skin Tone',      reason:'The hand\'s skin tone looks inconsistent with the rest of the person\'s body, suggesting possible AI generation or editing.' },
+    { id:'t4', left:50.6, top:28.1, w:4.0,  h:15.9, title:'Upper Structure', reason:'The component appears to be floating without proper support, which is physically unrealistic in the real world.' },
+    { id:'t5', left:53.9, top:21.9, w:3.7,  h:12.7, title:'Upper Structure', reason:'The component appears to be floating without proper support, which is physically unrealistic in the real world.' },
+    { id:'t6', left:47.0, top:30.0, w:3.9,  h:10.2, title:'Person\'s Face',  reason:'The facial features look slightly blended with the background, suggesting possible AI face generation.' }
+  ],
+  it: [
+    { id:'t1', left:52.4, top:29.0, w:37.3, h:16.0, title:'Blurred Google logo',      reason:'The Google logo appears blurry or out of focus, indicating a possible image quality or rendering issue.' },
+    { id:'t2', left:18.2, top:7.9,  w:10.8, h:6.0,  title:'Altered URL text',         reason:'The address bar shows "g00gle" instead of "google," indicating possible manipulation or spoofing.' },
+    { id:'t3', left:11.6, top:7.8,  w:2.1,  h:3.9,  title:'Irregular tab appearance', reason:'The logo appears slightly misaligned or inconsistent with typical browser design.' },
+    { id:'t4', left:96.2, top:14.7, w:8.6,  h:8.8,  title:'Misaligned button element',reason:'The button appears slightly offset and does not align cleanly with surrounding UI components.' },
+    { id:'t5', left:23.0, top:47.1, w:3.3,  h:7.0,  title:'Distorted search bar',     reason:'The search bar shows slight visual distortion and does not match the clarity of nearby elements.' }
+  ],
+  health: [
+    { id:'t1', left:57.0, top:53.0, w:14.0, h:30.0, title:'Inconsistent vital readings',  reason:'The displayed values appear unrealistic or mismatched, suggesting possible manipulation or incorrect data.' },
+    { id:'t2', left:30.0, top:58.0, w:6.0,  h:13.0, title:'Misaligned oxygen mask',       reason:'The mask does not sit naturally on the face, indicating possible editing or distortion.' },
+    { id:'t3', left:41.0, top:78.0, w:7.0,  h:18.0, title:'Distorted IV Site',            reason:'IV site appear unnatural in shape or positioning, suggesting image inconsistency.' },
+    { id:'t4', left:59.0, top:85.0, w:20.0, h:29.0, title:'Illegible document text',      reason:'The text appears blurred or nonsensical, which may indicate it was artificially generated.' },
+    { id:'t5', left:83.0, top:10.0, w:17.0, h:22.0, title:'Hairline',                     reason:'The hair boundary looks smudged and overly smooth, with strands blending.' },
+    { id:'t6', left:22.0, top:58.0, w:22.0, h:28.0, title:'Artificial facial rendering',  reason:'The face shows unrealistic smoothness and blending, with a lack of fine details typical of real human skin.' }
+  ]
+};
 
-const PHASE_TWO_REVIEW_TARGETS = [
-  {
-    id: 't1', left: 39.7, top: 12.1, w: 7.6, h: 8,
-    title: 'Hairline and top of head',
-    reason: 'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.'
-  },
-  {
-    id: 't2', left: 42.7, top: 21.8, w: 4.3, h: 9,
-    title: 'Right eye and eyelid',
-    reason: 'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.'
-  },
-  {
-    id: 't3', left: 39.7, top: 31.4, w: 5.4, h: 6.7,
-    title: 'Mouth and teeth',
-    reason: 'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.'
-  },
-  {
-    id: 't4', left: 44, top: 91, w: 7, h: 19.6,
-    title: 'Hand and fingers',
-    reason: 'Finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.'
-  },
-  {
-    id: 't5', left: 70.4, top: 87.7, w: 10.3, h: 23.2,
-    title: 'Cat face and fur',
-    reason: 'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.'
-  },
-  {
-    id: 't6', left: 44.9, top: 26.3, w: 2.3, h: 10.8,
-    title: 'Cheek and ear edge',
-    reason: 'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.'
-  }
-];
+// Active targets — set by selectSchool(), read by the game
+let PHASE_TWO_TARGETS        = SCHOOL_HOTSPOT_DATA.design.slice();
+let PHASE_TWO_REVIEW_TARGETS = SCHOOL_HOTSPOT_DATA.design.slice();
 
 let currentQ = 0;
 let score = 0;
@@ -3194,7 +3269,7 @@ function showScreen(id) {
   document.getElementById('hud').style.display = 'none';
   window.scrollTo(0, 0);
 
-  if (id === 'screen-welcome' || id === 'screen-learn' || id === 'screen-learn-phase-two') {
+  if (id === 'screen-welcome' || id === 'screen-learn' || id === 'screen-learn-phase-two' || id === 'screen-school-select') {
     primeLobbyMusic();
   } else {
     stopLobbyMusic();
@@ -3719,7 +3794,7 @@ function resetPhaseTwoState() {
   phaseTwoComplete = false;
   phaseTwoReviewMode = false;
   phaseTwoReviewTimedOut = false;
-  phaseTwoSelectedTargetId = PHASE_TWO_TARGETS[0].id;
+  phaseTwoSelectedTargetId = (PHASE_TWO_TARGETS[0] || {}).id || 't1';
   renderPhaseTwoHotspots();
   updatePhaseTwoUI();
   updatePhaseTwoReviewPanel();
@@ -3727,7 +3802,38 @@ function resetPhaseTwoState() {
   document.getElementById('phase-two-status').textContent = 'Study the image carefully and tap only the manipulated areas.';
 }
 
+
+const _IMG_NW = 1096, _IMG_NH = 778;
+
+function positionHotspotOverlay() {
+  var board   = document.getElementById('phase-two-board');
+  var img     = document.getElementById('phase-two-image');
+  var overlay = document.getElementById('phase-two-hotspots');
+  if (!board || !overlay) return;
+
+  var bw = board.clientWidth;
+  var bh = board.clientHeight;
+  var nw = (img && img.naturalWidth  > 0) ? img.naturalWidth  : _IMG_NW;
+  var nh = (img && img.naturalHeight > 0) ? img.naturalHeight : _IMG_NH;
+
+  var boardRatio = bw / bh;
+  var imgRatio   = nw / nh;
+  var rw, rh, ox, oy;
+
+  if (imgRatio > boardRatio) {
+    rw = bw; rh = bw / imgRatio; ox = 0; oy = (bh - rh) / 2;
+  } else {
+    rh = bh; rw = bh * imgRatio; ox = (bw - rw) / 2; oy = 0;
+  }
+
+  overlay.style.left   = ox + 'px';
+  overlay.style.top    = oy + 'px';
+  overlay.style.width  = rw + 'px';
+  overlay.style.height = rh + 'px';
+}
+
 function renderPhaseTwoHotspots(revealAll = false) {
+  positionHotspotOverlay();
   const hotspotLayer = document.getElementById('phase-two-hotspots');
   const shouldRevealAll = revealAll || phaseTwoReviewMode;
   const targets = phaseTwoReviewMode ? PHASE_TWO_REVIEW_TARGETS : PHASE_TWO_TARGETS;
@@ -3746,14 +3852,30 @@ function renderPhaseTwoHotspots(revealAll = false) {
       <button
         type="button"
         class="${classes}"
-        style="left:${target.left}%; top:${target.top}%; width:${target.w || target.size}%; height:${target.h || target.size}%; transform:translate(-50%,-50%);"
+        style="left:${target.left}%; top:${target.top}%; width:${target.w || target.size}%; height:${target.h || target.size}%; transform:translate(-50%,-50%); pointer-events:none;"
+        data-id="${target.id}"
         data-label="${index + 1}"
-        onclick="handlePhaseTwoTargetClick('${target.id}', event)"
         aria-label="Deepfake hotspot ${index + 1}: ${target.title}">
       </button>
     `;
   }).join('');
 }
+
+
+(function() {
+  var board = document.getElementById('phase-two-board');
+  var img   = document.getElementById('phase-two-image');
+  if (board && typeof ResizeObserver !== 'undefined') {
+    var raf;
+    new ResizeObserver(function() {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function() { positionHotspotOverlay(); renderPhaseTwoHotspots(); });
+    }).observe(board);
+  }
+  if (img && !(img.complete && img.naturalWidth > 0)) {
+    img.addEventListener('load', function() { positionHotspotOverlay(); renderPhaseTwoHotspots(); }, { once: true });
+  }
+})();
 
 function updatePhaseTwoUI() {
   document.getElementById('phase-two-found').textContent = `${phaseTwoFoundIds.length} / ${PHASE_TWO_TARGETS.length}`;
@@ -3838,6 +3960,30 @@ function startPhaseTwo() {
   startPhaseTwoMusic();
 }
 
+function goToSchoolSelect() {
+  showScreen('screen-school-select');
+}
+
+function selectSchool(schoolId, imageSrc, schoolName) {
+  // Load this school's hotspots
+  const data = SCHOOL_HOTSPOT_DATA[schoolId];
+  if (data && data.length) {
+    PHASE_TWO_TARGETS        = data.map((t, i) => Object.assign({}, t, { id: 't' + (i + 1) }));
+    PHASE_TWO_REVIEW_TARGETS = PHASE_TWO_TARGETS.slice();
+  }
+  // Update the challenge image
+  const img = document.getElementById('phase-two-image');
+  if (img) {
+    img.src = imageSrc;
+    img.alt = schoolName + ' challenge image with hidden AI edits';
+  }
+  // Update the school label shown on the phase two screen
+  const schoolLabel = document.getElementById('phase-two-school');
+  if (schoolLabel) schoolLabel.textContent = schoolName;
+  // Now start phase two
+  startPhaseTwo();
+}
+
 function showBoardDelta(seconds, clientX, clientY) {
   const board = document.getElementById('phase-two-board');
   if (!board) return;
@@ -3881,6 +4027,56 @@ function handlePhaseTwoTargetClick(targetId, event) {
   }
 }
 
+function handlePhaseTwoBoardClick(event) {
+  const board = document.getElementById('phase-two-board');
+  const img   = document.getElementById('phase-two-image');
+  if (!board || !img) return;
+
+  // object-fit:contain means the image may be letterboxed/pillarboxed inside the element.
+  // We need the actual rendered image rect, not the element rect.
+  const elRect    = img.getBoundingClientRect();
+  const elW       = elRect.width;
+  const elH       = elRect.height;
+  const natW      = img.naturalWidth  || elW;
+  const natH      = img.naturalHeight || elH;
+  const scale     = Math.min(elW / natW, elH / natH);
+  const rendW     = natW * scale;
+  const rendH     = natH * scale;
+  const offsetX   = (elW - rendW) / 2;
+  const offsetY   = (elH - rendH) / 2;
+
+  const clickX = ((event.clientX - elRect.left - offsetX) / rendW) * 100;
+  const clickY = ((event.clientY - elRect.top  - offsetY) / rendH) * 100;
+
+  // Click in the letterbox bars = miss
+  if (clickX < 0 || clickX > 100 || clickY < 0 || clickY > 100) {
+    handlePhaseTwoBoardMiss();
+    return;
+  }
+
+  const targets = phaseTwoReviewMode ? PHASE_TWO_REVIEW_TARGETS : PHASE_TWO_TARGETS;
+
+  // Find all hotspots containing the click (center coords ± w/2, h/2)
+  const hits = targets.filter(t => {
+    const hw = (t.w || t.size) / 2;
+    const hh = (t.h || t.size) / 2;
+    return clickX >= t.left - hw && clickX <= t.left + hw &&
+           clickY >= t.top  - hh && clickY <= t.top  + hh;
+  });
+
+  if (hits.length === 0) {
+    handlePhaseTwoBoardMiss();
+    return;
+  }
+
+  // Pick the smallest unfound hotspot; fall back to smallest overall (review mode)
+  const unfound = hits.filter(t => !phaseTwoFoundIds.includes(t.id));
+  const pick = (unfound.length ? unfound : hits)
+    .reduce((a, b) => (a.w * a.h) <= (b.w * b.h) ? a : b);
+
+  handlePhaseTwoTargetClick(pick.id, event);
+}
+
 function handlePhaseTwoBoardMiss() {
   if (phaseTwoComplete) return;
   phaseTwoMisses++;
@@ -3913,7 +4109,7 @@ function replayPhaseTwo() {
   stopScenarioVideo();
   document.getElementById('feedback-overlay').classList.remove('show');
   resetPhaseTwoState();
-  showScreen('screen-learn-phase-two');
+  showScreen('screen-school-select');
 }
 
 function setResultsActions(primaryLabel, primaryHandler, secondaryLabel, secondaryHandler) {
@@ -4085,11 +4281,485 @@ function showFinalResults(timedOut) {
   setResultsActions('REPLAY PHASE TWO', replayPhaseTwo, 'RETURN HOME', resetToHomeState);
 }
 
+
+// ════════════════════════════════════════════════════════════════
+//  HOTSPOT EDITOR
+// ════════════════════════════════════════════════════════════════
+const HE_COLOURS = ['#ff6b9d','#00e5ff','#a78bfa','#4ade80','#fbbf24','#fb923c','#e879f9','#34d399'];
+
+let heHotspots      = [];
+let heActive        = null;
+let heDragging      = false;
+let heDragStart     = null;
+let heCurrentSchool = 'design';
+
+const HE_IMG_MAP = { design:'original.jpg', business:'business.png', engineering:'engineering.png', it:'IT.png', health:'healthcare.png' };
+
+function heOnSchoolChange() {
+  const sel = document.getElementById('he-school-select');
+  if (sel) heCurrentSchool = sel.value;
+  const existing = SCHOOL_HOTSPOT_DATA[heCurrentSchool];
+  heHotspots = existing ? existing.map((t,i) => Object.assign({}, t, { id:'t'+(i+1) })) : [];
+  heActive = heHotspots.length ? 0 : null;
+  const urlEl = document.getElementById('he-img-url');
+  if (urlEl) { urlEl.value = HE_IMG_MAP[heCurrentSchool] || 'original.jpg'; heLoadImage(); }
+  heRender(); heShowForm();
+}
+
+function heLoadImage() {
+  const url = (document.getElementById('he-img-url')||{}).value || '';
+  if (!url.trim()) return;
+  const img = document.getElementById('he-img');
+  if (img) { img.src = url.trim(); img.onload = () => heRender(); }
+}
+
+// Returns the pixel rect of the image content inside the canvas-wrap
+function heGetImgRect() {
+  const wrap = document.getElementById('he-canvas-wrap');
+  const img  = document.getElementById('he-img');
+  if (!wrap || !img) return null;
+  const ww = wrap.clientWidth, wh = wrap.clientHeight;
+  if (!ww || !wh) return null;
+  const nw = img.naturalWidth  || ww;
+  const nh = img.naturalHeight || wh;
+  const ratio = nw / nh, boardRatio = ww / wh;
+  let rw, rh, ox, oy;
+  if (ratio > boardRatio) { rw = ww; rh = ww / ratio; ox = 0; oy = (wh - rh) / 2; }
+  else                    { rh = wh; rw = rh * ratio; ox = (ww - rw) / 2; oy = 0; }
+  return { ox, oy, rw, rh };
+}
+
+function heEventPos(e) {
+  const wrap = document.getElementById('he-canvas-wrap');
+  const rect = wrap.getBoundingClientRect();
+  const cl = e.touches ? e.touches[0] : e;
+  return { px: cl.clientX - rect.left, py: cl.clientY - rect.top };
+}
+
+function hePxToPct(px, py) {
+  const r = heGetImgRect();
+  if (!r) return null;
+  return { x: ((px - r.ox) / r.rw) * 100, y: ((py - r.oy) / r.rh) * 100 };
+}
+
+function heStartDrag(e) {
+  e.preventDefault();
+  heDragging = true;
+  const { px, py } = heEventPos(e);
+  heDragStart = { px, py };
+  const preview = document.getElementById('he-drag-preview');
+  if (preview) { preview.style.display='block'; preview.style.cssText += ';left:'+px+'px;top:'+py+'px;width:0;height:0;'; }
+
+  const onMove = ev => {
+    if (!heDragging) return;
+    ev.preventDefault();
+    const cur = heEventPos(ev);
+    const x = Math.min(heDragStart.px, cur.px), y = Math.min(heDragStart.py, cur.py);
+    if (preview) Object.assign(preview.style, { left:x+'px', top:y+'px', width:Math.abs(cur.px-heDragStart.px)+'px', height:Math.abs(cur.py-heDragStart.py)+'px' });
+  };
+
+  const onUp = ev => {
+    if (!heDragging) return;
+    heDragging = false;
+    if (preview) preview.style.display = 'none';
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup',   onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend',  onUp);
+
+    const cl = ev.changedTouches ? ev.changedTouches[0] : ev;
+    const cur = heEventPos({ clientX: cl.clientX, clientY: cl.clientY });
+    const start = hePxToPct(heDragStart.px, heDragStart.py);
+    const end   = hePxToPct(cur.px, cur.py);
+    if (!start || !end) return;
+
+    const x0   = +Math.min(start.x, end.x).toFixed(1);
+    const y0   = +Math.min(start.y, end.y).toFixed(1);
+    const w    = +Math.abs(end.x - start.x).toFixed(1);
+    const h    = +Math.abs(end.y - start.y).toFixed(1);
+    if (w < 0.5 || h < 0.5) return;
+    // Store center coords (matching game rendering with translate(-50%,-50%))
+    const left = +(x0 + w/2).toFixed(1);
+    const top  = +(y0 + h/2).toFixed(1);
+
+    if (heHotspots.length >= 8) { heSetStatus('Maximum 8 hotspots. Delete one first.', '#ff8aaa'); return; }
+    const idx = heHotspots.length;
+    heHotspots.push({ id:'t'+(idx+1), left, top, w, h, title:'', reason:'' });
+    heActive = idx;
+    heRender(); heShowForm();
+    heSetStatus('Hotspot '+(idx+1)+' added. Enter a title and reason on the right.', 'var(--gold)');
+    setTimeout(() => { const t = document.getElementById('he-title-input'); if(t) t.focus(); }, 50);
+  };
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup',   onUp);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend',  onUp);
+}
+
+function heSetStatus(msg, color) {
+  const el = document.getElementById('he-status');
+  if (el) { el.textContent = msg; el.style.color = color || 'var(--gold)'; }
+}
+
+function heRender() {
+  const r = heGetImgRect();
+  const layer = document.getElementById('he-hotspot-layer');
+  const countEl = document.getElementById('he-count');
+  const listEl  = document.getElementById('he-list');
+  if (countEl) countEl.textContent = heHotspots.length;
+
+  if (layer) {
+    if (!r || !heHotspots.length) { layer.innerHTML = ''; }
+    else {
+      layer.innerHTML = heHotspots.map((hs, i) => {
+        const col   = HE_COLOURS[i % HE_COLOURS.length];
+        const isAct = (i === heActive);
+        // left/top are used directly as center point (matching game: transform:translate(-50%,-50%))
+        const cx = r.ox + (hs.left / 100) * r.rw;
+        const cy = r.oy + (hs.top  / 100) * r.rh;
+        const pw = (hs.w / 100) * r.rw;
+        const ph = (hs.h / 100) * r.rh;
+        return `<div onclick="heSelectHotspot(${i})" style="
+          position:absolute;
+          left:${cx}px; top:${cy}px;
+          width:${pw}px; height:${ph}px;
+          transform:translate(-50%,-50%);
+          border:2px ${isAct?'solid':'dashed'} ${col};
+          background:${isAct ? col+'28' : col+'10'};
+          border-radius:50%;
+          cursor:pointer;
+          pointer-events:all;
+          box-shadow:${isAct ? '0 0 14px '+col+'66' : 'none'};
+          transition:all 0.15s;
+        ">
+          <span style="
+            position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+            background:${col}; color:#04101f;
+            font-family:\'Orbitron\',monospace; font-size:0.58rem; font-weight:700;
+            padding:1px 5px; border-radius:10px; line-height:1.6;
+            pointer-events:none; white-space:nowrap;
+          ">${i+1}</span>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  if (listEl) {
+    if (!heHotspots.length) {
+      listEl.innerHTML = '<div style="color:#405070; font-size:0.78rem; text-align:center; padding:10px 0;">No hotspots yet — draw on the image</div>';
+    } else {
+      listEl.innerHTML = heHotspots.map((hs, i) => {
+        const col = HE_COLOURS[i % HE_COLOURS.length];
+        const isAct = (i === heActive);
+        return `<div onclick="heSelectHotspot(${i})" style="
+          display:flex; align-items:center; gap:8px;
+          padding:7px 9px; border-radius:8px; cursor:pointer;
+          background:${isAct ? col+'18' : '#ffffff06'};
+          border:1px solid ${isAct ? col+'66' : '#ffffff10'};
+          transition:all 0.15s;
+        ">
+          <span style="width:8px; height:8px; border-radius:50%; background:${col}; flex-shrink:0;"></span>
+          <span style="font-size:0.72rem; color:#8fa0c0; flex-shrink:0;">${i+1}.</span>
+          <span style="font-size:0.82rem; color:${isAct?'var(--text)':'#9ab0c8'}; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+            ${hs.title || '<em style="color:#405070">untitled</em>'}
+          </span>
+        </div>`;
+      }).join('');
+    }
+  }
+
+  const delBtn = document.getElementById('he-delete-btn');
+  if (delBtn) delBtn.style.display = (heActive !== null) ? 'block' : 'none';
+}
+
+function heSelectHotspot(i) {
+  heActive = i;
+  heRender(); heShowForm();
+}
+
+function heShowForm() {
+  const form = document.getElementById('he-form');
+  if (!form) return;
+  if (heActive === null || !heHotspots[heActive]) {
+    form.style.display = 'none';
+    const delBtn = document.getElementById('he-delete-btn');
+    if (delBtn) delBtn.style.display = 'none';
+    return;
+  }
+  form.style.display = 'block';
+  const hs = heHotspots[heActive];
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+  set('he-title-input',  hs.title  || '');
+  set('he-reason-input', hs.reason || '');
+  set('he-left-input',   hs.left);
+  set('he-top-input',    hs.top);
+  set('he-w-input',      hs.w);
+  set('he-h-input',      hs.h);
+  const delBtn = document.getElementById('he-delete-btn');
+  if (delBtn) delBtn.style.display = 'block';
+}
+
+function heUpdateActive() {
+  if (heActive === null || !heHotspots[heActive]) return;
+  heHotspots[heActive].title  = (document.getElementById('he-title-input')||{}).value  || '';
+  heHotspots[heActive].reason = (document.getElementById('he-reason-input')||{}).value || '';
+  heRender();
+}
+
+function heUpdateCoord(field, val) {
+  if (heActive === null || !heHotspots[heActive]) return;
+  const n = parseFloat(val);
+  if (!isNaN(n)) { heHotspots[heActive][field] = +n.toFixed(1); heRender(); }
+}
+
+function heNudge(field, delta) {
+  if (heActive === null || !heHotspots[heActive]) return;
+  const cur = heHotspots[heActive][field] || 0;
+  heHotspots[heActive][field] = +Math.max(0, cur + delta).toFixed(1);
+  heShowForm(); heRender();
+}
+
+function heDeleteActive() {
+  if (heActive === null) return;
+  heHotspots.splice(heActive, 1);
+  heHotspots.forEach((h,i) => h.id = 't'+(i+1));
+  heActive = heHotspots.length ? Math.min(heActive, heHotspots.length-1) : null;
+  heRender(); heShowForm();
+}
+
+function heClearAll() {
+  if (!confirm('Clear all hotspots for this school?')) return;
+  heHotspots = []; heActive = null;
+  heRender(); heShowForm();
+}
+
+function heExportJSON(btn) {
+  const json = JSON.stringify(heHotspots, null, 2);
+  const box = document.getElementById('he-json-box');
+  if (box) box.value = json;
+  navigator.clipboard.writeText(json).then(() => {
+    if (btn) { const orig = btn.textContent; btn.textContent = '✓ Copied!'; setTimeout(()=>btn.textContent=orig, 2000); }
+  }).catch(() => {});
+}
+
+function heImportJSON() {
+  try {
+    const raw = (document.getElementById('he-json-box')||{}).value || '';
+    const data = JSON.parse(raw.trim());
+    if (!Array.isArray(data)) throw new Error('Expected an array');
+    heHotspots = data.map((t,i) => ({
+      id:     't'+(i+1),
+      left:   +( t.left ?? t.x ?? 0 ).toFixed(1),
+      top:    +( t.top  ?? t.y ?? 0 ).toFixed(1),
+      w:      +( t.w    ?? t.width  ?? 8 ).toFixed(1),
+      h:      +( t.h    ?? t.height ?? 8 ).toFixed(1),
+      title:  t.title  || '',
+      reason: t.reason || ''
+    }));
+    heActive = heHotspots.length ? 0 : null;
+    heRender(); heShowForm();
+    heSetStatus('Imported '+heHotspots.length+' hotspots.', 'var(--green)');
+  } catch(e) { alert('Invalid JSON: ' + e.message); }
+}
+
+function heSaveToGame() {
+  if (!heHotspots.length) { alert('No hotspots to save.'); return; }
+  SCHOOL_HOTSPOT_DATA[heCurrentSchool] = heHotspots.map(h => Object.assign({}, h));
+  const msg = document.getElementById('he-save-msg');
+  if (msg) { msg.style.display='block'; setTimeout(()=>msg.style.display='none', 2500); }
+}
+
+function openHotspotEditor() {
+  showScreen('screen-hotspot-editor');
+  setTimeout(() => {
+    heOnSchoolChange();
+    const img = document.getElementById('he-img');
+    if (img) {
+      if (img.complete && img.naturalWidth > 0) heRender();
+      else img.onload = () => heRender();
+    }
+    // ResizeObserver for canvas
+    const wrap = document.getElementById('he-canvas-wrap');
+    if (wrap && typeof ResizeObserver !== 'undefined' && !wrap._heRO) {
+      let raf;
+      wrap._heRO = new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(heRender); });
+      wrap._heRO.observe(wrap);
+    }
+    // Delete key
+    if (!window._heKeyBound) {
+      window._heKeyBound = true;
+      document.addEventListener('keydown', e => {
+        const ed = document.getElementById('screen-hotspot-editor');
+        if (!ed || !ed.classList.contains('active')) return;
+        if ((e.key === 'Delete' || e.key === 'Backspace') && heActive !== null &&
+            document.activeElement && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+          heDeleteActive();
+        }
+      });
+    }
+  }, 60);
+}
+
+function heSaveAndBack() {
+  if (heHotspots.length) SCHOOL_HOTSPOT_DATA[heCurrentSchool] = heHotspots.map(h => Object.assign({},h));
+  showScreen('screen-welcome');
+}
+
 updateHUD();
 updateTimerUI();
 resetPhaseTwoState();
 armInitialLobbyMusic();
 </script>
->>>>>>> 8ce9e6edf437e69532a1f77f73e4b36b6fef8254
+<!-- ══════════════════ HOTSPOT EDITOR ══════════════════ -->
+<div class="screen" id="screen-hotspot-editor" style="justify-content:flex-start; padding:0; overflow:hidden; height:100dvh;">
+  <div style="display:flex; flex-direction:column; width:100%; height:100dvh; overflow:hidden;">
+
+    <!-- Top bar -->
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 18px; background:#07102299; border-bottom:1px solid #00f5ff22; flex-shrink:0; flex-wrap:wrap; gap:10px; z-index:10;">
+      <div>
+        <div style="font-family:'Orbitron',monospace; font-size:0.6rem; color:#00f5ff77; letter-spacing:3px; margin-bottom:1px;">HOTSPOT EDITOR •</div>
+        <div style="font-family:'Orbitron',monospace; font-size:clamp(0.95rem,2.5vw,1.4rem); color:var(--cyan); font-weight:700; text-shadow:0 0 16px #00f5ff55;">Draw hotspot regions on the image</div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <select id="he-school-select" onchange="heOnSchoolChange()" style="background:#0d1b3e; border:1px solid #00f5ff44; color:var(--text); padding:8px 12px; border-radius:10px; font-family:'Exo 2',sans-serif; font-size:0.85rem; cursor:pointer;">
+          <option value="design">🎨 Design</option>
+          <option value="business">💼 Business</option>
+          <option value="engineering">⚙️ Engineering</option>
+          <option value="it">💻 IT</option>
+          <option value="health">🏥 Health</option>
+        </select>
+        <button onclick="heSaveAndBack()" style="display:flex; align-items:center; gap:6px; background:var(--cyan); color:#04101f; border:none; border-radius:10px; padding:9px 18px; font-family:'Orbitron',monospace; font-size:0.72rem; font-weight:700; cursor:pointer; letter-spacing:1px; white-space:nowrap;">💾 SAVE &amp; BACK</button>
+        <button onclick="showScreen('screen-welcome')" style="background:transparent; border:1px solid #ffffff33; color:#a0c0e0; border-radius:10px; padding:9px 14px; font-family:'Exo 2',sans-serif; font-size:0.88rem; cursor:pointer; white-space:nowrap;">✕ Cancel</button>
+      </div>
+    </div>
+
+    <!-- Info bar -->
+    <div style="padding:8px 18px; background:#00f5ff08; border-bottom:1px solid #00f5ff15; font-size:0.8rem; color:#a0d4f0; flex-shrink:0; line-height:1.5;">
+      <strong style="color:var(--cyan);">Draw mode:</strong> Click &amp; drag on the image to add a hotspot box. Click a box to select it. Press <kbd style="background:#ffffff15; border:1px solid #ffffff30; border-radius:4px; padding:1px 5px; font-family:monospace; font-size:0.75rem;">Delete</kbd> or the trash button to remove.
+    </div>
+
+    <!-- Body: image left + panel right -->
+    <div style="display:flex; flex:1; overflow:hidden;">
+
+      <!-- LEFT: canvas -->
+      <div style="flex:1; display:flex; flex-direction:column; overflow:hidden; padding:14px; gap:8px; min-width:0;">
+
+        <!-- image url row -->
+        <div style="display:flex; align-items:center; gap:8px; flex-shrink:0; flex-wrap:wrap;">
+          <span style="font-size:0.78rem; color:#a0c4e8; flex-shrink:0;">Image file:</span>
+          <input id="he-img-url" type="text" placeholder="e.g. original.jpg"
+            style="flex:1; min-width:100px; background:#0d1b3e; border:1px solid #00f5ff33; color:var(--text); padding:6px 10px; border-radius:7px; font-family:'Exo 2',sans-serif; font-size:0.82rem;"
+            onchange="heLoadImage()" />
+          <button onclick="heLoadImage()" style="background:#00f5ff1a; border:1px solid #00f5ff44; color:var(--cyan); border-radius:7px; padding:6px 12px; cursor:pointer; font-size:0.78rem; white-space:nowrap;">↺ Reload</button>
+          <button onclick="heClearAll()" style="background:#ff2d781a; border:1px solid #ff2d7844; color:#ff8aaa; border-radius:7px; padding:6px 12px; cursor:pointer; font-size:0.78rem; white-space:nowrap;">✕ Clear all</button>
+        </div>
+
+        <!-- canvas area -->
+        <div style="position:relative; flex:1; border:1px solid #00f5ff22; border-radius:12px; overflow:hidden; background:#060c1e; min-height:0;">
+          <div style="position:absolute; top:8px; left:10px; z-index:5; font-size:0.72rem; color:#ffffff44; pointer-events:none; font-style:italic;">School challenge image</div>
+          <div id="he-canvas-wrap" style="position:absolute; inset:0; cursor:crosshair; user-select:none;"
+            onmousedown="heStartDrag(event)" ontouchstart="heStartDrag(event)">
+            <img id="he-img" src="original.jpg" alt="challenge image"
+              style="width:100%; height:100%; object-fit:contain; display:block; pointer-events:none; user-select:none;"
+              ondragstart="return false" />
+            <div id="he-hotspot-layer" style="position:absolute; inset:0; pointer-events:none;"></div>
+            <div id="he-drag-preview" style="display:none; position:absolute; border:2px dashed var(--cyan); background:#00f5ff14; pointer-events:none; border-radius:3px;"></div>
+          </div>
+        </div>
+
+        <div id="he-status" style="font-size:0.78rem; color:var(--gold); min-height:1.1em; flex-shrink:0;"></div>
+      </div>
+
+      <!-- RIGHT: panel -->
+      <div style="width:300px; flex-shrink:0; display:flex; flex-direction:column; border-left:1px solid #00f5ff18; overflow-y:auto; background:#06101e;">
+
+        <!-- Hotspot list -->
+        <div style="padding:14px; border-bottom:1px solid #00f5ff15;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <span style="font-family:'Orbitron',monospace; font-size:0.7rem; color:#8fa0c0; letter-spacing:2px;">HOTSPOTS <span id="he-count" style="color:var(--cyan);">0</span></span>
+            <button id="he-delete-btn" onclick="heDeleteActive()" style="display:none; background:#ff2d7818; border:1px solid #ff2d7855; color:#ff8aaa; border-radius:7px; padding:4px 10px; cursor:pointer; font-size:0.75rem;">🗑 Delete</button>
+          </div>
+          <div id="he-list" style="display:flex; flex-direction:column; gap:4px; max-height:190px; overflow-y:auto; padding-right:2px;">
+            <div style="color:#405070; font-size:0.78rem; text-align:center; padding:10px 0;">No hotspots yet — draw on the image</div>
+          </div>
+        </div>
+
+        <!-- Edit selected -->
+        <div id="he-form" style="padding:14px; border-bottom:1px solid #00f5ff15; display:none;">
+          <div style="font-family:'Orbitron',monospace; font-size:0.68rem; color:#8fa0c0; letter-spacing:2px; margin-bottom:10px;">EDIT SELECTED</div>
+
+          <label style="font-size:0.7rem; color:#8fa0c0; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:3px;">Title</label>
+          <input id="he-title-input" type="text" placeholder="e.g. Hairline and top of head"
+            style="width:100%; margin-bottom:10px; background:#070e22; border:1px solid #00f5ff33; color:var(--text); padding:8px 9px; border-radius:7px; font-family:'Exo 2',sans-serif; font-size:0.85rem;"
+            oninput="heUpdateActive()" />
+
+          <label style="font-size:0.7rem; color:#8fa0c0; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:3px;">Reason <span style="color:#405070; font-weight:400;">(shown in review)</span></label>
+          <textarea id="he-reason-input" rows="3" placeholder="e.g. The hair boundary looks smudged…"
+            style="width:100%; margin-bottom:10px; background:#070e22; border:1px solid #00f5ff33; color:var(--text); padding:8px 9px; border-radius:7px; font-family:'Exo 2',sans-serif; font-size:0.85rem; resize:vertical;"
+            oninput="heUpdateActive()"></textarea>
+
+          <!-- coordinate inputs -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px;">
+            <div>
+              <label style="font-size:0.68rem; color:#8fa0c0; display:block; margin-bottom:2px;">Left %</label>
+              <div style="display:flex; background:#070e22; border:1px solid #00f5ff2a; border-radius:7px; overflow:hidden;">
+                <input id="he-left-input" type="number" step="0.1" style="flex:1; background:transparent; border:none; color:var(--text); padding:6px 7px; font-size:0.82rem; width:0;" oninput="heUpdateCoord('left',this.value)" />
+                <div style="display:flex;flex-direction:column;border-left:1px solid #00f5ff1a;">
+                  <button onclick="heNudge('left',1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▲</button>
+                  <button onclick="heNudge('left',-1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▼</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:0.68rem; color:#8fa0c0; display:block; margin-bottom:2px;">Top %</label>
+              <div style="display:flex; background:#070e22; border:1px solid #00f5ff2a; border-radius:7px; overflow:hidden;">
+                <input id="he-top-input" type="number" step="0.1" style="flex:1; background:transparent; border:none; color:var(--text); padding:6px 7px; font-size:0.82rem; width:0;" oninput="heUpdateCoord('top',this.value)" />
+                <div style="display:flex;flex-direction:column;border-left:1px solid #00f5ff1a;">
+                  <button onclick="heNudge('top',1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▲</button>
+                  <button onclick="heNudge('top',-1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▼</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:0.68rem; color:#8fa0c0; display:block; margin-bottom:2px;">Width %</label>
+              <div style="display:flex; background:#070e22; border:1px solid #00f5ff2a; border-radius:7px; overflow:hidden;">
+                <input id="he-w-input" type="number" step="0.1" style="flex:1; background:transparent; border:none; color:var(--text); padding:6px 7px; font-size:0.82rem; width:0;" oninput="heUpdateCoord('w',this.value)" />
+                <div style="display:flex;flex-direction:column;border-left:1px solid #00f5ff1a;">
+                  <button onclick="heNudge('w',1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▲</button>
+                  <button onclick="heNudge('w',-1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▼</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="font-size:0.68rem; color:#8fa0c0; display:block; margin-bottom:2px;">Height %</label>
+              <div style="display:flex; background:#070e22; border:1px solid #00f5ff2a; border-radius:7px; overflow:hidden;">
+                <input id="he-h-input" type="number" step="0.1" style="flex:1; background:transparent; border:none; color:var(--text); padding:6px 7px; font-size:0.82rem; width:0;" oninput="heUpdateCoord('h',this.value)" />
+                <div style="display:flex;flex-direction:column;border-left:1px solid #00f5ff1a;">
+                  <button onclick="heNudge('h',1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▲</button>
+                  <button onclick="heNudge('h',-1)" style="background:transparent;border:none;color:#00f5ff77;cursor:pointer;padding:1px 5px;font-size:0.65rem;">▼</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Import / Export -->
+        <div style="padding:14px;">
+          <div style="font-family:'Orbitron',monospace; font-size:0.68rem; color:#8fa0c0; letter-spacing:2px; margin-bottom:8px;">IMPORT / EXPORT JSON</div>
+          <textarea id="he-json-box" rows="5" placeholder="Paste JSON here to import, or click Export…"
+            style="width:100%; background:#070e22; border:1px solid #7b2ff72a; color:#c0d8f0; padding:7px 9px; border-radius:7px; font-family:monospace; font-size:0.72rem; resize:vertical;"></textarea>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:7px;">
+            <button onclick="heImportJSON()" style="background:#7b2ff71a; border:1px solid #7b2ff755; color:#c0a0ff; border-radius:7px; padding:8px; cursor:pointer; font-size:0.78rem;">⬇ Import</button>
+            <button onclick="heExportJSON(this)" style="background:#ffffff08; border:1px solid #ffffff20; color:#a0c4e8; border-radius:7px; padding:8px; cursor:pointer; font-size:0.78rem;">📋 Copy JSON</button>
+          </div>
+          <div id="he-save-msg" style="display:none; margin-top:8px; text-align:center; color:var(--green); font-size:0.8rem;">✓ Saved to game!</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
