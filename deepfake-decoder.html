@@ -3335,7 +3335,7 @@ function loadQuestion() {
 
   document.getElementById('video-content').innerHTML = `
     <video class="scenario-video" loop playsinline id="scenario-video">
-      <source src="${q.video}" type="video/mp4">
+      <source src="${q.video}">
       Your browser does not support the video tag.
     </video>
     <div style="font-size:0.8rem; color:#607090; margin-top:10px">[ Video Clip ${String(currentQ+1).padStart(2,'0')}/${String(total).padStart(2,'0')} ]</div>
