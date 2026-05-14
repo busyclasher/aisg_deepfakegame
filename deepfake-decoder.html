@@ -2515,22 +2515,22 @@
       Find all 6 before the 30-second timer runs out!
     </div>
 
-    <button class="btn-primary btn-cyan" onclick="goToSchoolSelect()" style="width:100%">START PHASE TWO</button>
+    <button class="btn-primary btn-cyan" onclick="startPhaseTwo()" style="width:100%">START PHASE TWO</button>
   </div>
 </div>
 
 <div class="screen" id="screen-school-select">
-  <div class="section-label">PHASE 2</div>
+  <div class="section-label">PHASE 1</div>
   <div class="title-main" style="font-size:1.8rem; margin-bottom:8px">SELECT YOUR SCHOOL</div>
   <p style="color:#a0c4e8; font-size:1rem; text-align:center; margin-bottom:28px; max-width:480px;">
-    Choose your school to load the challenge image for Phase Two.
+    Choose your school to personalise your challenge.
   </p>
   <div class="panel" style="max-width:560px; padding:28px 32px;">
     <div id="school-option-list" style="display:flex; flex-direction:column; gap:14px;">
 
-      <button class="school-select-btn" onclick="selectSchool('business','business.png','School of Business')">
+      <button class="school-select-btn" onclick="selectSchool('business','business.png','School of Business & Hospitality')">
         <span class="school-select-icon">💼</span>
-        <span class="school-select-label">School of Business</span>
+        <span class="school-select-label">School of Business & Hospitality</span>
         <span class="school-select-arrow">›</span>
       </button>
 
@@ -2546,15 +2546,15 @@
         <span class="school-select-arrow">›</span>
       </button>
 
-      <button class="school-select-btn" onclick="selectSchool('design','original.jpg','School of Design')">
+      <button class="school-select-btn" onclick="selectSchool('design','media.png','School of Design & Media')">
         <span class="school-select-icon">🎨</span>
-        <span class="school-select-label">School of Design</span>
+        <span class="school-select-label">School of Design & Media</span>
         <span class="school-select-arrow">›</span>
       </button>
 
-      <button class="school-select-btn" onclick="selectSchool('health','healthcare.png','School of Health and Social Sciences')">
+      <button class="school-select-btn" onclick="selectSchool('health','healthcare.png','School of Science & Health')">
         <span class="school-select-icon">🏥</span>
-        <span class="school-select-label">School of Health and Social Sciences</span>
+        <span class="school-select-label">School of Science & Health</span>
         <span class="school-select-arrow">›</span>
       </button>
 
@@ -2953,12 +2953,11 @@ const PHASE_TWO_TIME_LIMIT = 30;
 // Paste the JSON output from the Hotspot Editor into the array for each school.
 const SCHOOL_HOTSPOT_DATA = {
   design: [
-    { id:'t1', left:33.5, top:12.4, w:17.1, h:11.8, title:'Hairline and top of head', reason:'The hair boundary looks smudged and overly smooth, with strands blending into the wall instead of keeping a clean, natural edge.' },
-    { id:'t2', left:37.2, top:22.1, w:5.4,  h:6.1,  title:'Right eye and eyelid',     reason:'The eye highlight and eyelid shape do not line up cleanly, which makes the gaze look composited instead of naturally lit.' },
-    { id:'t3', left:33.0, top:32.1, w:8.5,  h:6.9,  title:'Mouth and teeth',           reason:'The teeth collapse into a soft, uneven block with blurry edges. AI-edited faces often lose fine tooth spacing and mouth detail.' },
-    { id:'t4', left:41.2, top:92.8, w:16.0, h:16.1, title:'Hand and fingers',          reason:'Amount of fingers, finger lengths and joint positions feel inconsistent, and the hand anatomy loses the clear structure you would expect in a real photo.' },
-    { id:'t5', left:84.5, top:88.5, w:16.2, h:20.9, title:'Cat face and fur',          reason:'The fur texture around the cat\'s face is smeared together and the facial features soften into each other instead of staying sharply separated.' },
-    { id:'t6', left:41.5, top:27.1, w:4.0,  h:11.0, title:'Cheek and ear edge',        reason:'The face boundary beside the ear looks melted into the background, which is a common blending artifact in AI-generated edits.' }
+    { id:'t1', left:25.5, top:5.4,  w:13.1, h:5.8,  title:'Unnatural Hairline',              reason:'The hairline looks overly perfect and airbrushed, with strange symmetry and inconsistent strands that don\'t blend naturally into the forehead.' },
+    { id:'t2', left:25.2, top:15.1, w:10.4, h:17.1, title:'Overly Smooth Face',               reason:'The skin texture is unrealistically flawless with plastic-like smoothing, which is common in AI-generated portraits.' },
+    { id:'t3', left:21.0, top:41.1, w:14.5, h:19.9, title:'Extra Fingers/Hand Anatomy Errors', reason:'The hand appears to have malformed anatomy and possibly six fingers or distorted finger placement. AI generators commonly fail at realistic hands.' },
+    { id:'t4', left:78.2, top:56.8, w:7.0,  h:13.1, title:'Blurred/Unscannable QR Code',      reason:'The QR code is too blurry and distorted to function properly. AI-generated images frequently imitate QR codes without making them actually readable.' },
+    { id:'t5', left:91.5, top:44.5, w:16.2, h:8.9,  title:'Inconsistent/Random Text',         reason:'Most of the poster is in English, but one section suddenly contains unrelated foreign-looking or gibberish text. AI images often struggle with maintaining consistent typography and language context.' }
   ],
   business: [
     { id:'t1', left:51.4, top:26.1, w:8.3,  h:14.0, title:'Face',                reason:'The facial features look slightly mismatched with the lighting and angle of the body, suggesting possible face swapping.' },
@@ -2977,11 +2976,11 @@ const SCHOOL_HOTSPOT_DATA = {
     { id:'t6', left:47.0, top:30.0, w:3.9,  h:10.2, title:'Person\'s Face',  reason:'The facial features look slightly blended with the background, suggesting possible AI face generation.' }
   ],
   it: [
-    { id:'t1', left:52.4, top:29.0, w:37.3, h:16.0, title:'Blurred Google logo',      reason:'The Google logo appears blurry or out of focus, indicating a possible image quality or rendering issue.' },
-    { id:'t2', left:18.2, top:7.9,  w:10.8, h:6.0,  title:'Altered URL text',         reason:'The address bar shows "g00gle" instead of "google," indicating possible manipulation or spoofing.' },
-    { id:'t3', left:11.6, top:7.8,  w:2.1,  h:3.9,  title:'Irregular tab appearance', reason:'The logo appears slightly misaligned or inconsistent with typical browser design.' },
-    { id:'t4', left:96.2, top:14.7, w:8.6,  h:8.8,  title:'Misaligned button element',reason:'The button appears slightly offset and does not align cleanly with surrounding UI components.' },
-    { id:'t5', left:23.0, top:47.1, w:3.3,  h:7.0,  title:'Distorted search bar',     reason:'The search bar shows slight visual distortion and does not match the clarity of nearby elements.' }
+    { id:'t1', left:13.5, top:45.4, w:26.0, h:90.0, title:'Unnatural Hair Texture/Hairline',   reason:'The hair looks excessively smooth and perfectly uniform, almost like a CGI render rather than real human hair.' },
+    { id:'t2', left:40.0, top:39.1, w:23.5, h:29.9, title:'Extra Fingers/Hand Anatomy Errors', reason:'The hand appears to have malformed anatomy and possibly six fingers or distorted finger placement. AI generators commonly fail at realistic hands.' },
+    { id:'t3', left:37.2, top:58.8, w:7.0,  h:5.1,  title:'Misspelled Text',                   reason:'One of the book titles says "Programming Languaget" instead of "Programming Language." AI often creates almost-correct text with subtle spelling errors.' },
+    { id:'t4', left:73.5, top:51.2, w:5.2,  h:3.9,  title:'Wrong Brand Spelling',              reason:'The monitor logo says "DALL" instead of "DELL." AI-generated images frequently imitate logos incorrectly.' },
+    { id:'t5', left:64.8, top:41.0, w:26.5, h:19.9, title:'Inconsistent/Gibberish Code',       reason:'Most screens show readable Python-style code, but one section suddenly becomes random symbols and nonsensical text. AI struggles to maintain consistent programming syntax across an image.' }
   ],
   health: [
     { id:'t1', left:57.0, top:53.0, w:14.0, h:30.0, title:'Inconsistent vital readings',  reason:'The displayed values appear unrealistic or mismatched, suggesting possible manipulation or incorrect data.' },
@@ -3316,7 +3315,7 @@ function startGame() {
 }
 
 function restartGame() {
-  startGame();
+  showScreen('screen-school-select');
 }
 
 function loadQuestion() {
@@ -3544,13 +3543,13 @@ function surePrevStep() {
 function startGameFromPopup() {
   primeLobbyMusic();
   closeSurePopup();
-  startGame();
+  showScreen('screen-school-select');
 }
 
 function goToLearnFromPopup() {
   primeLobbyMusic();
   closeSurePopup();
-  showScreen('screen-learn');
+  showScreen('screen-school-select');
 }
 
 function clearPhaseTwoTimer() {
@@ -3980,8 +3979,8 @@ function selectSchool(schoolId, imageSrc, schoolName) {
   // Update the school label shown on the phase two screen
   const schoolLabel = document.getElementById('phase-two-school');
   if (schoolLabel) schoolLabel.textContent = schoolName;
-  // Now start phase two
-  startPhaseTwo();
+  // School chosen — go to Phase 1 tips
+  showScreen('screen-learn');
 }
 
 function showBoardDelta(seconds, clientX, clientY) {
@@ -4293,7 +4292,7 @@ let heDragging      = false;
 let heDragStart     = null;
 let heCurrentSchool = 'design';
 
-const HE_IMG_MAP = { design:'original.jpg', business:'business.png', engineering:'engineering.png', it:'IT.png', health:'healthcare.png' };
+const HE_IMG_MAP = { 'design & media':'media.png', 'business & hospitality':'business.png', 'engineering':'engineering.png', 'it':'IT.png', 'science & health':'healthcare.png' };
 
 function heOnSchoolChange() {
   const sel = document.getElementById('he-school-select');
