@@ -2487,32 +2487,26 @@
 
     <div class="tip-item">
       <span class="tip-num">🔍</span>
-      <div><strong style="color:var(--cyan)">Scan the Edges.</strong> AI edits often blur or smear at the boundary between the manipulated area and the original — look for soft, melted edges that don't match the surrounding sharpness.</div>
+      <div><strong style="color:var(--cyan)">Scan.</strong> Look for warped edges or melted details.</div>
     </div>
     <div class="tip-item">
-      <span class="tip-num">👁️</span>
-      <div><strong style="color:var(--gold)">Check Facial Features.</strong> Teeth, ears, and eyes are the hardest for AI to render cleanly. Look for blurry tooth gaps, ear edges that blend into the background, or misaligned eyelids.</div>
+      <span class="tip-num">📋</span>
+      <div><strong style="color:var(--gold)">Check.</strong> Do faces, hands, and shadows look right?</div>
     </div>
     <div class="tip-item">
-      <span class="tip-num">✋</span>
-      <div><strong style="color:var(--purple-bright)">Inspect Hands.</strong> AI-generated hands frequently have the wrong number of fingers, unnatural joint angles, or anatomy that loses structure on close inspection.</div>
+      <span class="tip-num">🌐</span>
+      <div><strong style="color:var(--purple-bright)">Compare.</strong> Does each part match the rest of the photo?</div>
     </div>
     <div class="tip-item">
-      <span class="tip-num">🌿</span>
-      <div><strong style="color:var(--pink)">Look at Textures.</strong> Fur, hair, and fine detail are often smeared together in manipulated regions. Real textures have consistent, repeating structure — AI textures lose that at the edges.</div>
-    </div>
-    <div class="tip-item">
-      <span class="tip-num">💡</span>
-      <div><strong style="color:var(--green)">Compare Lighting.</strong> Does the light direction on the edited region match the rest of the image? AI composites often have subtle mismatches in shadow angle or highlight intensity.</div>
+      <span class="tip-num">⚡</span>
+      <div><strong style="color:var(--pink)">Tap.</strong> Select only the areas that look edited.</div>
     </div>
 
     <div class="divider"></div>
 
     <div style="background:#7b2ff711; border:1px solid #7b2ff755; border-radius:10px; padding:14px; margin-bottom:16px; font-size:0.88rem; color:#c0a8f0; line-height:1.6">
-      <strong style="color:var(--purple-bright)">🎯 How Phase 2 Works:</strong><br>
-      You'll see one challenge image with <strong style="color:var(--cyan)">6 hidden AI-edited regions</strong>. Tap each one to find it.<br>
-      Hit → <strong style="color:var(--green)">+2s bonus</strong> &nbsp;·&nbsp; Miss → <strong style="color:var(--pink)">−3s penalty</strong><br>
-      Find all 6 before the 30-second timer runs out!
+      <strong style="color:var(--purple-bright)">🎯 Phase 2 Challenge:</strong><br>
+      6 hidden edits · 30 seconds · Hit <strong style="color:var(--green)">+2s</strong> · Miss <strong style="color:var(--pink)">−3s</strong>
     </div>
 
     <button class="btn-primary btn-cyan" onclick="startPhaseTwo()" style="width:100%">START PHASE TWO</button>
@@ -2581,7 +2575,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:14px;">
           <div class="hud-score">SCORE: <span id="phase-one-score-val">0</span></div>
-          <div class="timer-pill" id="timer-pill">Time: 10s</div>
+          <div class="timer-pill" id="timer-pill">Time: 15s</div>
         </div>
       </div>
     </div>
@@ -2946,7 +2940,7 @@ const PHASE_ONE_SCENARIO_IDS = [2, 3, 4];
 const PHASE_ONE_SCENARIOS = PHASE_ONE_SCENARIO_IDS
   .map(id => SCENARIOS.find(scenario => scenario.id === id))
   .filter(Boolean);
-const QUESTION_TIME_LIMIT = 10;
+const QUESTION_TIME_LIMIT = 15;
 const PHASE_TWO_TIME_LIMIT = 30;
 // ── Per-school hotspot data ──────────────────────────────────────────────────
 // Each key matches the schoolId passed to selectSchool().
@@ -4165,7 +4159,7 @@ function showPhaseOneResults() {
       Phase Two Briefing
     </div>
     <div style="font-size:0.98rem; color:#c0d8f0; line-height:1.6; max-width:640px; margin:0 auto;">
-      Next you will inspect a single challenge image and tap the six AI-generated edits hidden inside it.
+      Video check complete. Now switch to still-image mode and find six hidden edits.
     </div>
   `;
 
@@ -4191,8 +4185,7 @@ function showPhaseOneResults() {
   ]);
 
   document.getElementById('closing-message').innerHTML = `
-    In Phase Two, you will apply the same detection skills to a manipulated image by identifying visual clues such as warped edges,
-    blurred details, and unnatural textures.
+    Phase Two is faster: scan edges, faces, hands, textures, and lighting before the timer runs out.
   `;
 
   setResultsActions('START PHASE TWO', () => showScreen('screen-learn-phase-two'), 'REPLAY PHASE ONE', restartGame);
