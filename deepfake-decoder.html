@@ -2445,6 +2445,7 @@
     <button class="btn-primary btn-cyan" onclick="openSurePopup()" style="width:100%">PLAY NOW</button>
 
   </div>
+  <button onclick="openHotspotEditor()" title="Hotspot Editor" style="position:fixed; bottom:10px; right:10px; background:transparent; border:1px solid #ffffff22; color:#4a5a7a; border-radius:8px; padding:5px 9px; font-family:'Exo 2',sans-serif; font-size:0.7rem; cursor:pointer; opacity:0.6; z-index:5;">⚙ Editor</button>
 </div>
 
 <div class="screen" id="screen-learn">
@@ -2974,7 +2975,8 @@ const SCHOOL_HOTSPOT_DATA = {
     { id:'t2', left:40.0, top:39.1, w:23.5, h:29.9, title:'Extra Fingers', reason:'The hand appears to have malformed anatomy and possibly six fingers or distorted finger placement. AI generators commonly fail at realistic hands.' },
     { id:'t3', left:37.2, top:58.8, w:7.0,  h:5.1,  title:'Misspelled Text',                   reason:'One of the book titles says "Programming Languaget" instead of "Programming Language." AI often creates almost-correct text with subtle spelling errors.' },
     { id:'t4', left:73.5, top:51.2, w:5.2,  h:3.9,  title:'Wrong Brand Spelling',              reason:'The monitor logo says "DALL" instead of "DELL." AI-generated images frequently imitate logos incorrectly.' },
-    { id:'t5', left:64.8, top:41.0, w:26.5, h:19.9, title:'Inconsistent/Gibberish Code',       reason:'Most screens show readable Python-style code, but one section suddenly becomes random symbols and nonsensical text. AI struggles to maintain consistent programming syntax across an image.' }
+    { id:'t5', left:64.8, top:41.0, w:26.5, h:19.9, title:'Inconsistent/Gibberish Code',       reason:'Most screens show readable Python-style code, but one section suddenly becomes random symbols and nonsensical text. AI struggles to maintain consistent programming syntax across an image.' },
+    { id:'t6', left:50, top:69, w:5.8, h:4.9, title:'Wrong Brand Spelling',       reason:'The logo on the book says "Microsot" instead of "Microsoft." AI-generated images frequently imitate logos incorrectly.' }
   ],
   health: [
     { id:'t1', left:57.0, top:53.0, w:14.0, h:30.0, title:'Inconsistent vital readings',  reason:'The displayed values appear unrealistic or mismatched, suggesting possible manipulation or incorrect data.' },
