@@ -308,6 +308,14 @@
   }
   .btn-purple:hover { transform: scale(1.05); box-shadow: 0 0 30px #a855f7aa; }
 
+  .btn-muted {
+    background: linear-gradient(135deg, #152243, #1b2750);
+    color: #8fb0d8;
+    border: 1px solid #35527f;
+    box-shadow: inset 0 1px 0 #ffffff12;
+  }
+  .btn-muted:hover { transform: scale(1.02); box-shadow: 0 0 18px #35527f66; }
+
   .btn-green {
     background: linear-gradient(135deg, #00cc66, var(--green));
     color: var(--bg);
@@ -3311,7 +3319,7 @@ function startGame() {
 }
 
 function restartGame() {
-  showScreen('screen-school-select');
+  startGame();
 }
 
 function loadQuestion() {
@@ -4104,12 +4112,14 @@ function replayPhaseTwo() {
   stopScenarioVideo();
   document.getElementById('feedback-overlay').classList.remove('show');
   resetPhaseTwoState();
-  showScreen('screen-school-select');
+  showScreen('screen-learn-phase-two');
 }
 
 function setResultsActions(primaryLabel, primaryHandler, secondaryLabel, secondaryHandler) {
   const primaryBtn = document.getElementById('results-primary-btn');
   const secondaryBtn = document.getElementById('results-secondary-btn');
+  primaryBtn.classList.remove('btn-muted');
+  secondaryBtn.classList.remove('btn-muted');
   primaryBtn.textContent = primaryLabel;
   primaryBtn.onclick = primaryHandler;
   secondaryBtn.textContent = secondaryLabel;
@@ -4190,7 +4200,8 @@ function showPhaseOneResults() {
     Phase Two is faster: scan edges, faces, hands, textures, and lighting before the timer runs out.
   `;
 
-  setResultsActions('START PHASE TWO', () => showScreen('screen-learn-phase-two'), 'REPLAY PHASE ONE', restartGame);
+  setResultsActions('REPLAY PHASE ONE', restartGame, 'START PHASE TWO', () => showScreen('screen-learn-phase-two'));
+  document.getElementById('results-primary-btn').classList.add('btn-muted');
 }
 
 function showFinalResults(timedOut) {
@@ -4272,7 +4283,7 @@ function showFinalResults(timedOut) {
     : `You completed the two-part decoder challenge and practised the core skills of media literacy:
       spotting deepfake clues, comparing context, and evaluating the source before sharing.`;
 
-  setResultsActions('REPLAY PHASE TWO', replayPhaseTwo, 'RETURN HOME', resetToHomeState);
+  setResultsActions('RETURN HOME', resetToHomeState, 'REPLAY PHASE TWO', replayPhaseTwo);
 }
 
 
